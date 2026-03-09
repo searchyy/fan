@@ -10,11 +10,12 @@
 1. 用 opennews 检索过去 24 小时 AI 评分最高的加密新闻，挑 3 条最重要的。
 2. 单独提炼“今天有什么新闻或大事发生了”，优先抓宏观、市场熔断、地缘冲突、监管、ETF、解锁、链上大事件，输出 2-4 条最关键的大事。
 3. 单独观察 BTC 生态（BTC / ETF / BTCFi / Ordinals / Runes / 比特币生态项目），提炼 2-4 条有执行价值的信息。
-4. 用 crypto-market-rank 给出趋势币 top 5（优先 24h 维度，必要时附链和主要信号）。
-5. 用 meme-rush 找链上新发/临近迁移/已迁移的热点 meme，挑 3 个。
-6. 用 opentwitter 观察主流 crypto KOL 在聊什么，总结 2-4 条社区情绪。
-7. 额外追踪这 7 个人今天在聊什么：`@flai6666`、`@0xmmu`、`@rocky_eths`、`@libapi_`、`@akakay04`、`@0xzheng888`、`@0x_xifeng`，提炼 3-5 条高价值信息。
-8. 从上面选 1 个最值得盯或最有争议的新项目，用 project-onboarding 或 crypto-project-analyzer 做一个简短风控拆解。
+4. 运行 `python3 scripts/steamdt_homepage_sample.py`，提炼 SteamDT 首页大盘样本，输出 2-4 条 CS 饰品市场关键信号。
+5. 用 crypto-market-rank 给出趋势币 top 5（优先 24h 维度，必要时附链和主要信号）。
+6. 用 meme-rush 找链上新发/临近迁移/已迁移的热点 meme，挑 3 个。
+7. 用 opentwitter 观察主流 crypto KOL 在聊什么，总结 2-4 条社区情绪。
+8. 额外追踪这 7 个人今天在聊什么：`@flai6666`、`@0xmmu`、`@rocky_eths`、`@libapi_`、`@akakay04`、`@0xzheng888`、`@0x_xifeng`，提炼 3-5 条高价值信息。
+9. 从上面选 1 个最值得盯或最有争议的新项目，用 project-onboarding 或 crypto-project-analyzer 做一个简短风控拆解。
 
 BSC 过滤规则（强制执行）：
 - 参考 `https://alpha123.uk/zh/stability/` 的“稳定度看板”。
@@ -31,6 +32,9 @@ BSC 过滤规则（强制执行）：
 - ...
 
 【BTC生态观察】
+- ...
+
+【SteamDT观察】
 - ...
 
 【热度榜单】
