@@ -146,7 +146,24 @@ git -C "$BACKUP_REPO" commit -m "backup: $STAMP | $COUNT paths | $SUMMARY" >/dev
 
 # Try remote push if already configured.
 if git -C "$BACKUP_REPO" remote get-url origin >/dev/null 2>&1; then
-  git -C "$BACKUP_REPO" push origin main >/dev/null 2>&1 || true
+  ORIGIN_URL=$(git -C "$BACKUP_REPO" remote get-url origin)
+  TOKEN_FILE="${GITHUB_TOKEN_FILE:-$HOME/.openclaw/continuity-backup.token}"
+  TOKEN="${GH_TOKEN:-${GITHUB_TOKEN:-}}"
+  if [ -z "$TOKEN" ] && [ -f "$TOKEN_FILE" ]; then
+    TOKEN=$(cat "$TOKEN_FILE")
+  fi
+  if [ -n "$TOKEN" ] && printf '%s' "$ORIGIN_URL" | grep -q '^https://github.com/'; then
+    AUTH_URL=$(ORIGIN_URL="$ORIGIN_URL" TOKEN="$TOKEN" python3 - <<'PY'
+import os
+url=os.environ['ORIGIN_URL']
+tok=os.environ['TOKEN']
+print(url.replace('https://github.com/', f'https://x-access-token:{tok}@github.com/', 1))
+PY
+)
+    git -C "$BACKUP_REPO" push "$AUTH_URL" main:main >/dev/null 2>&1 || true
+  else
+    git -C "$BACKUP_REPO" push origin main >/dev/null 2>&1 || true
+  fi
   exit 0
 fi
 
