@@ -1,0 +1,140 @@
+---
+name: lobster-evolution
+description: Continuously learn from local skills, workspace docs, scripts, git changes, and user conversations; distill reusable patterns into memory, workflow updates, helper scripts, and skill patches. Use when the user asks the agent to evolve, keep learning, build personal workflows, or turn repeated lessons from real tasks into long-term operating procedures.
+---
+
+# Lobster Evolution
+
+Treat evolution as a standing objective, not a one-off task.
+
+## Run the loop
+
+1. Review recent signals from:
+   - user instructions in the current chat
+   - `MEMORY.md` and `memory/YYYY-MM-DD.md`
+   - local skills under `/home/fan/.openclaw/workspace/skills`
+   - local docs/scripts/projects in the workspace
+   - recent git diffs and recurring fixes
+2. Identify only **reusable** learnings:
+   - repeated user preferences
+   - procedures worth standardizing
+   - scripts worth saving
+   - pitfalls worth preventing
+   - local environment facts that improve future execution
+3. Convert the learning into the smallest durable artifact:
+   - update `MEMORY.md` for long-term standing rules/preferences
+   - update `memory/YYYY-MM-DD.md` for daily context and recent changes
+   - patch an existing skill when the lesson belongs to that domain
+   - create or improve a local helper script when determinism matters
+   - document a workflow in the most specific local file instead of duplicating it everywhere
+4. Keep the delta compact. Prefer small, high-signal updates over verbose notes.
+5. Commit workspace changes after meaningful edits.
+
+## Heartbeat mode
+
+When the user wants continuous evolution, use heartbeat as the default low-noise scheduler for lightweight learning scans.
+
+- Target cadence: about once every 6 hours when there is no higher-priority alert.
+- Use heartbeat for batched, context-aware learning.
+- Keep exact-time jobs on cron; do not overload heartbeat with precision scheduling.
+- If a scan produces no durable learning, stay quiet.
+
+Track the last evolution scan in `memory/heartbeat-state.json` under `lastChecks.evolution`.
+
+## Default scan order
+
+When there is free time or the user explicitly asks for continuous learning, scan in this order:
+
+1. `skills/*/SKILL.md` for available operating patterns
+2. workspace `scripts/` for reusable automation opportunities
+3. project docs and local repos that were touched recently
+4. `MEMORY.md` plus the last 1-3 daily memory files
+5. recent git history for repeated fixes or operational drift
+
+## Promotion rules
+
+Promote a learning to `MEMORY.md` only if it is likely to matter again.
+
+Good candidates:
+- stable user preferences
+- standing tasks
+- hard-won operational lessons
+- local setup facts that prevent breakage
+
+Keep transient noise in daily memory instead.
+
+## Project-analysis extraction mode
+
+When a project investigation produces a useful pattern, compress it into a reusable protocol instead of leaving it as one-off commentary.
+
+Use the four-layer structure from `references/project-analysis-protocol.md`:
+- project essence
+- best participation plan
+- abuse surface / risk review
+- decision impact
+
+Default abuse-surface categories to check:
+- fake data injection
+- replay / duplicate submission
+- weak auth binding
+- client-trust assumptions
+- normalization / weight mapping abuse
+- ranking / points / invite manipulation
+
+Use a safe testing ladder:
+- static audit
+- public read-only endpoint checks
+- non-invasive auth/error-path validation
+- local reproduction
+- explicit authorized testing only after that
+
+## Meme-analysis extraction mode
+
+For meme tokens, do not overfit to generic project-analysis order. Use `references/meme-analysis-protocol.md`.
+
+Bias the analysis toward:
+- KOL framing weight
+- next-bagholder profile
+- narrative break conditions
+- spread quality of heat
+- market-maker / operator intent
+- media relay vs real community heat
+- same-lane substitutes
+- final go-grade: 只适合观察 / 可看 / 可小仓 / 可追
+
+Keep contract security as the risk floor, not the lead story, unless contract control can directly destroy the meme narrative.
+
+## Evolution outputs
+
+Prefer one of these outputs each time a real learning appears:
+- one memory update
+- one skill patch
+- one new helper script
+- one workflow note
+- one cleanup/refactor that removes future friction
+
+## Guardrails
+
+- Do not modify core OpenClaw config unless the user explicitly asks.
+- Do not invent busywork or infinite loops.
+- Do not duplicate the same rule in multiple files unless there is a clear retrieval reason.
+- Prefer learning from actual work over abstract self-reflection.
+
+## Bundled helper
+
+Use `scripts/record_evolution.py` to append a compact learning note into today’s daily memory file when a lesson should survive the session.
+
+## Meme reply output
+
+When answering meme-token investigations, use the fixed spine in `references/meme-analysis-template.md` unless the user explicitly wants a shorter or custom format.
+
+## Wallet playbook extraction mode
+
+When the user asks how an address trades dirt dogs / meme tokens, use `references/address-playbook-protocol.md`.
+
+Focus on:
+- excluding seconds-level flips first
+- identifying survivor positions
+- inferring first-board vs second-wave vs falling-knife preference
+- extracting sizing logic and topic preference
+- separating learnable method from pure noise
