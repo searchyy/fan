@@ -1,0 +1,12 @@
+# OpenClaw continuity backup allowlist
+AGENTS.md
+HEARTBEAT.md
+IDENTITY.md
+MEMORY.md
+SOUL.md
+TOOLS.md
+USER.md
+memory/
+skills/
+backup/
+scripts/continuity-backup.sh

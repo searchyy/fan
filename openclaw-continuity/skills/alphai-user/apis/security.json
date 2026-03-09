@@ -1,0 +1,490 @@
+[
+  {
+    "index": 31,
+    "name": "账户安全",
+    "desc": null,
+    "add_time": 1745820112,
+    "up_time": 1745820112,
+    "list": [
+      {
+        "query_path": {
+          "path": "//smart-web-gateway/user/get-wallet",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8688,
+        "method": "GET",
+        "catid": 762,
+        "title": "2FA-查询用户是否绑定2FA、查询用户提现状态(改造用户信息接口)",
+        "path": "//smart-web-gateway/user/get-wallet",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 317,
+        "add_time": 1745820166,
+        "up_time": 1746774986,
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "681dabca7e7cd305a351b002",
+            "name": "uid",
+            "desc": "用户id，只需要登录态即可"
+          }
+        ],
+        "req_headers": [],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应吗\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"data\":{\"type\":\"object\",\"properties\":{\"googleAuthenticatorStatus\":{\"type\":\"integer\",\"description\":\"2FA绑定状态 0 未绑定，1 已绑定\"},\"withdrawStatus\":{\"type\":\"integer\",\"description\":\"提现状态 0 不可提现，1 可以提现\"},\"withdrawRemainingSeconds\":{\"type\":\"integer\",\"description\":\"如果禁止提现，提现剩余时间(秒数)\"},\"withdrawFreezeType\":{\"type\":\"integer\",\"description\":\"操作类型 1 绑定，2 手动解绑，3 人工重置\"},\"withdrawFreezeTime\":{\"type\":\"string\",\"description\":\"冻结时间\"}},\"description\":\"响应数据\",\"required\":[\"googleAuthenticatorStatus\",\"withdrawStatus\",\"withdrawRemainingSeconds\",\"withdrawFreezeType\",\"withdrawFreezeTime\"]}},\"required\":[\"code\",\"msg\",\"data\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-google-auth/bind-google-authenticator-submit",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8703,
+        "method": "POST",
+        "catid": 762,
+        "title": "2FA-绑定2FA接口",
+        "path": "/smart-web-gateway/user-google-auth/bind-google-authenticator-submit",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 317,
+        "add_time": 1745820623,
+        "up_time": 1747118882,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6822eb227e7cd305a351b2a6",
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "req_body_form": [
+          {
+            "required": "1",
+            "_id": "6822eb227e7cd305a351b2a8",
+            "name": "uid",
+            "type": "text",
+            "example": "50001",
+            "desc": "用户id"
+          },
+          {
+            "required": "1",
+            "_id": "6822eb227e7cd305a351b2a7",
+            "name": "googleCode",
+            "type": "text",
+            "example": "",
+            "desc": "google验证码，6位数字"
+          }
+        ],
+        "__v": 0,
+        "desc": "<p><strong>响应码待定，包括以下:</strong><br>\n错误超过次数，限频<br>\n验证码错误</p>\n",
+        "markdown": "**响应码待定，包括以下:**\n错误超过次数，限频\n验证码错误",
+        "req_body_type": "form",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应吗\"},\"msg\":{\"type\":\"string\",\"description\":\"响应信息\"},\"data\":{\"type\":\"object\",\"properties\":{\"freezeTime\":{\"type\":\"number\",\"description\":\"达到错误次数冻结时间 单位：秒\"},\"remainingErrorTime\":{\"type\":\"number\",\"description\":\"剩余错误次数\"},\"freezeRemainingTime\":{\"type\":\"number\",\"description\":\"达到错误次数，剩余时间，单位：秒\"},\"totalErrorTime\":{\"type\":\"number\",\"description\":\"允许总错误次数\"}},\"description\":\"响应值\",\"required\":[\"freezeTime\",\"remainingErrorTime\",\"freezeRemainingTime\",\"totalErrorTime\"]}},\"required\":[\"code\",\"msg\",\"data\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-google-auth/get-bind-step-verification",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8693,
+        "method": "GET",
+        "catid": 762,
+        "title": "2FA-获取绑定2FA的qrCode",
+        "path": "/smart-web-gateway/user-google-auth/get-bind-step-verification",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 317,
+        "add_time": 1745820400,
+        "up_time": 1746672859,
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "681c1cdb7e7cd305a351af33",
+            "name": "uid",
+            "example": "50001",
+            "desc": "用户id，有登录态即可"
+          }
+        ],
+        "req_headers": [],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应吗\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"data\":{\"type\":\"object\",\"properties\":{\"secret\":{\"type\":\"string\",\"description\":\"google随机密钥\"},\"qrCode\":{\"type\":\"string\",\"description\":\"需要转成二维码的字符串\"},\"sendGoogleValidInterval\":{\"type\":\"integer\",\"description\":\"有效期，单位：秒\"}},\"description\":\"响应数据\",\"required\":[\"secret\",\"qrCode\",\"sendGoogleValidInterval\"]}},\"required\":[\"code\",\"msg\",\"data\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-google-auth/close-google-authenticator",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8713,
+        "method": "POST",
+        "catid": 762,
+        "title": "2FA-解绑2FA接口",
+        "path": "/smart-web-gateway/user-google-auth/close-google-authenticator",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 317,
+        "add_time": 1745821851,
+        "up_time": 1747118656,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6822ea407e7cd305a351b2a3",
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "req_body_form": [
+          {
+            "required": "1",
+            "_id": "6822ea407e7cd305a351b2a5",
+            "name": "uid",
+            "type": "text",
+            "desc": "登录态"
+          },
+          {
+            "required": "1",
+            "_id": "6822ea407e7cd305a351b2a4",
+            "name": "googleCode",
+            "type": "text",
+            "example": "",
+            "desc": "google验证码"
+          }
+        ],
+        "__v": 0,
+        "desc": "<p><strong>响应码待定，包括以下:</strong><br>\n错误超过次数，限频<br>\n验证码错误</p>\n",
+        "markdown": "**响应码待定，包括以下:**\n错误超过次数，限频\n验证码错误",
+        "req_body_type": "form",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"data\":{\"type\":\"object\",\"properties\":{\"freezeTime\":{\"type\":\"number\",\"description\":\"达到错误次数冻结时间 单位：秒\"},\"remainingErrorTime\":{\"type\":\"number\",\"description\":\"剩余错误次数\"},\"freezeRemainingTime\":{\"type\":\"number\",\"description\":\"达到错误次数，剩余时间，单位：秒\"},\"totalErrorTime\":{\"type\":\"number\",\"description\":\"允许总错误次数\"}},\"description\":\"响应值\",\"required\":[\"freezeTime\",\"remainingErrorTime\",\"freezeRemainingTime\",\"totalErrorTime\"]}},\"required\":[\"code\",\"msg\",\"data\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/admin-gateway/user-google-auth/close-google-authenticator",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8743,
+        "method": "POST",
+        "catid": 762,
+        "title": "admin网关-重置2FA",
+        "path": "/admin-gateway/user-google-auth/close-google-authenticator",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 317,
+        "add_time": 1745824797,
+        "up_time": 1746606541,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "681b19cd7e7cd305a351af06",
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "req_body_form": [
+          {
+            "required": "1",
+            "_id": "681b19cd7e7cd305a351af07",
+            "name": "uid",
+            "type": "text",
+            "desc": "用户id"
+          }
+        ],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "req_body_type": "form",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"data\":{\"type\":\"object\",\"properties\":{}}},\"required\":[\"code\",\"msg\",\"data\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-withdraw/withdraw",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8733,
+        "method": "POST",
+        "catid": 762,
+        "title": "提现-提现",
+        "path": "/smart-web-gateway/user-withdraw/withdraw",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 317,
+        "add_time": 1745822514,
+        "up_time": 1762425539,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "690c7ac37e7cd305a351d7cf",
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "req_body_form": [
+          {
+            "required": "1",
+            "_id": "690c7ac37e7cd305a351d7d6",
+            "name": "uid",
+            "type": "text",
+            "desc": "用户id"
+          },
+          {
+            "required": "1",
+            "_id": "690c7ac37e7cd305a351d7d5",
+            "name": "amount",
+            "type": "text",
+            "example": "",
+            "desc": "金额"
+          },
+          {
+            "required": "1",
+            "_id": "690c7ac37e7cd305a351d7d4",
+            "name": "toAddress",
+            "type": "text",
+            "example": "",
+            "desc": "目标钱包地址"
+          },
+          {
+            "required": "1",
+            "_id": "690c7ac37e7cd305a351d7d3",
+            "name": "googleCode",
+            "type": "text",
+            "example": "",
+            "desc": "google验证码"
+          },
+          {
+            "required": "1",
+            "_id": "690c7ac37e7cd305a351d7d2",
+            "name": "chain",
+            "type": "text",
+            "example": "",
+            "desc": "所属链"
+          },
+          {
+            "required": "1",
+            "_id": "690c7ac37e7cd305a351d7d1",
+            "name": "token",
+            "type": "text",
+            "example": "",
+            "desc": "tokenAddress"
+          },
+          {
+            "required": "1",
+            "_id": "690c7ac37e7cd305a351d7d0",
+            "name": "symbol",
+            "type": "text",
+            "example": "",
+            "desc": "tokenName"
+          }
+        ],
+        "__v": 0,
+        "desc": "<p><strong>响应码待定，包括以下:</strong></p>\n<table>\n<thead>\n<tr>\n<th>描述</th>\n<th>错误码</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>余额不足</td>\n<td>100502</td>\n</tr>\n<tr>\n<td>用户处于禁止提现期间</td>\n<td>100501</td>\n</tr>\n<tr>\n<td>不属于所属链</td>\n<td>100500</td>\n</tr>\n<tr>\n<td>错误超过次数，限频</td>\n<td>500207</td>\n</tr>\n<tr>\n<td>验证码错误</td>\n<td>500203</td>\n</tr>\n<tr>\n<td>参数错误</td>\n<td>400</td>\n</tr>\n<tr>\n<td>钱包提交失败</td>\n<td>500208</td>\n</tr>\n<tr>\n<td>未上链失败</td>\n<td>500209</td>\n</tr>\n<tr>\n<td>链上支付失败</td>\n<td>500210</td>\n</tr>\n<tr>\n<td>统一异常处理</td>\n<td>500</td>\n</tr>\n</tbody>\n</table>\n<p><br data-tomark-pass=\"\"><br>\n<br data-tomark-pass=\"\"></p>\n",
+        "markdown": "**响应码待定，包括以下:**\n\n| 描述 | 错误码 |\n| --- | --- |\n| 余额不足 | 100502 |\n| 用户处于禁止提现期间 | 100501 |\n| 不属于所属链 | 100500 |\n| 错误超过次数，限频 | 500207 |\n| 验证码错误 | 500203 |\n| 参数错误 | 400 |\n| 钱包提交失败 | 500208 |\n| 未上链失败 | 500209 |\n| 链上支付失败 | 500210 |\n| 统一异常处理 | 500 |\n\n<br>\n<br>\n",
+        "req_body_type": "form",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"data\":{\"type\":\"object\",\"properties\":{\"withdrawId\":{\"type\":\"integer\",\"description\":\"提现id\"},\"totalErrorTime\":{\"type\":\"integer\",\"description\":\"总错误次数\",\"mock\":{\"mock\":\"5\"}},\"freezeTime\":{\"type\":\"integer\",\"description\":\"达到错误次数冻结时间，单位：小时\",\"mock\":{\"mock\":\"2\"}},\"remainingErrorTime\":{\"type\":\"integer\",\"description\":\"剩余错误次数\",\"mock\":{\"mock\":\"4\"}},\"freezeRemainingTime\":{\"type\":\"integer\",\"description\":\"达到错误次数，剩余时间\"}},\"required\":[\"withdrawId\",\"totalErrorTime\",\"freezeRemainingTime\",\"remainingErrorTime\",\"freezeTime\"]}},\"required\":[\"code\",\"msg\",\"data\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-withdraw/get-withdraw-result",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8848,
+        "method": "GET",
+        "catid": 762,
+        "title": "提现-查询提现结果",
+        "path": "/smart-web-gateway/user-withdraw/get-withdraw-result",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 317,
+        "add_time": 1745910134,
+        "up_time": 1762760743,
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "691198277e7cd305a351d7fd",
+            "name": "uid",
+            "desc": "登录态"
+          },
+          {
+            "required": "1",
+            "_id": "691198277e7cd305a351d7fc",
+            "name": "withdrawId",
+            "example": "",
+            "desc": "提现id"
+          }
+        ],
+        "req_headers": [],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "<p>0 提现成功<br>\n-1 提现失败<br>\n1 提现中<br>\n99001 内部服务错误<br>\n8001 余额不足<br>\n8008 主链币余额不足 请充值<br>\n8009 代币余额不足<br>\n8003 不支持的地址<br>\n9001 提现未上链，请稍后再试<br>\n5002 无效的代币合约</p>\n",
+        "markdown": "0 提现成功\n-1 提现失败\n1 提现中\n99001 内部服务错误\n8001 余额不足\n8008 主链币余额不足 请充值\n8009 代币余额不足\n8003 不支持的地址\n9001 提现未上链，请稍后再试\n5002 无效的代币合约",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"data\":{\"type\":\"object\",\"properties\":{\"result\":{\"type\":\"integer\",\"description\":\"废弃-提现结果 1 进行中，2 成功， 3 失败\"},\"url\":{\"type\":\"string\",\"description\":\"查看提现结果url\"},\"walletCode\":{\"type\":\"integer\"}},\"description\":\"提现结果 1 进行中，2 成功， 3 失败\",\"required\":[\"result\",\"url\",\"walletCode\"]}},\"required\":[\"code\",\"msg\",\"data\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-withdraw/check-chain",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8728,
+        "method": "GET",
+        "catid": 762,
+        "title": "提现-验证toAddress是否是所属链",
+        "path": "/smart-web-gateway/user-withdraw/check-chain",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 317,
+        "add_time": 1745822371,
+        "up_time": 1746603357,
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "681b0d5d7e7cd305a351af01",
+            "name": "chain",
+            "desc": "链"
+          },
+          {
+            "required": "1",
+            "_id": "681b0d5d7e7cd305a351af00",
+            "name": "toAddress",
+            "example": "",
+            "desc": "目标钱包地址"
+          }
+        ],
+        "req_headers": [],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"data\":{\"type\":\"object\",\"properties\":{},\"description\":\"Boolean类型，true 是所属链，false 不是所属链\"}},\"required\":[\"code\",\"msg\",\"data\"]}"
+      }
+    ]
+  },
+  {
+    "index": 10,
+    "name": "UserGoogleAuthController",
+    "desc": "UserGoogleAuthController",
+    "add_time": 1762743135,
+    "up_time": 1762743135,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-google-auth/close-google-authenticatorNew",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11503,
+        "method": "POST",
+        "catid": 846,
+        "title": "重置2FA",
+        "path": "/smart-web-gateway/user-google-auth/close-google-authenticatorNew",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "692a5a977e7cd305a351fbad",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "req_body_type": "json",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"withdrawId\":{\"type\":\"integer\",\"description\":\"\"},\"totalErrorTime\":{\"type\":\"integer\",\"description\":\"\"},\"freezeTime\":{\"type\":\"integer\",\"description\":\"\"},\"remainingErrorTime\":{\"type\":\"integer\",\"description\":\"\"},\"freezeRemainingTime\":{\"type\":\"integer\",\"description\":\"\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "uid": 635,
+        "add_time": 1762169724,
+        "up_time": 1764383383,
+        "__v": 0,
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"sessionId\":{\"type\":\"string\",\"description\":\"\"},\"message\":{\"type\":\"string\",\"description\":\"\"},\"signature\":{\"type\":\"string\",\"description\":\"\"},\"ip\":{\"type\":\"string\",\"description\":\"\"},\"walletAddress\":{\"type\":\"string\",\"description\":\"\"},\"invitedCode\":{\"type\":\"string\",\"description\":\"\"},\"token\":{\"type\":\"string\",\"description\":\"\"},\"googleCode\":{\"type\":\"string\",\"description\":\"\"},\"credential\":{\"type\":\"string\",\"description\":\"\"},\"uid\":{\"type\":\"integer\",\"description\":\"\"},\"emailCode\":{\"type\":\"string\",\"description\":\"邮箱验证码\"},\"pwd\":{\"type\":\"string\",\"description\":\"密码\"},\"genKey\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"required\":[]}"
+      }
+    ]
+  }
+]

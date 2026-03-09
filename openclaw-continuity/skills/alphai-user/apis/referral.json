@@ -1,0 +1,1073 @@
+[
+  {
+    "index": 29,
+    "name": "分销",
+    "desc": null,
+    "add_time": 1744963635,
+    "up_time": 1745137611,
+    "list": [
+      {
+        "query_path": {
+          "path": "/admin-gateway/rebate/audit",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8498,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"withdrawId\":{\"type\":\"array\",\"items\":{\"type\":\"integer\"},\"description\":\"主键id\"},\"auditStatus\":{\"type\":\"integer\",\"description\":\"\"},\"remark\":{\"type\":\"string\",\"description\":\"\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\"}",
+        "title": "提现审核",
+        "path": "/admin-gateway/rebate/audit",
+        "catid": 747,
+        "markdown": "",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "681da2557e7cd305a351aff5",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          },
+          {
+            "required": "1",
+            "_id": "681da2557e7cd305a351aff4",
+            "name": "signature",
+            "example": "",
+            "desc": ""
+          },
+          {
+            "required": "1",
+            "_id": "681da2557e7cd305a351aff3",
+            "name": "timestamp",
+            "example": "",
+            "desc": ""
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"integer\",\"description\":\"\"},\"msg\":{\"type\":\"string\",\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{},\"description\":\"\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 101,
+        "add_time": 1745489920,
+        "up_time": 1746772565,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/getUserLevelInfoByUserId",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8453,
+        "method": "POST",
+        "catid": 747,
+        "title": "查询用户层级信息",
+        "path": "/smart-web-gateway/user/getUserLevelInfoByUserId",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "6805b2d67e7cd305a351a37b",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6805b2d67e7cd305a351a37c",
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "req_body_form": [
+          {
+            "required": "1",
+            "_id": "6805b2d67e7cd305a351a37d",
+            "name": "uid",
+            "type": "text"
+          }
+        ],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"isBlackUser\":{\"type\":\"boolean\",\"description\":\"是否黑名单用户\"},\"userLevel\":{\"type\":\"integer\",\"description\":\"用户层级(0为本级，1为直接邀请者，>=2为上级邀请者\"},\"inviteRebateRate\":{\"type\":\"string\",\"description\":\"返佣比例\"},\"extraRebateRate\":{\"type\":\"string\",\"description\":\"额外返佣比例\"},\"vip\":{\"type\":\"integer\",\"description\":\"VIP等级\"},\"loginStatus\":{\"type\":\"integer\",\"description\":\"用户登录冻结状态：0冻结，1：正常\"},\"withdrawStatus\":{\"type\":\"integer\",\"description\":\"用户提现冻结状态：0冻结，1：正常\"},\"lastLoginTime\":{\"type\":\"string\",\"description\":\"上次登陆时间\",\"mock\":{\"mock\":\"@datetime\"}},\"userWallet\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"integer\",\"description\":\"1：内部；2：外部\"},\"address\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"balance\":{\"type\":\"string\",\"description\":\"余额\"}}}},\"description\":\"用户钱包信息\"},\"token\":{\"type\":\"string\",\"description\":\"用户token\"}},\"description\":\"用户信息\"},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "req_body_type": "form",
+        "uid": 635,
+        "add_time": 1744963652,
+        "up_time": 1745203926,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/rebate/withdrawStatus",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8868,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"integer\",\"description\":\"1-可提现 2-不可提现置灰\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "获取提现状态",
+        "path": "/smart-web-gateway/user/rebate/withdrawStatus",
+        "catid": 747,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "68108c9d7e7cd305a351ac2e",
+            "name": "chain",
+            "desc": ""
+          }
+        ],
+        "desc": "",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 607,
+        "add_time": 1745914917,
+        "up_time": 1745915037,
+        "req_body_form": [],
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/rebate/invitees-details",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 1,
+        "tag": [],
+        "_id": 8473,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"data\":{\"type\":\"object\",\"properties\":{\"totalCount\":{\"type\":\"integer\"},\"InviteesDetailVo\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"inviteesWalletAddress\":{\"type\":\"string\",\"description\":\"受邀者钱包地址\"},\"tradeCount7d\":{\"type\":\"string\",\"description\":\"近7日交易次数\"},\"tradeVolume7d\":{\"type\":\"string\",\"description\":\"近7日交易金额\"},\"personalReward7d\":{\"type\":\"number\",\"description\":\"近7日个人奖励\"},\"teamMemberCount\":{\"type\":\"integer\",\"description\":\"团队人数\"},\"teamReward7d\":{\"type\":\"string\",\"description\":\"近7日团队奖励\"},\"totalReward7d\":{\"type\":\"string\",\"description\":\"近7日总奖励（个人 + 团队）\"},\"rewardSymbol\":{\"type\":\"string\",\"description\":\"奖励币种，如 SOL\"},\"invitedCode\":{\"type\":\"string\",\"description\":\"邀请码\"}},\"required\":[]}},\"pageSize\":{\"type\":\"integer\"},\"pageNum\":{\"type\":\"integer\"}},\"description\":\"data\",\"required\":[]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "受邀者详情列表",
+        "path": "/smart-web-gateway/rebate/invitees-details",
+        "catid": 747,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "695f8abb7e7cd305a3520613",
+            "name": "chain",
+            "desc": "链：sol"
+          },
+          {
+            "required": "0",
+            "_id": "695f8abb7e7cd305a3520612",
+            "name": "sort",
+            "desc": "排序字段，返回值里面的字段名"
+          },
+          {
+            "required": "0",
+            "_id": "695f8abb7e7cd305a3520611",
+            "name": "asc",
+            "desc": "正序倒序，asc，desc"
+          },
+          {
+            "required": "0",
+            "_id": "695f8abb7e7cd305a3520610",
+            "name": "pageNum",
+            "desc": "页码：1"
+          },
+          {
+            "required": "0",
+            "_id": "695f8abb7e7cd305a352060f",
+            "name": "pageSize",
+            "desc": "页条数：20"
+          }
+        ],
+        "desc": "",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 544,
+        "add_time": 1745144928,
+        "up_time": 1767869115,
+        "req_body_form": [],
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/rebate/withdrawal",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 3,
+        "tag": [],
+        "_id": 8458,
+        "method": "GET",
+        "catid": 747,
+        "title": "提现",
+        "path": "/smart-web-gateway/rebate/withdrawal",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1745137685,
+        "up_time": 1746772733,
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "681da2fd7e7cd305a351affa",
+            "name": "chain",
+            "example": "sol",
+            "desc": "链名"
+          }
+        ],
+        "req_headers": [],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"walletAddress\":{\"type\":\"string\"},\"chain\":{\"type\":\"string\"}},\"required\":[\"chain\",\"walletAddress\"]}",
+        "req_body_type": "form",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"object\",\"properties\":{}}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/rebate/rebate-details",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 5,
+        "tag": [],
+        "_id": 8468,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"data\":{\"type\":\"object\",\"properties\":{\"totalCount\":{\"type\":\"integer\"},\"RebateDetailVo\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"inviteesWalletAddress\":{\"type\":\"string\",\"description\":\"受邀者钱包地址\"},\"tradeAmount\":{\"type\":\"string\",\"description\":\"交易金额\"},\"rewardAmount\":{\"type\":\"string\",\"description\":\"奖励金额\"},\"rewardSymbol\":{\"type\":\"string\",\"description\":\"奖励币种（如 SOL）\"},\"level\":{\"type\":\"number\",\"description\":\"返佣层级，取值0，1，2，3，4，5。含义  0-返现，1-一级返佣，2-二级返佣，3-三级返佣，4-四级返佣，5-五级返佣\"},\"tradeDate\":{\"type\":\"string\",\"description\":\"交易时间\",\"mock\":{\"mock\":\"@datetime\"}},\"invitedCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"rebateRatio\":{\"type\":\"string\",\"description\":\"返佣比例\"},\"cashbackRatio\":{\"type\":\"string\",\"description\":\"返现比例\"}}}},\"pageSize\":{\"type\":\"integer\"},\"pageNum\":{\"type\":\"integer\"}},\"description\":\"data\",\"required\":[]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "返佣奖励详情列表",
+        "path": "/smart-web-gateway/rebate/rebate-details",
+        "catid": 747,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "695f8a817e7cd305a352060e",
+            "name": "chain",
+            "desc": "链：sol"
+          },
+          {
+            "required": "0",
+            "_id": "695f8a817e7cd305a352060d",
+            "name": "sort",
+            "desc": "排序字段，返回值里面的字段名"
+          },
+          {
+            "required": "0",
+            "_id": "695f8a817e7cd305a352060c",
+            "name": "asc",
+            "desc": "正序倒序，asc，desc"
+          },
+          {
+            "required": "0",
+            "_id": "695f8a817e7cd305a352060b",
+            "name": "pageNum",
+            "desc": "页码：1"
+          },
+          {
+            "required": "0",
+            "_id": "695f8a817e7cd305a352060a",
+            "name": "pageSize",
+            "desc": "页条数：20"
+          }
+        ],
+        "desc": "",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 544,
+        "add_time": 1745144928,
+        "up_time": 1767869057,
+        "req_body_form": [],
+        "__v": 0
+      }
+    ]
+  },
+  {
+    "index": 30,
+    "name": "邀请码",
+    "desc": null,
+    "add_time": 1744957195,
+    "up_time": 1744957195,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-invite-code/addInviteCode",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8423,
+        "method": "POST",
+        "catid": 746,
+        "title": "新增邀请码",
+        "path": "/smart-web-gateway/user-invite-code/addInviteCode",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "680de7697e7cd305a351a5c8",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "680de7697e7cd305a351a5c9",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"isSuccess\":{\"type\":\"boolean\",\"description\":\"是否成功\"}},\"description\":\"data\",\"required\":[\"isSuccess\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "req_body_type": "json",
+        "uid": 635,
+        "add_time": 1744957737,
+        "up_time": 1745741673,
+        "__v": 0,
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"inviterRebateRate\":{\"type\":\"number\",\"description\":\"邀请者返佣比例\"},\"inviteeRebateRate\":{\"type\":\"number\",\"description\":\"被邀请者返现比例\"},\"linkType\":{\"type\":\"integer\",\"description\":\"链接类型，1 官网主页\"},\"remark\":{\"type\":\"string\",\"description\":\"备注\"},\"defaultFlag\":{\"type\":\"number\",\"description\":\"是否默认邀请码，0否，1是\"}},\"required\":[\"inviteCode\",\"inviterRebateRate\",\"inviteeRebateRate\",\"linkType\",\"defaultFlag\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-invite-code/updateInviteCode",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8903,
+        "method": "POST",
+        "catid": 746,
+        "title": "更新邀请码备注信息",
+        "path": "/smart-web-gateway/user-invite-code/updateInviteCode",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "6811813f7e7cd305a351ac3f",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6811813f7e7cd305a351ac40",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"isSuccess\":{\"type\":\"boolean\",\"description\":\"是否成功\"}},\"description\":\"data\",\"required\":[\"isSuccess\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "req_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"integer\",\"description\":\"邀请码id\"},\"remark\":{\"type\":\"string\",\"description\":\"备注\"}},\"required\":[\"id\",\"remark\"]}",
+        "uid": 635,
+        "add_time": 1745977611,
+        "up_time": 1745977663,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-invite-code/getDefaultInviteCode",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8518,
+        "method": "POST",
+        "catid": 746,
+        "title": "查询默认邀请码",
+        "path": "/smart-web-gateway/user-invite-code/getDefaultInviteCode",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "680ddbb17e7cd305a351a5b7",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "680ddbb17e7cd305a351a5b8",
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"inviterRebateRate\":{\"type\":\"string\",\"description\":\"邀请者返佣比例\"},\"inviteeRebateRate\":{\"type\":\"string\",\"description\":\"被邀请者返现比例\"},\"linkType\":{\"type\":\"string\",\"description\":\"链接类型\"},\"linkUrl\":{\"type\":\"string\",\"description\":\"链接\"},\"inviteCount\":{\"type\":\"string\",\"description\":\"邀请人数\"}},\"required\":[\"inviteCode\",\"inviterRebateRate\",\"inviteeRebateRate\",\"linkType\",\"linkUrl\",\"inviteCount\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "req_body_type": "form",
+        "uid": 635,
+        "add_time": 1745570900,
+        "up_time": 1745738673,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-invite-code/getRateByInviteCode",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8448,
+        "method": "POST",
+        "catid": 746,
+        "title": "根据邀请码查询返佣比例",
+        "path": "/smart-web-gateway/user-invite-code/getRateByInviteCode",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "680ddba17e7cd305a351a5b5",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "680ddba17e7cd305a351a5b6",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"inviterRebateRate\":{\"type\":\"string\",\"description\":\"邀请者返佣比例\"},\"inviteeRebateRate\":{\"type\":\"string\",\"description\":\"被邀请者返现比例\"},\"linkType\":{\"type\":\"string\",\"description\":\"链接类型\"},\"linkUrl\":{\"type\":\"string\",\"description\":\"链接\"}},\"required\":[\"inviteCode\",\"inviterRebateRate\",\"inviteeRebateRate\",\"linkType\",\"linkUrl\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "req_body_type": "json",
+        "uid": 635,
+        "add_time": 1744962001,
+        "up_time": 1745738657,
+        "__v": 0,
+        "req_body_other": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"}},\"required\":[\"inviteCode\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-invite-code/getInviteCount",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8443,
+        "method": "POST",
+        "catid": 746,
+        "title": "累计邀请人数",
+        "path": "/smart-web-gateway/user-invite-code/getInviteCount",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "680b34a27e7cd305a351a3ea",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "680b34a27e7cd305a351a3eb",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCount\":{\"type\":\"integer\",\"description\":\"邀请数量\"}},\"description\":\"data\",\"required\":[\"inviteCount\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "req_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{}}",
+        "uid": 635,
+        "add_time": 1744961843,
+        "up_time": 1745564834,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-invite-code/getInviteCode",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8418,
+        "method": "POST",
+        "catid": 746,
+        "title": "获取当前用户邀请码列表",
+        "path": "/smart-web-gateway/user-invite-code/getInviteCode",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "680ddb3e7e7cd305a351a5ad",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "680ddb3e7e7cd305a351a5ae",
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"inviterRebateRate\":{\"type\":\"string\",\"description\":\"邀请者返佣比例\"},\"inviteeRebateRate\":{\"type\":\"string\",\"description\":\"被邀请者返现比例\"},\"linkType\":{\"type\":\"string\",\"description\":\"链接类型\"},\"linkUrl\":{\"type\":\"string\",\"description\":\"链接\"},\"inviteCount\":{\"type\":\"string\",\"description\":\"邀请人数\"}},\"required\":[\"inviteCode\",\"inviterRebateRate\",\"inviteeRebateRate\",\"linkType\",\"linkUrl\",\"inviteCount\"]},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "uid": 635,
+        "add_time": 1744957201,
+        "up_time": 1745738558,
+        "__v": 0,
+        "req_body_type": "form"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-invite-code/getInviteCodeByPage",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8433,
+        "method": "POST",
+        "catid": 746,
+        "title": "获取当前用户邀请码列表分页",
+        "path": "/smart-web-gateway/user-invite-code/getInviteCodeByPage",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "6960d72d7e7cd305a352063e",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6960d72d7e7cd305a352063f",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [
+          {
+            "required": "1",
+            "_id": "6960d72d7e7cd305a3520641",
+            "name": "page",
+            "type": "text"
+          },
+          {
+            "required": "1",
+            "_id": "6960d72d7e7cd305a3520640",
+            "name": "pageSize",
+            "type": "text",
+            "example": "",
+            "desc": ""
+          }
+        ],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"list\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"inviterRebateRate\":{\"type\":\"string\",\"description\":\"邀请者返佣比例\"},\"inviteeRebateRate\":{\"type\":\"string\",\"description\":\"被邀请者返现比例\"},\"linkType\":{\"type\":\"string\",\"description\":\"链接类型\"},\"linkUrl\":{\"type\":\"string\",\"description\":\"链接\"},\"inviteCount\":{\"type\":\"number\",\"description\":\"直接邀请人数量\"},\"remark\":{\"type\":\"string\",\"description\":\"备注\"},\"inviteeNums\":{\"type\":\"string\",\"description\":\"受邀人数\"}},\"required\":[\"inviteCode\",\"inviterRebateRate\",\"inviteeRebateRate\",\"linkType\",\"linkUrl\",\"inviteCount\",\"remark\",\"inviteeNums\"]}},\"pageSize\":{\"type\":\"integer\"},\"pageNumb\":{\"type\":\"integer\"},\"total\":{\"type\":\"integer\"}},\"description\":\"data\",\"required\":[\"list\",\"pageSize\",\"pageNumb\",\"total\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "req_body_type": "json",
+        "uid": 635,
+        "add_time": 1744961286,
+        "up_time": 1767954221,
+        "__v": 0,
+        "req_body_other": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"pageNumb\":{\"type\":\"string\"},\"pageSize\":{\"type\":\"string\"}},\"required\":[\"pageNumb\",\"pageSize\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-invite-code/getInviteCodeConfig",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8438,
+        "method": "POST",
+        "catid": 746,
+        "title": "获取用户返佣配置",
+        "path": "/smart-web-gateway/user-invite-code/getInviteCodeConfig",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "680e0b187e7cd305a351a7a1",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "680e0b187e7cd305a351a7a2",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"canCreateAmount\":{\"type\":\"integer\",\"description\":\"可创建链接数量\"},\"assignRate\":{\"type\":\"string\",\"description\":\"可分配比例\"},\"otherRate\":{\"type\":\"string\",\"description\":\"额外返佣比例\"}},\"description\":\"data\",\"required\":[\"canCreateAmount\",\"assignRate\",\"otherRate\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "req_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{}}",
+        "uid": 635,
+        "add_time": 1744961519,
+        "up_time": 1745750808,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user-invite-code/setDefaultInviteCode",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 8428,
+        "method": "POST",
+        "catid": 746,
+        "title": "设置默认邀请码",
+        "path": "/smart-web-gateway/user-invite-code/setDefaultInviteCode",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "680b348b7e7cd305a351a3e2",
+            "name": "language",
+            "desc": ""
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "680b348b7e7cd305a351a3e3",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"isSuccess\":{\"type\":\"boolean\",\"description\":\"是否成功\"}},\"description\":\"data\",\"required\":[\"isSuccess\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "req_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"integer\",\"description\":\"邀请码id\"}},\"required\":[\"id\"]}",
+        "uid": 635,
+        "add_time": 1744960817,
+        "up_time": 1745564811,
+        "__v": 0
+      }
+    ]
+  },
+  {
+    "index": 33,
+    "name": "RebateController",
+    "desc": "RebateController",
+    "add_time": 1745914916,
+    "up_time": 1745914916,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/rebate/config/query",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 9148,
+        "method": "GET",
+        "catid": 769,
+        "title": "用户返佣比例配置",
+        "path": "/smart-web-gateway/user/rebate/config/query",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 453,
+        "add_time": 1747365225,
+        "up_time": 1747366535,
+        "req_query": [],
+        "req_headers": [],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"level\":{\"type\":\"number\",\"description\":\"等级\"},\"rate\":{\"type\":\"number\",\"description\":\"返佣比例\"}},\"required\":[\"level\",\"rate\"]}}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/rebate/query",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 4,
+        "tag": [],
+        "_id": 8463,
+        "method": "GET",
+        "catid": 769,
+        "title": "用户返佣数据",
+        "path": "/smart-web-gateway/user/rebate/query",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1745139447,
+        "up_time": 1745914916,
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac2c",
+            "name": "uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac2b",
+            "name": "userDto.id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac2a",
+            "name": "userDto.inviteCode",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac29",
+            "name": "userDto.invitedCode",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac28",
+            "name": "userDto.status",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac27",
+            "name": "userDto.vip",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac26",
+            "name": "userDto.loginStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac25",
+            "name": "userDto.loginexpireTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac24",
+            "name": "userDto.withdrawStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac23",
+            "name": "userDto.withdrawexpireTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac22",
+            "name": "userDto.lastLoginTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac21",
+            "name": "userDto.ctime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac20",
+            "name": "userDto.mtime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac1f",
+            "name": "userDto.walletDtoList[0].id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac1e",
+            "name": "userDto.walletDtoList[0].type",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac1d",
+            "name": "userDto.walletDtoList[0].address",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac1c",
+            "name": "userDto.walletDtoList[0].uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac1b",
+            "name": "userDto.walletDtoList[0].chain",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac1a",
+            "name": "userDto.walletDtoList[0].suid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac19",
+            "name": "userDto.tokenArr[0]",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac18",
+            "name": "userDto.lang",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac17",
+            "name": "token",
+            "value": "",
+            "desc": "当前token"
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac16",
+            "name": "tokenArr[0]",
+            "value": "",
+            "desc": "用户所有token"
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac15",
+            "name": "userWallet.key[0].id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac14",
+            "name": "userWallet.key[0].type",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac13",
+            "name": "userWallet.key[0].address",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac12",
+            "name": "userWallet.key[0].uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac11",
+            "name": "userWallet.key[0].chain",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac10",
+            "name": "userWallet.key[0].suid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac0f",
+            "name": "sourceType",
+            "value": "",
+            "desc": "PC :PC"
+          },
+          {
+            "required": "0",
+            "_id": "68108c247e7cd305a351ac0e",
+            "name": "chain",
+            "value": "",
+            "desc": ""
+          }
+        ],
+        "req_headers": [],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "<p></p>",
+        "markdown": "",
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"accumulatedRewards\":{\"type\":\"number\",\"description\":\"累积奖励\"},\"accumulatedRewardsUsdt\":{\"type\":\"number\",\"description\":\"累积奖励(U)\"},\"receivedReward\":{\"type\":\"number\",\"description\":\"已领取奖励\"},\"receivedRewardUsdt\":{\"type\":\"number\",\"description\":\"已领取奖励(U)\"},\"noRewardReceived\":{\"type\":\"number\",\"description\":\"未领取奖励\"},\"noRewardReceivedUsdt\":{\"type\":\"number\",\"description\":\"未领取奖励(U)\"},\"directInviteCount\":{\"type\":\"integer\",\"description\":\"直接邀请人数\"},\"totalInviteCount\":{\"type\":\"integer\",\"description\":\"总邀请人数\"},\"totalRebateRate\":{\"type\":\"number\",\"description\":\"返佣比例+额外返佣比例(用于前端展示)\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\"}"
+      }
+    ]
+  }
+]

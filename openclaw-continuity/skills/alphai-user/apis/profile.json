@@ -1,0 +1,1033 @@
+[
+  {
+    "index": 38,
+    "name": "UserController",
+    "desc": "UserController",
+    "add_time": 1735630311,
+    "up_time": 1735630311,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/userCenter/verifyEmail",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12308,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"password\":{\"type\":\"string\",\"description\":\"Google返回的授权码\"},\"newPassword\":{\"type\":\"number\",\"description\":\"1：注册；2：绑定邮箱；3：找回密码;4:邮箱登录二次认证;\\\" +                                                 \\\"5:修改邮箱;6:重置google申请;\"},\"emailCode\":{\"type\":\"string\",\"description\":\"人机认证\"},\"googleCode\":{\"type\":\"string\",\"description\":\"google验证码\"},\"genKey\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"emailCode\",\"email\"]}",
+        "title": "校验邮箱验证码",
+        "path": "/smart-web-gateway/userCenter/verifyEmail",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 500227 | 邮箱验证码错误或邮箱不存在 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |\n| 500115 | _VERIF\\_CODE\\_FAIL_ |  |  |\n| 500116 | sending time interval is too short |  |  |\n| 500112 | email fromat error |  |  |\n| 500114 | send email failed |  |  |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "692abb727e7cd305a351fc4d",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"result\":{\"type\":\"string\"},\"authCode\":{\"type\":\"string\"},\"googleAuthStatus\":{\"type\":\"string\",\"description\":\"google认证状态 0 未认证，1 已认证\"}},\"description\":\"data\",\"required\":[\"result\",\"authCode\",\"googleAuthStatus\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\",\"required\":[]}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>500227</td>\n<td>邮箱验证码错误或邮箱不存在</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n<tr>\n<td>500115</td>\n<td><em>VERIF_CODE_FAIL</em></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500116</td>\n<td>sending time interval is too short</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500112</td>\n<td>email fromat error</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500114</td>\n<td>send email failed</td>\n<td></td>\n<td></td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1764400256,
+        "up_time": 1764408178,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/google/login",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11188,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"Google返回的授权码\"},\"inviteCode\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"inviteCode\"]}",
+        "title": "google授权登录",
+        "path": "/smart-web-gateway/user/google/login",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6901bee57e7cd305a351cb13",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"vip\":{\"type\":\"integer\",\"description\":\"VIP等级\"},\"loginStatus\":{\"type\":\"integer\",\"description\":\"用户登录冻结状态：0冻结，1：正常\"},\"withdrawStatus\":{\"type\":\"integer\",\"description\":\"用户提现冻结状态：0冻结，1：正常\"},\"lastLoginTime\":{\"type\":\"string\",\"description\":\"上次登陆时间\",\"mock\":{\"mock\":\"@datetime\"}},\"userWallet\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"integer\",\"description\":\"1：内部；2：外部\"},\"address\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"balance\":{\"type\":\"string\",\"description\":\"余额\"}}}},\"description\":\"用户钱包信息\"},\"token\":{\"type\":\"string\",\"description\":\"用户token\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1761707824,
+        "up_time": 1761722085,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/auth/bind/google",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11203,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"credential\":{\"type\":\"string\",\"description\":\"\"},\"invitedCode\":{\"type\":\"string\",\"description\":\"\"},\"googleCode\":{\"type\":\"string\",\"description\":\"\"},\"uid\":{\"type\":\"integer\",\"description\":\"\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\"}",
+        "title": "google绑定",
+        "path": "/smart-web-gateway/user/auth/bind/google",
+        "catid": 686,
+        "markdown": "",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "690d6ade7e7cd305a351d7da",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"vip\":{\"type\":\"integer\",\"description\":\"VIP等级\"},\"loginStatus\":{\"type\":\"integer\",\"description\":\"用户登录冻结状态：0冻结，1：正常\"},\"withdrawStatus\":{\"type\":\"integer\",\"description\":\"用户提现冻结状态：0冻结，1：正常\"},\"withdrawRemainingSeconds\":{\"type\":\"integer\",\"description\":\"如果禁止提现，提现剩余时间\"},\"googleAuthenticatorStatus\":{\"type\":\"integer\",\"description\":\"2FA绑定状态 0 未绑定，1 已绑定\"},\"lastLoginTime\":{\"type\":\"string\",\"description\":\"上次登陆时间\",\"mock\":{\"mock\":\"@datetime\"}},\"userWallet\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"integer\",\"description\":\"1：内部；2：外部\"},\"address\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"balance\":{\"type\":\"string\",\"description\":\"余额\"},\"currencyMap\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"基准币余额集合\"}}}},\"description\":\"用户钱包信息\"},\"withdrawFreezeType\":{\"type\":\"integer\",\"description\":\"提现冻结类型，1 绑定，2 手动解绑，3 后台重置\"},\"withdrawFreezeTime\":{\"type\":\"integer\",\"description\":\"提现冻结类型对应的冻结时间\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<p></p>",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1761720280,
+        "up_time": 1762487006,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/bind/google",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11518,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"credential\":{\"type\":\"string\",\"description\":\"\"},\"invitedCode\":{\"type\":\"string\",\"description\":\"\"},\"googleCode\":{\"type\":\"string\",\"description\":\"\"},\"sessionId\":{\"type\":\"string\",\"description\":\"\"},\"ip\":{\"type\":\"string\",\"description\":\"\"},\"uid\":{\"type\":\"integer\",\"description\":\"\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\"}",
+        "title": "google绑定",
+        "path": "/smart-web-gateway/user/bind/google",
+        "catid": 686,
+        "markdown": "",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "690c2c177e7cd305a351d7b9",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"vip\":{\"type\":\"integer\",\"description\":\"VIP等级\"},\"loginStatus\":{\"type\":\"integer\",\"description\":\"用户登录冻结状态：0冻结，1：正常\"},\"withdrawStatus\":{\"type\":\"integer\",\"description\":\"用户提现冻结状态：0冻结，1：正常\"},\"withdrawRemainingSeconds\":{\"type\":\"integer\",\"description\":\"如果禁止提现，提现剩余时间\"},\"googleAuthenticatorStatus\":{\"type\":\"integer\",\"description\":\"2FA绑定状态 0 未绑定，1 已绑定\"},\"lastLoginTime\":{\"type\":\"string\",\"description\":\"上次登陆时间\",\"mock\":{\"mock\":\"@datetime\"}},\"userWallet\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"integer\",\"description\":\"1：内部；2：外部\"},\"address\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"balance\":{\"type\":\"string\",\"description\":\"余额\"}}}},\"description\":\"用户钱包信息\"},\"withdrawFreezeType\":{\"type\":\"integer\",\"description\":\"提现冻结类型，1 绑定，2 手动解绑，3 后台重置\"},\"withdrawFreezeTime\":{\"type\":\"integer\",\"description\":\"提现冻结类型对应的冻结时间\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<p></p>",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 614,
+        "add_time": 1762304886,
+        "up_time": 1762405399,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/userCenter/changePassword",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12233,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"password\":{\"type\":\"string\",\"description\":\"Google返回的授权码\"},\"newPassword\":{\"type\":\"number\",\"description\":\"1：注册；2：绑定邮箱；3：找回密码;4:邮箱登录二次认证;\\\" +                                                 \\\"5:修改邮箱;6:重置google申请;\"},\"emailCode\":{\"type\":\"string\",\"description\":\"人机认证\"},\"googleCode\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"newPassword\",\"emailCode\",\"googleCode\"]}",
+        "title": "修改密码",
+        "path": "/smart-web-gateway/userCenter/changePassword",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "692580337e7cd305a351fb18",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{},\"description\":\"data\",\"required\":[]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1764065197,
+        "up_time": 1764065331,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/email/valid/verifycodeEmail",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12213,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"email\":{\"type\":\"string\",\"description\":\"Google返回的授权码\"},\"otype\":{\"type\":\"number\",\"description\":\"    LOGIN(1, \\\"登录验证码\\\",\\\"LOGIN\\\"),     LOGIN_NOTIFY(2, \\\"登录新ip或设备-警告\\\",\\\"LOGIN_NOTIFY\\\"),     RESET_LOGIN_PASSWORD(3, \\\"重置邮箱密码\\\",\\\"RESET_LOGIN_PASSWORD\\\"),     RESET_PASSWORD_NOTIFY(4, \\\"重置邮箱密码-警告\\\",\\\"RESET_PASSWORD_NOTIFY\\\"),     REGISTER(5, \\\"注册验证码\\\",\\\"REGISTER\\\"),     BIND_EMAIL(6, \\\"邮箱绑定验证码\\\",\\\"BIND_EMAIL\\\"),     RESET_2FA_PASSWORD(7, \\\"重置2fa验证码\\\",\\\"RESET_2FA_PASSWORD\\\"),     RESET_2FA_NOTIFY(8, \\\"重置2fa成功-警告\\\",\\\"RESET_2FA_NOTIFY\\\"),     WITHDRAWAL(9, \\\"提现验证码\\\",\\\"WITHDRAWAL\\\"),     WITHDRAWAL_NOTIFY(10, \\\"提现提醒\\\",\\\"WITHDRAWAL_NOTIFY\\\"),     WITHDRAWAL_SUCCESS(11,\\\"提现完成提醒\\\",\\\"WITHDRAWAL_SUCCESS\\\"),\"},\"lang\":{\"type\":\"string\",\"description\":\"语言\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"otype\",\"lang\"]}",
+        "title": "发送邮箱验证码",
+        "path": "/smart-web-gateway/email/valid/verifycodeEmail",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "692abb367e7cd305a351fc4b",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"sendInterval\":{\"type\":\"number\",\"description\":\"按照场景限制发送频率\"},\"validcodeInterval\":{\"type\":\"number\",\"description\":\"超时时间\"}},\"description\":\"data\",\"required\":[]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1764060858,
+        "up_time": 1764408118,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/email/valid/verifycodeEmail_1764408122455",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12328,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"email\":{\"type\":\"string\",\"description\":\"Google返回的授权码\"},\"otype\":{\"type\":\"number\",\"description\":\"    LOGIN(1, \\\"登录验证码\\\",\\\"LOGIN\\\"),     LOGIN_NOTIFY(2, \\\"登录新ip或设备-警告\\\",\\\"LOGIN_NOTIFY\\\"),     RESET_LOGIN_PASSWORD(3, \\\"重置邮箱密码\\\",\\\"RESET_LOGIN_PASSWORD\\\"),     RESET_PASSWORD_NOTIFY(4, \\\"重置邮箱密码-警告\\\",\\\"RESET_PASSWORD_NOTIFY\\\"),     REGISTER(5, \\\"注册验证码\\\",\\\"REGISTER\\\"),     BIND_EMAIL(6, \\\"邮箱绑定验证码\\\",\\\"BIND_EMAIL\\\"),     RESET_2FA_PASSWORD(7, \\\"重置2fa验证码\\\",\\\"RESET_2FA_PASSWORD\\\"),     RESET_2FA_NOTIFY(8, \\\"重置2fa成功-警告\\\",\\\"RESET_2FA_NOTIFY\\\"),     WITHDRAWAL(9, \\\"提现验证码\\\",\\\"WITHDRAWAL\\\"),     WITHDRAWAL_NOTIFY(10, \\\"提现提醒\\\",\\\"WITHDRAWAL_NOTIFY\\\"),     WITHDRAWAL_SUCCESS(11,\\\"提现完成提醒\\\",\\\"WITHDRAWAL_SUCCESS\\\"),\"},\"lang\":{\"type\":\"string\",\"description\":\"语言\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"otype\",\"lang\"]}",
+        "title": "发送邮箱验证码_copy",
+        "path": "/smart-web-gateway/email/valid/verifycodeEmail_1764408122455",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "692abb367e7cd305a351fc4b",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"sendInterval\":{\"type\":\"number\",\"description\":\"按照场景限制发送频率\"},\"validcodeInterval\":{\"type\":\"number\",\"description\":\"超时时间\"}},\"description\":\"data\",\"required\":[]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1764408123,
+        "up_time": 1764408123,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/userCenter/resetPwd",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12238,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"password\":{\"type\":\"string\",\"description\":\"Google返回的授权码\"},\"newPassword\":{\"type\":\"number\",\"description\":\"1：注册；2：绑定邮箱；3：找回密码;4:邮箱登录二次认证;\\\" +                                                 \\\"5:修改邮箱;6:重置google申请;\"},\"emailCode\":{\"type\":\"string\",\"description\":\"人机认证\"},\"googleCode\":{\"type\":\"string\",\"description\":\"google验证码\"},\"genKey\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"newPassword\",\"password\",\"genKey\",\"email\"]}",
+        "title": "找回(重置)登录密码",
+        "path": "/smart-web-gateway/userCenter/resetPwd",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 500227 | 邮箱验证码错误或邮箱不存在 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |\n| 500115 | _VERIF\\_CODE\\_FAIL_ |  |  |\n| 500116 | sending time interval is too short |  |  |\n| 500112 | email fromat error |  |  |\n| 500114 | send email failed |  |  |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "692aae127e7cd305a351fc40",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{},\"description\":\"data\",\"required\":[]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\",\"required\":[]}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>500227</td>\n<td>邮箱验证码错误或邮箱不存在</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n<tr>\n<td>500115</td>\n<td><em>VERIF_CODE_FAIL</em></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500116</td>\n<td>sending time interval is too short</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500112</td>\n<td>email fromat error</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500114</td>\n<td>send email failed</td>\n<td></td>\n<td></td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1764065334,
+        "up_time": 1764404754,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/userCenter/verifyGoogle",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12313,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"password\":{\"type\":\"string\",\"description\":\"Google返回的授权码\"},\"newPassword\":{\"type\":\"number\",\"description\":\"1：注册；2：绑定邮箱；3：找回密码;4:邮箱登录二次认证;\\\" +                                                 \\\"5:修改邮箱;6:重置google申请;\"},\"emailCode\":{\"type\":\"string\",\"description\":\"人机认证\"},\"googleCode\":{\"type\":\"string\",\"description\":\"google验证码\"},\"genKey\":{\"type\":\"string\"},\"authCode\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"password\",\"genKey\",\"authCode\",\"googleCode\",\"newPassword\"]}",
+        "title": "校验google验证码",
+        "path": "/smart-web-gateway/userCenter/verifyGoogle",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 500227 | 邮箱验证码错误或邮箱不存在 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |\n| 500115 | _VERIF\\_CODE\\_FAIL_ |  |  |\n| 500116 | sending time interval is too short |  |  |\n| 500112 | email fromat error |  |  |\n| 500114 | send email failed |  |  |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "692aa58c7e7cd305a351fbea",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"result\":{\"type\":\"string\"},\"authCode\":{\"type\":\"string\"}},\"description\":\"data\",\"required\":[\"result\",\"authCode\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\",\"required\":[]}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>500227</td>\n<td>邮箱验证码错误或邮箱不存在</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n<tr>\n<td>500115</td>\n<td><em>VERIF_CODE_FAIL</em></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500116</td>\n<td>sending time interval is too short</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500112</td>\n<td>email fromat error</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500114</td>\n<td>send email failed</td>\n<td></td>\n<td></td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1764400314,
+        "up_time": 1764402572,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/userCenter/verifyGoogleLogin",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12348,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"googleCode\":{\"type\":\"string\",\"description\":\"google验证码\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"googleCode\"]}",
+        "title": "校验google验证码已登录",
+        "path": "/smart-web-gateway/userCenter/verifyGoogleLogin",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 500227 | 邮箱验证码错误或邮箱不存在 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |\n| 500115 | _VERIF\\_CODE\\_FAIL_ |  |  |\n| 500116 | sending time interval is too short |  |  |\n| 500112 | email fromat error |  |  |\n| 500114 | send email failed |  |  |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "693000fe7e7cd305a351fcb2",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"result\":{\"type\":\"string\"},\"authCode\":{\"type\":\"string\"}},\"description\":\"data\",\"required\":[\"result\",\"authCode\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\",\"required\":[]}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>500227</td>\n<td>邮箱验证码错误或邮箱不存在</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n<tr>\n<td>500115</td>\n<td><em>VERIF_CODE_FAIL</em></td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500116</td>\n<td>sending time interval is too short</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500112</td>\n<td>email fromat error</td>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>500114</td>\n<td>send email failed</td>\n<td></td>\n<td></td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1764753626,
+        "up_time": 1764753662,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/auth/google",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11398,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"credential\":{\"type\":\"string\",\"description\":\"\"},\"invitedCode\":{\"type\":\"string\",\"description\":\"\"},\"googleCode\":{\"type\":\"string\",\"description\":\"\"},\"sessionId\":{\"type\":\"string\",\"description\":\"\"},\"ip\":{\"type\":\"string\",\"description\":\"\"},\"uid\":{\"type\":\"integer\",\"description\":\"\"},\"vipCard\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\"}",
+        "title": "google登录接口",
+        "path": "/smart-web-gateway/user/auth/google",
+        "catid": 686,
+        "markdown": "",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "697b20fc7e7cd305a3520cbb",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"vip\":{\"type\":\"integer\",\"description\":\"VIP等级\"},\"loginStatus\":{\"type\":\"integer\",\"description\":\"用户登录冻结状态：0冻结，1：正常\"},\"withdrawStatus\":{\"type\":\"integer\",\"description\":\"用户提现冻结状态：0冻结，1：正常\"},\"withdrawRemainingSeconds\":{\"type\":\"integer\",\"description\":\"如果禁止提现，提现剩余时间\"},\"googleAuthenticatorStatus\":{\"type\":\"integer\",\"description\":\"2FA绑定状态 0 未绑定，1 已绑定\"},\"lastLoginTime\":{\"type\":\"string\",\"description\":\"上次登陆时间\",\"mock\":{\"mock\":\"@datetime\"}},\"userWallet\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"integer\",\"description\":\"1：内部；2：外部\"},\"address\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"balance\":{\"type\":\"string\",\"description\":\"余额\"}}}},\"description\":\"用户钱包信息\"},\"withdrawFreezeType\":{\"type\":\"integer\",\"description\":\"提现冻结类型，1 绑定，2 手动解绑，3 后台重置\"},\"withdrawFreezeTime\":{\"type\":\"integer\",\"description\":\"提现冻结类型对应的冻结时间\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 614,
+        "add_time": 1762135334,
+        "up_time": 1769677052,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/depositAddress",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 6593,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"integer\",\"description\":\"类型1：内部；2：外部\"},\"address\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"chain\":{\"type\":\"string\",\"description\":\"链\"},\"suid\":{\"type\":\"integer\",\"description\":\"序号\"}}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"请求\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "根据链获取充值地址",
+        "path": "/smart-web-gateway/user/depositAddress",
+        "catid": 686,
+        "markdown": "| code | 说明 | 其他 |\n| ---- | --- | --- |\n| 400 | chain参数为空 |  |\n| 601 | address为空 |  |\n| 500 | 系统异常 |  |",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "677b3f147e7cd305a35192d9",
+            "name": "chain",
+            "desc": ""
+          }
+        ],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>说明</th>\n<th>其他</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>400</td>\n<td>chain参数为空</td>\n<td></td>\n</tr>\n<tr>\n<td>601</td>\n<td>address为空</td>\n<td></td>\n</tr>\n<tr>\n<td>500</td>\n<td>系统异常</td>\n<td></td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 287,
+        "add_time": 1735630312,
+        "up_time": 1736130324,
+        "req_body_form": [],
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/get-wallet",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 6588,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"vip\":{\"type\":\"integer\",\"description\":\"VIP等级\"},\"loginStatus\":{\"type\":\"integer\",\"description\":\"用户登录冻结状态：0冻结，1：正常\"},\"withdrawStatus\":{\"type\":\"integer\",\"description\":\"用户提现冻结状态：0冻结，1：正常\"},\"lastLoginTime\":{\"type\":\"string\",\"description\":\"上次登陆时间\",\"mock\":{\"mock\":\"@datetime\"}},\"userWallet\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"integer\",\"description\":\"1：内部；2：外部\"},\"address\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"balance\":{\"type\":\"string\",\"description\":\"余额\"}}}},\"description\":\"用户钱包信息\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"请求\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "用户信息(钱包信息)",
+        "path": "/smart-web-gateway/user/get-wallet",
+        "catid": 686,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [],
+        "desc": "",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 287,
+        "add_time": 1735630312,
+        "up_time": 1735631311,
+        "req_body_form": [],
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/login",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 6578,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"authCode\":{\"type\":\"string\",\"description\":\"登录检验码\"},\"userId\":{\"type\":\"string\",\"description\":\"用户id\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\"}",
+        "title": "登录接口",
+        "path": "/smart-web-gateway/user/login",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "67c555ce7e7cd305a3519bfa",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"vip\":{\"type\":\"integer\",\"description\":\"VIP等级\"},\"loginStatus\":{\"type\":\"integer\",\"description\":\"用户登录冻结状态：0冻结，1：正常\"},\"withdrawStatus\":{\"type\":\"integer\",\"description\":\"用户提现冻结状态：0冻结，1：正常\"},\"lastLoginTime\":{\"type\":\"string\",\"description\":\"上次登陆时间\",\"mock\":{\"mock\":\"@datetime\"}},\"userWallet\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"integer\",\"description\":\"1：内部；2：外部\"},\"address\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"balance\":{\"type\":\"string\",\"description\":\"余额\"}}}},\"description\":\"用户钱包信息\"},\"token\":{\"type\":\"string\",\"description\":\"用户token\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 287,
+        "add_time": 1735630311,
+        "up_time": 1740985806,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/bind/phantom",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11198,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"description\":\"Phantom钱包公钥地址\"},\"signature\":{\"type\":\"string\",\"description\":\"对nonce的签名（base58编码）\"},\"walletAddress\":{\"type\":\"string\",\"description\":\"之前获取的随机数\"},\"invitedCode\":{\"type\":\"string\"},\"googleCode\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"walletAddress\",\"invitedCode\",\"googleCode\"]}",
+        "title": "绑定Phantom",
+        "path": "/smart-web-gateway/user/bind/phantom",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "690876a77e7cd305a351d6ee",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"success\":{\"type\":\"boolean\",\"description\":\"绑定状态，是否成功\"}},\"description\":\"data\",\"required\":[]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1761720170,
+        "up_time": 1762162343,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/auth/bind/list",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11208,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[]}",
+        "title": "绑定的账号列表",
+        "path": "/smart-web-gateway/user/auth/bind/list",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6901b9407e7cd305a351cb10",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"authType\":{\"type\":\"string\",\"description\":\"认证类型\"},\"identifier\":{\"type\":\"string\",\"description\":\"账号\"},\"bindTime\":{\"type\":\"string\",\"description\":\"绑定时间\"}},\"required\":[\"authType\",\"identifier\",\"bindTime\"]},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1761720396,
+        "up_time": 1761720640,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/bind/getBindCode",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11213,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[]}",
+        "title": "获取 telegram 绑定code",
+        "path": "/smart-web-gateway/user/bind/getBindCode",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "690871bd7e7cd305a351d6ec",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"bindCode\":{\"type\":\"string\",\"description\":\"绑定code\"}},\"description\":\"data\",\"required\":[]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1761720852,
+        "up_time": 1762161085,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/auth/nonce",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11178,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"walletAddress\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"walletAddress\"]}",
+        "title": "获取Phantom登录随机数",
+        "path": "/smart-web-gateway/user/auth/nonce",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "690ad1797e7cd305a351d76d",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"nonce\":{\"type\":\"string\",\"description\":\"Phantom登录随机数\"},\"expires_in\":{\"type\":\"string\",\"description\":\"过期时间\"}},\"description\":\"data\",\"required\":[\"expires_in\",\"nonce\"]}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1761706547,
+        "up_time": 1762316665,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/auth/bind/list",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11488,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"uid\":{\"type\":\"integer\",\"description\":\"\"},\"tgUid\":{\"type\":\"integer\",\"description\":\"\"},\"lang\":{\"type\":\"string\",\"description\":\"\"},\"status\":{\"type\":\"integer\",\"description\":\"\"},\"authType\":{\"type\":\"string\",\"description\":\"TELEGRAM(\\\"telegram\\\", \\\"telegram\\\"),     GOOGLE(\\\"google\\\", \\\"google\\\"),     PHANTOM(\\\"phantom\\\", \\\"phantom\\\"),     EMAIL(\\\"email\\\", \\\"email\\\"),\"},\"authIdentifier\":{\"type\":\"string\",\"description\":\"\"}}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "获取用户登录账号列表",
+        "path": "/smart-web-gateway/user/auth/bind/list",
+        "catid": 686,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbd7",
+            "name": "uid",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbd6",
+            "name": "userDto.id",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbd5",
+            "name": "userDto.inviteCode",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbd4",
+            "name": "userDto.invitedCode",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbd3",
+            "name": "userDto.status",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbd2",
+            "name": "userDto.vip",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbd1",
+            "name": "userDto.loginStatus",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbd0",
+            "name": "userDto.loginexpireTime",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbcf",
+            "name": "userDto.withdrawStatus",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbce",
+            "name": "userDto.withdrawexpireTime",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbcd",
+            "name": "userDto.lastLoginTime",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbcc",
+            "name": "userDto.ctime",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbcb",
+            "name": "userDto.mtime",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbca",
+            "name": "userDto.walletDtoList[0].id",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc9",
+            "name": "userDto.walletDtoList[0].type",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc8",
+            "name": "userDto.walletDtoList[0].address",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc7",
+            "name": "userDto.walletDtoList[0].uid",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc6",
+            "name": "userDto.walletDtoList[0].chain",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc5",
+            "name": "userDto.walletDtoList[0].suid",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc4",
+            "name": "userDto.tokenArr[0]",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc3",
+            "name": "userDto.lang",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc2",
+            "name": "userDto.googleAuthenticatorStatus",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc1",
+            "name": "userDto.withdrawFreezeType",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbc0",
+            "name": "userDto.withdrawFreezeTime",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbbf",
+            "name": "token",
+            "desc": "当前token"
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbbe",
+            "name": "cookieMaxAge",
+            "desc": "cookie 剩余秒数"
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbbd",
+            "name": "tokenArr[0]",
+            "desc": "用户所有token"
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbbc",
+            "name": "userWallet.key[0].id",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbbb",
+            "name": "userWallet.key[0].type",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbba",
+            "name": "userWallet.key[0].address",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbb9",
+            "name": "userWallet.key[0].uid",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbb8",
+            "name": "userWallet.key[0].chain",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbb7",
+            "name": "userWallet.key[0].suid",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692a61967e7cd305a351fbb6",
+            "name": "sourceType",
+            "desc": "PC :PC"
+          }
+        ],
+        "desc": "",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 614,
+        "add_time": 1762153996,
+        "up_time": 1764385174,
+        "req_body_form": [],
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/user/auth/phantom",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11183,
+        "req_body_type": "json",
+        "res_body_type": "json",
+        "req_body_other": "{\"type\":\"object\",\"properties\":{\"message\":{\"type\":\"string\",\"description\":\"消息\"},\"signature\":{\"type\":\"string\",\"description\":\"对nonce的签名（base58编码）\"},\"walletAddress\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"invitedCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"vipCard\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"登录参数\",\"required\":[\"walletAddress\",\"message\",\"signature\"]}",
+        "title": "验证Phantom签名并登录",
+        "path": "/smart-web-gateway/user/auth/phantom",
+        "catid": 686,
+        "markdown": "| code | cn | en | id |\n| ---- | --- | --- | --- |\n| 100429 | 登录触发限频，请在 10 分钟后重试。 | Login rate limit triggered. Please try again after 10 minutes. | Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit. |",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "697b21287e7cd305a3520cbc",
+            "name": "Content-Type",
+            "value": "application/json",
+            "example": "application/json"
+          }
+        ],
+        "req_query": [],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"data\":{\"type\":\"object\",\"properties\":{\"inviteCode\":{\"type\":\"string\",\"description\":\"邀请码\"},\"vip\":{\"type\":\"integer\",\"description\":\"VIP等级\"},\"loginStatus\":{\"type\":\"integer\",\"description\":\"用户登录冻结状态：0冻结，1：正常\"},\"withdrawStatus\":{\"type\":\"integer\",\"description\":\"用户提现冻结状态：0冻结，1：正常\"},\"lastLoginTime\":{\"type\":\"string\",\"description\":\"上次登陆时间\",\"mock\":{\"mock\":\"@datetime\"}},\"userWallet\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"integer\",\"description\":\"1：内部；2：外部\"},\"address\":{\"type\":\"string\",\"description\":\"钱包地址\"},\"balance\":{\"type\":\"string\",\"description\":\"余额\"}}}},\"description\":\"用户钱包信息\"},\"token\":{\"type\":\"string\",\"description\":\"用户token\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"用户信息&token\"}",
+        "method": "POST",
+        "req_body_form": [],
+        "desc": "<table>\n<thead>\n<tr>\n<th>code</th>\n<th>cn</th>\n<th>en</th>\n<th>id</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>100429</td>\n<td>登录触发限频，请在 10 分钟后重试。</td>\n<td>Login rate limit triggered. Please try again after 10 minutes.</td>\n<td>Batas frekuensi login terpicu. Silakan coba lagi setelah 10 menit.</td>\n</tr>\n</tbody>\n</table>\n",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 635,
+        "add_time": 1761706754,
+        "up_time": 1769677096,
+        "__v": 0
+      }
+    ]
+  }
+]

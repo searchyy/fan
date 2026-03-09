@@ -1,0 +1,457 @@
+[
+  {
+    "index": 17,
+    "name": "社媒推特",
+    "desc": null,
+    "add_time": 1765102413,
+    "up_time": 1765102413,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/tracker/x/monitorList",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12508,
+        "method": "POST",
+        "catid": 874,
+        "title": "x监控列表（转发、引用、头像更新等等）",
+        "path": "/smart-web-gateway/tracker/x/monitorList",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765211015,
+        "up_time": 1765875750,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "694120267e7cd305a3520031",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"pageNum\":{\"type\":\"number\"},\"pageSize\":{\"type\":\"number\"}}}",
+        "req_body_type": "json",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"total\":{\"type\":\"number\"},\"pageNum\":{\"type\":\"number\"},\"pageSize\":{\"type\":\"number\"},\"list\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\",\"description\":\"（事件类型 10种）replied_to-回复，quoted-引用，follow-关注，profile-更新简介，icon-更新头像，account-更新账号，nick-更新昵称,banner-横幅，send-发帖\"},\"id\":{\"type\":\"string\",\"description\":\"媒体id\"},\"created_at\":{\"type\":\"string\",\"description\":\"事件时间（例如发帖时间、回复时间）\"},\"tweets\":{\"type\":\"object\",\"properties\":{\"text\":{\"type\":\"string\"},\"media\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"}},\"required\":[\"type\",\"url\"]}}}},\"referenced\":{\"type\":\"object\",\"properties\":{\"text\":{\"type\":\"string\"},\"media\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"},\"url\":{\"type\":\"string\"}},\"required\":[]}}}},\"author\":{\"type\":\"object\",\"properties\":{\"created_at\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"profile_image_url\":{\"type\":\"string\"},\"profile_banner_url\":{\"type\":\"string\"},\"public_metrics\":{\"type\":\"object\",\"properties\":{\"followers_count\":{\"type\":\"number\"},\"following_count\":{\"type\":\"number\"},\"tweet_count\":{\"type\":\"number\"},\"listed_count\":{\"type\":\"number\"},\"like_count\":{\"type\":\"number\"},\"media_count\":{\"type\":\"number\"}}},\"username\":{\"type\":\"string\"},\"verified\":{\"type\":\"boolean\"},\"verified_type\":{\"type\":\"string\"}}},\"referenced_user\":{\"type\":\"object\",\"properties\":{\"created_at\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"profile_banner_url\":{\"type\":\"string\"},\"profile_image_url\":{\"type\":\"string\"},\"public_metrics\":{\"type\":\"object\",\"properties\":{\"followers_count\":{\"type\":\"number\"},\"following_count\":{\"type\":\"number\"},\"like_count\":{\"type\":\"number\"},\"listed_count\":{\"type\":\"number\"},\"media_count\":{\"type\":\"number\"},\"tweet_count\":{\"type\":\"number\"}}},\"username\":{\"type\":\"string\"},\"verified\":{\"type\":\"boolean\"},\"verified_type\":{\"type\":\"string\"}}}}}}}}}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/tracker/x/myList",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12518,
+        "method": "POST",
+        "catid": 874,
+        "title": "我的监控列表 ",
+        "path": "/smart-web-gateway/tracker/x/myList",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765211115,
+        "up_time": 1765865466,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6940f7fa7e7cd305a351ffcc",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"pageNum\":{\"type\":\"number\"},\"pageSize\":{\"type\":\"number\"},\"username\":{\"type\":\"string\"},\"sort\":{\"type\":\"string\",\"description\":\"排序字段，返回值里面的字段名\"},\"asc\":{\"type\":\"string\",\"description\":\"正序倒序，asc，desc\"}},\"required\":[\"asc\",\"sort\",\"username\",\"pageSize\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"total\":{\"type\":\"number\"},\"pageNum\":{\"type\":\"number\"},\"pageSize\":{\"type\":\"number\"},\"list\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"x_follow\":{\"type\":\"number\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"profile_image_url\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"},\"followed\":{\"type\":\"boolean\"}}}}}}}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/tracker/x/hotList",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12513,
+        "method": "POST",
+        "catid": 874,
+        "title": "热门监控列表 ",
+        "path": "/smart-web-gateway/tracker/x/hotList",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765211051,
+        "up_time": 1765856734,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6940d5de7e7cd305a351ffb5",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"username\":{\"type\":\"string\"},\"pageNum\":{\"type\":\"number\"},\"pageSize\":{\"type\":\"number\"},\"sort\":{\"type\":\"string\",\"description\":\"排序字段，返回值里面的字段名\"},\"asc\":{\"type\":\"string\",\"description\":\"正序倒序，asc，desc\"}},\"required\":[\"sort\",\"asc\",\"pageSize\",\"pageNum\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"total\":{\"type\":\"number\"},\"pageNum\":{\"type\":\"number\"},\"pageSize\":{\"type\":\"number\"},\"list\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"x_follow\":{\"type\":\"number\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"profile_image_url\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"},\"followed\":{\"type\":\"boolean\"}}}}}}}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/tracker/x/follow",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12458,
+        "method": "POST",
+        "catid": 874,
+        "title": "用户关注或取消关注x账户接口",
+        "path": "/smart-web-gateway/tracker/x/follow",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765111588,
+        "up_time": 1765771198,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "693f87be7e7cd305a351ff70",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"username\":{\"type\":\"string\",\"description\":\"账号\"},\"operationType\":{\"type\":\"number\",\"description\":\"1-关注 0-取消关注\"}},\"required\":[\"operationType\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"boolean\"}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/tracker/x/config",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12573,
+        "method": "POST",
+        "catid": 874,
+        "title": "用户手动配置列表（推特监控）",
+        "path": "/smart-web-gateway/tracker/x/config",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765377340,
+        "up_time": 1765989073,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6942dad17e7cd305a35200f6",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"retweeted\":{\"type\":\"boolean\"},\"replied_to\":{\"type\":\"boolean\"},\"quoted\":{\"type\":\"boolean\"},\"follow\":{\"type\":\"boolean\"},\"profile\":{\"type\":\"boolean\"},\"icon\":{\"type\":\"boolean\"},\"account\":{\"type\":\"boolean\"},\"nick\":{\"type\":\"boolean\"},\"banner\":{\"type\":\"boolean\"},\"send\":{\"type\":\"boolean\"}}}",
+        "req_body_type": "json",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"boolean\"}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/tracker/x/transTexts",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12503,
+        "method": "POST",
+        "catid": 874,
+        "title": "翻译接口 ",
+        "path": "/smart-web-gateway/tracker/x/transTexts",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765188434,
+        "up_time": 1765247478,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "693789f67e7cd305a351fe7f",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"from\":{\"type\":\"string\",\"description\":\"原文语言\"},\"to\":{\"type\":\"string\",\"description\":\"翻译为什么语言（cn）\"},\"text\":{\"type\":\"string\",\"description\":\"待翻译文字\"}},\"required\":[\"text\",\"to\",\"from\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"object\",\"properties\":{\"result\":{\"type\":\"string\"}}}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/token/twitter-search",
+          "params": [
+            {
+              "name": "twitter",
+              "desc": "推文链接，例如 https://x.com/username/status/123456"
+            }
+          ]
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12600,
+        "method": "GET",
+        "catid": 874,
+        "title": "推文meme代币搜索（根据推文URL提取关联的meme代币）",
+        "path": "/smart-web-gateway/token/twitter-search",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765990000,
+        "up_time": 1765990000,
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "694300007e7cd305a3520100",
+            "name": "twitter",
+            "example": "https://x.com/tige_seal/status/2028404440110350738",
+            "desc": "推文链接（完整的 x.com 推文 URL）"
+          }
+        ],
+        "req_headers": [],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "根据推文URL搜索该推文下关联的meme代币合约地址，返回链名、代币地址和池子流动性。",
+        "markdown": "",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"chain\":{\"type\":\"string\",\"description\":\"链名，如 sol、bsc、eth 等\"},\"tokenAddress\":{\"type\":\"string\",\"description\":\"代币合约地址\"},\"poolLiquidityUsdt\":{\"type\":\"number\",\"description\":\"池子流动性（USDT 计价）\"}},\"required\":[\"chain\",\"tokenAddress\",\"poolLiquidityUsdt\"]}}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/tracker/x/configList",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12568,
+        "method": "GET",
+        "catid": 874,
+        "title": "获取用户配置列表（推特监控）",
+        "path": "/smart-web-gateway/tracker/x/configList",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765377193,
+        "up_time": 1765983384,
+        "req_query": [],
+        "req_headers": [],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"object\",\"properties\":{\"retweeted\":{\"type\":\"boolean\",\"description\":\"true-配置 false-未配置\"},\"replied_to\":{\"type\":\"boolean\"},\"quoted\":{\"type\":\"boolean\"},\"follow\":{\"type\":\"boolean\"},\"profile\":{\"type\":\"boolean\"},\"icon\":{\"type\":\"boolean\"},\"account\":{\"type\":\"boolean\"},\"nick\":{\"type\":\"boolean\"},\"banner\":{\"type\":\"boolean\"},\"send\":{\"type\":\"boolean\"}}}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/x/detail",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12601,
+        "method": "POST",
+        "catid": 874,
+        "title": "X用户详情（根据用户名获取账户信息、粉丝数等）",
+        "path": "/smart-web-gateway/x/detail",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765990000,
+        "up_time": 1765990000,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "694300017e7cd305a3520101",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "根据X用户名获取账户详情，包括粉丝数、关注数、推文数、简介、头像、认证状态等。",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"user\":{\"type\":\"string\",\"description\":\"X用户名（不含@）\"}},\"required\":[\"user\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"data\":{\"type\":\"object\",\"properties\":{\"twitterDet\":{\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\",\"description\":\"用户ID\"},\"name\":{\"type\":\"string\",\"description\":\"显示名称\"},\"username\":{\"type\":\"string\",\"description\":\"用户名\"},\"description\":{\"type\":\"string\",\"description\":\"个人简介\"},\"created_at\":{\"type\":\"string\",\"description\":\"账户创建时间\"},\"profile_image_url\":{\"type\":\"string\",\"description\":\"头像URL\"},\"profile_banner_url\":{\"type\":\"string\",\"description\":\"横幅URL\"},\"public_metrics\":{\"type\":\"object\",\"properties\":{\"followers_count\":{\"type\":\"number\"},\"following_count\":{\"type\":\"number\"},\"like_count\":{\"type\":\"number\"},\"listed_count\":{\"type\":\"number\"},\"tweet_count\":{\"type\":\"number\"}}},\"verified\":{\"type\":\"boolean\"},\"verified_type\":{\"type\":\"string\",\"description\":\"认证类型：blue/business/none\"}}}}}},\"message\":{\"type\":\"string\"}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/x/search",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12602,
+        "method": "POST",
+        "catid": 874,
+        "title": "推文关键词搜索（按关键词搜索推文，含互动数据和作者信息）",
+        "path": "/smart-web-gateway/x/search",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765990000,
+        "up_time": 1765990000,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "694300027e7cd305a3520102",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "按关键词搜索推文，返回推文内容、互动数据（点赞/转发/浏览量）、作者信息和分页token。",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"keyword\":{\"type\":\"string\",\"description\":\"搜索关键词\"},\"nums\":{\"type\":\"number\",\"description\":\"返回数量\"}},\"required\":[\"keyword\",\"nums\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"data\":{\"type\":\"object\",\"properties\":{\"twitterDet\":{\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"author_id\":{\"type\":\"string\"},\"text\":{\"type\":\"string\"},\"edit_history_tweet_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"public_metrics\":{\"type\":\"object\",\"properties\":{\"bookmark_count\":{\"type\":\"number\"},\"impression_count\":{\"type\":\"number\"},\"like_count\":{\"type\":\"number\"},\"quote_count\":{\"type\":\"number\"},\"reply_count\":{\"type\":\"number\"},\"retweet_count\":{\"type\":\"number\"}}}}}},\"includes\":{\"type\":\"object\",\"properties\":{\"users\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"},\"verified\":{\"type\":\"boolean\"},\"verified_type\":{\"type\":\"string\"},\"public_metrics\":{\"type\":\"object\",\"properties\":{\"followers_count\":{\"type\":\"number\"},\"following_count\":{\"type\":\"number\"},\"like_count\":{\"type\":\"number\"},\"listed_count\":{\"type\":\"number\"},\"media_count\":{\"type\":\"number\"},\"tweet_count\":{\"type\":\"number\"}}}}}}}},\"meta\":{\"type\":\"object\",\"properties\":{\"newest_id\":{\"type\":\"string\"},\"oldest_id\":{\"type\":\"string\"},\"next_token\":{\"type\":\"string\"},\"result_count\":{\"type\":\"number\"}}}}}}},\"message\":{\"type\":\"string\"}}}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/x/tweets",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12603,
+        "method": "POST",
+        "catid": 874,
+        "title": "获取用户推文列表（根据用户ID获取最新推文）",
+        "path": "/smart-web-gateway/x/tweets",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 607,
+        "add_time": 1765990000,
+        "up_time": 1765990000,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "694300037e7cd305a3520103",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "根据X用户ID获取该用户最新推文列表，包含推文正文、entities（mentions/annotations/cashtags）、互动数据、作者信息和分页token。注意：keyword 参数传用户ID（数字），可通过 x/detail 获取。",
+        "markdown": "",
+        "req_body_other": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"keyword\":{\"type\":\"string\",\"description\":\"X用户ID（数字字符串，可通过 x/detail 获取）\"},\"nums\":{\"type\":\"number\",\"description\":\"返回数量\"}},\"required\":[\"keyword\",\"nums\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"data\":{\"type\":\"object\",\"properties\":{\"twitterDet\":{\"type\":\"object\",\"properties\":{\"data\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"author_id\":{\"type\":\"string\"},\"created_at\":{\"type\":\"string\"},\"text\":{\"type\":\"string\"},\"edit_history_tweet_ids\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"entities\":{\"type\":\"object\",\"properties\":{\"mentions\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"start\":{\"type\":\"number\"},\"end\":{\"type\":\"number\"},\"username\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"}}}},\"annotations\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"start\":{\"type\":\"number\"},\"end\":{\"type\":\"number\"},\"normalized_text\":{\"type\":\"string\"},\"type\":{\"type\":\"string\"},\"probability\":{\"type\":\"number\"}}}},\"cashtags\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"start\":{\"type\":\"number\"},\"end\":{\"type\":\"number\"},\"tag\":{\"type\":\"string\"}}}}}},\"public_metrics\":{\"type\":\"object\",\"properties\":{\"bookmark_count\":{\"type\":\"number\"},\"impression_count\":{\"type\":\"number\"},\"like_count\":{\"type\":\"number\"},\"quote_count\":{\"type\":\"number\"},\"reply_count\":{\"type\":\"number\"},\"retweet_count\":{\"type\":\"number\"}}}}}},\"includes\":{\"type\":\"object\",\"properties\":{\"users\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"username\":{\"type\":\"string\"},\"created_at\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"profile_image_url\":{\"type\":\"string\"},\"profile_banner_url\":{\"type\":\"string\"},\"verified\":{\"type\":\"boolean\"},\"verified_type\":{\"type\":\"string\"},\"public_metrics\":{\"type\":\"object\",\"properties\":{\"followers_count\":{\"type\":\"number\"},\"following_count\":{\"type\":\"number\"},\"like_count\":{\"type\":\"number\"},\"listed_count\":{\"type\":\"number\"},\"media_count\":{\"type\":\"number\"},\"tweet_count\":{\"type\":\"number\"}}}}}}}},\"meta\":{\"type\":\"object\",\"properties\":{\"newest_id\":{\"type\":\"string\"},\"oldest_id\":{\"type\":\"string\"},\"next_token\":{\"type\":\"string\"},\"result_count\":{\"type\":\"number\"}}}}}}},\"message\":{\"type\":\"string\"}}}"
+      }
+    ]
+  }
+]

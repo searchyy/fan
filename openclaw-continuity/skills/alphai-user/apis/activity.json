@@ -1,0 +1,1343 @@
+[
+  {
+    "index": 0,
+    "name": "空投活动",
+    "desc": "空投活动",
+    "add_time": 1765961810,
+    "up_time": 1765961810,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/airdrop/join",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12858,
+        "req_body_type": "form",
+        "res_body_type": "json",
+        "title": "加入战队",
+        "path": "/smart-web-gateway/airdrop/join",
+        "catid": 880,
+        "markdown": "",
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "6949f34f7e7cd305a35201a3",
+            "name": "Content-Type",
+            "value": "application/x-www-form-urlencoded",
+            "example": "multipart/form-data"
+          }
+        ],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201a6",
+            "name": "activityId",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201a5",
+            "name": "subActivityId",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201a4",
+            "name": "teamId",
+            "value": "0",
+            "desc": ""
+          }
+        ],
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "POST",
+        "req_body_form": [
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201d3",
+            "name": "uid",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201d2",
+            "name": "userDto.id",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201d1",
+            "name": "userDto.inviteCode",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201d0",
+            "name": "userDto.invitedCode",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201cf",
+            "name": "userDto.status",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201ce",
+            "name": "userDto.vip",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201cd",
+            "name": "userDto.loginStatus",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201cc",
+            "name": "userDto.loginexpireTime",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201cb",
+            "name": "userDto.withdrawStatus",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201ca",
+            "name": "userDto.withdrawexpireTime",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c9",
+            "name": "userDto.lastLoginTime",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c8",
+            "name": "userDto.ctime",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c7",
+            "name": "userDto.mtime",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c6",
+            "name": "userDto.walletDtoList[0].id",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c5",
+            "name": "userDto.walletDtoList[0].type",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c4",
+            "name": "userDto.walletDtoList[0].address",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c3",
+            "name": "userDto.walletDtoList[0].uid",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c2",
+            "name": "userDto.walletDtoList[0].chain",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c1",
+            "name": "userDto.walletDtoList[0].suid",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201c0",
+            "name": "userDto.walletDtoList[0].primaryType",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201bf",
+            "name": "userDto.walletDtoList[0].importedType",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201be",
+            "name": "userDto.walletDtoList[0].exportType",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201bd",
+            "name": "userDto.walletDtoList[0].groupId",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201bc",
+            "name": "userDto.tokenArr[0]",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201bb",
+            "name": "userDto.lang",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201ba",
+            "name": "userDto.googleAuthenticatorStatus",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b9",
+            "name": "userDto.googleAuthenticatorKey",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b8",
+            "name": "userDto.withdrawFreezeType",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b7",
+            "name": "userDto.withdrawFreezeTime",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b6",
+            "name": "userDto.email",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b5",
+            "name": "userDto.loginPword",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b4",
+            "name": "token",
+            "type": "text",
+            "desc": "当前token"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b3",
+            "name": "cookieMaxAge",
+            "type": "text",
+            "desc": "cookie 剩余秒数"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b2",
+            "name": "tokenArr[0]",
+            "type": "text",
+            "desc": "用户所有token"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b1",
+            "name": "userWallet.key[0].id",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201b0",
+            "name": "userWallet.key[0].type",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201af",
+            "name": "userWallet.key[0].address",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201ae",
+            "name": "userWallet.key[0].uid",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201ad",
+            "name": "userWallet.key[0].chain",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201ac",
+            "name": "userWallet.key[0].suid",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201ab",
+            "name": "userWallet.key[0].primaryType",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201aa",
+            "name": "userWallet.key[0].importedType",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201a9",
+            "name": "userWallet.key[0].exportType",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201a8",
+            "name": "userWallet.key[0].groupId",
+            "type": "text",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201a7",
+            "name": "sourceType",
+            "type": "text",
+            "desc": "PC :PC"
+          }
+        ],
+        "desc": "<p></p>",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 101,
+        "add_time": 1765961810,
+        "up_time": 1766454095,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/airdrop/team-search",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12863,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"rank\":{\"type\":\"integer\",\"description\":\"排名\"},\"address\":{\"type\":\"string\",\"description\":\"地址/teamId\"},\"points\":{\"type\":\"string\",\"description\":\"积分\"},\"boost\":{\"type\":\"string\",\"description\":\"战队等级系数\"},\"amount\":{\"type\":\"string\",\"description\":\"交易金额U\"},\"current\":{\"type\":\"boolean\",\"description\":\"you\"},\"joinAble\":{\"type\":\"boolean\",\"description\":\"是否可加入\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "战队搜索",
+        "path": "/smart-web-gateway/airdrop/team-search",
+        "catid": 880,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a3520203",
+            "name": "uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a3520202",
+            "name": "userDto.id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a3520201",
+            "name": "userDto.inviteCode",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a3520200",
+            "name": "userDto.invitedCode",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201ff",
+            "name": "userDto.status",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201fe",
+            "name": "userDto.vip",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201fd",
+            "name": "userDto.loginStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201fc",
+            "name": "userDto.loginexpireTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201fb",
+            "name": "userDto.withdrawStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201fa",
+            "name": "userDto.withdrawexpireTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f9",
+            "name": "userDto.lastLoginTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f8",
+            "name": "userDto.ctime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f7",
+            "name": "userDto.mtime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f6",
+            "name": "userDto.walletDtoList[0].id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f5",
+            "name": "userDto.walletDtoList[0].type",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f4",
+            "name": "userDto.walletDtoList[0].address",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f3",
+            "name": "userDto.walletDtoList[0].uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f2",
+            "name": "userDto.walletDtoList[0].chain",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f1",
+            "name": "userDto.walletDtoList[0].suid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201f0",
+            "name": "userDto.walletDtoList[0].primaryType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201ef",
+            "name": "userDto.walletDtoList[0].importedType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201ee",
+            "name": "userDto.walletDtoList[0].exportType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201ed",
+            "name": "userDto.walletDtoList[0].groupId",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201ec",
+            "name": "userDto.tokenArr[0]",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201eb",
+            "name": "userDto.lang",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201ea",
+            "name": "userDto.googleAuthenticatorStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e9",
+            "name": "userDto.googleAuthenticatorKey",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e8",
+            "name": "userDto.withdrawFreezeType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e7",
+            "name": "userDto.withdrawFreezeTime",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e6",
+            "name": "userDto.email",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e5",
+            "name": "userDto.loginPword",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e4",
+            "name": "token",
+            "value": "",
+            "desc": "当前token"
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e3",
+            "name": "cookieMaxAge",
+            "value": "0",
+            "desc": "cookie 剩余秒数"
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e2",
+            "name": "tokenArr[0]",
+            "value": "",
+            "desc": "用户所有token"
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e1",
+            "name": "userWallet.key[0].id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201e0",
+            "name": "userWallet.key[0].type",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201df",
+            "name": "userWallet.key[0].address",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201de",
+            "name": "userWallet.key[0].uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201dd",
+            "name": "userWallet.key[0].chain",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201dc",
+            "name": "userWallet.key[0].suid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201db",
+            "name": "userWallet.key[0].primaryType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201da",
+            "name": "userWallet.key[0].importedType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201d9",
+            "name": "userWallet.key[0].exportType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201d8",
+            "name": "userWallet.key[0].groupId",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201d7",
+            "name": "sourceType",
+            "value": "",
+            "desc": "PC :PC"
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201d6",
+            "name": "activityId",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201d5",
+            "name": "subActivityId",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f3507e7cd305a35201d4",
+            "name": "teamId",
+            "value": "0",
+            "desc": ""
+          }
+        ],
+        "desc": "<p></p>",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 101,
+        "add_time": 1765961811,
+        "up_time": 1766454096,
+        "req_body_form": [],
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/airdrop/info",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12848,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"activityId\":{\"type\":\"string\",\"description\":\"活动id\"},\"startTime\":{\"type\":\"integer\",\"description\":\"活动开始时间\"},\"entTime\":{\"type\":\"integer\",\"description\":\"活动结束时间\"},\"popCooldownHour\":{\"type\":\"integer\",\"description\":\"弹窗冷却时间\"},\"popDwellSeconds\":{\"type\":\"integer\",\"description\":\"弹窗停留时间\"},\"seasonList\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"subActivityId\":{\"type\":\"string\",\"description\":\"\"},\"subActivityName\":{\"type\":\"string\",\"description\":\"\"},\"startTime\":{\"type\":\"integer\",\"description\":\"\"},\"entTime\":{\"type\":\"integer\",\"description\":\"\"},\"current\":{\"type\":\"boolean\",\"description\":\"\"}}},\"description\":\"活动赛季\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "活动信息",
+        "path": "/smart-web-gateway/airdrop/info",
+        "catid": 880,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520170",
+            "name": "activityId",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352016f",
+            "name": "language",
+            "value": "",
+            "desc": ""
+          }
+        ],
+        "desc": "<p></p>",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 101,
+        "add_time": 1765961810,
+        "up_time": 1766454095,
+        "req_body_form": [],
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/airdrop/data",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12853,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"totalPoints\":{\"type\":\"string\",\"description\":\"用户积分\"},\"rank\":{\"type\":\"integer\",\"description\":\"用户排名\"},\"amount\":{\"type\":\"string\",\"description\":\"用户交易金额U\"},\"teamData\":{\"type\":\"object\",\"properties\":{\"inviteLink\":{\"type\":\"string\",\"description\":\"邀请链接\"},\"id\":{\"type\":\"integer\",\"description\":\"战队id\"},\"personNum\":{\"type\":\"integer\",\"description\":\"战队人数\"},\"amount\":{\"type\":\"string\",\"description\":\"战队交易额U\"},\"rank\":{\"type\":\"integer\",\"description\":\"战队排名\"},\"boost\":{\"type\":\"number\",\"description\":\"战队当前等级加成\"},\"boostArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"amount\":{\"type\":\"number\",\"description\":\"\"},\"factor\":{\"type\":\"number\",\"description\":\"\"}}},\"description\":\"战队等级阶梯\"}},\"description\":\"战队数据\"},\"rankData\":{\"type\":\"object\",\"properties\":{\"total\":{\"type\":\"integer\",\"description\":\"排行榜总条数\"},\"rankArray\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"rank\":{\"type\":\"integer\",\"description\":\"排名\"},\"address\":{\"type\":\"string\",\"description\":\"地址/teamId\"},\"points\":{\"type\":\"string\",\"description\":\"积分\"},\"boost\":{\"type\":\"string\",\"description\":\"战队等级系数\"},\"amount\":{\"type\":\"string\",\"description\":\"交易金额U\"},\"current\":{\"type\":\"boolean\",\"description\":\"you\"},\"joinAble\":{\"type\":\"boolean\",\"description\":\"是否可加入\"}}},\"description\":\"排行榜单\"}},\"description\":\"排行数据\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "活动数据",
+        "path": "/smart-web-gateway/airdrop/data",
+        "catid": 880,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201a2",
+            "name": "uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201a1",
+            "name": "userDto.id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a35201a0",
+            "name": "userDto.inviteCode",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352019f",
+            "name": "userDto.invitedCode",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352019e",
+            "name": "userDto.status",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352019d",
+            "name": "userDto.vip",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352019c",
+            "name": "userDto.loginStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352019b",
+            "name": "userDto.loginexpireTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352019a",
+            "name": "userDto.withdrawStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520199",
+            "name": "userDto.withdrawexpireTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520198",
+            "name": "userDto.lastLoginTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520197",
+            "name": "userDto.ctime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520196",
+            "name": "userDto.mtime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520195",
+            "name": "userDto.walletDtoList[0].id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520194",
+            "name": "userDto.walletDtoList[0].type",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520193",
+            "name": "userDto.walletDtoList[0].address",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520192",
+            "name": "userDto.walletDtoList[0].uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520191",
+            "name": "userDto.walletDtoList[0].chain",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520190",
+            "name": "userDto.walletDtoList[0].suid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352018f",
+            "name": "userDto.walletDtoList[0].primaryType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352018e",
+            "name": "userDto.walletDtoList[0].importedType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352018d",
+            "name": "userDto.walletDtoList[0].exportType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352018c",
+            "name": "userDto.walletDtoList[0].groupId",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352018b",
+            "name": "userDto.tokenArr[0]",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352018a",
+            "name": "userDto.lang",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520189",
+            "name": "userDto.googleAuthenticatorStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520188",
+            "name": "userDto.googleAuthenticatorKey",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520187",
+            "name": "userDto.withdrawFreezeType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520186",
+            "name": "userDto.withdrawFreezeTime",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520185",
+            "name": "userDto.email",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520184",
+            "name": "userDto.loginPword",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520183",
+            "name": "token",
+            "value": "",
+            "desc": "当前token"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520182",
+            "name": "cookieMaxAge",
+            "value": "0",
+            "desc": "cookie 剩余秒数"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520181",
+            "name": "tokenArr[0]",
+            "value": "",
+            "desc": "用户所有token"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520180",
+            "name": "userWallet.key[0].id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352017f",
+            "name": "userWallet.key[0].type",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352017e",
+            "name": "userWallet.key[0].address",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352017d",
+            "name": "userWallet.key[0].uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352017c",
+            "name": "userWallet.key[0].chain",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352017b",
+            "name": "userWallet.key[0].suid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a352017a",
+            "name": "userWallet.key[0].primaryType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520179",
+            "name": "userWallet.key[0].importedType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520178",
+            "name": "userWallet.key[0].exportType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520177",
+            "name": "userWallet.key[0].groupId",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520176",
+            "name": "sourceType",
+            "value": "",
+            "desc": "PC :PC"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520175",
+            "name": "activityId",
+            "value": "",
+            "desc": "活动id"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520174",
+            "name": "subActivityId",
+            "value": "",
+            "desc": "活动子id, 如果不传，后端默认"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520173",
+            "name": "type",
+            "value": "",
+            "desc": "points team"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520172",
+            "name": "pageNum",
+            "value": "0",
+            "desc": "1"
+          },
+          {
+            "required": "0",
+            "_id": "6949f34f7e7cd305a3520171",
+            "name": "pageSize",
+            "value": "0",
+            "desc": "10"
+          }
+        ],
+        "desc": "<p></p>",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 101,
+        "add_time": 1765961810,
+        "up_time": 1766454095,
+        "req_body_form": [],
+        "__v": 0
+      }
+    ]
+  },
+  {
+    "index": 0,
+    "name": "VipCardController",
+    "desc": "VipCardController",
+    "add_time": 1769671206,
+    "up_time": 1769671206,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/vip-card/check",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 13788,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"available\":{\"type\":\"boolean\",\"description\":\"卡号是否有效\"},\"bindUser\":{\"type\":\"integer\",\"description\":\"绑定用户 uid， 未绑定值为 null\"},\"expireTime\":{\"type\":\"integer\",\"description\":\"过期时间\"},\"bindCurrentUser\":{\"type\":\"boolean\",\"description\":\"绑定的是当前用户\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "校验vip卡",
+        "path": "/smart-web-gateway/vip-card/check",
+        "catid": 914,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "6982ad027e7cd305a3520e32",
+            "name": "t",
+            "desc": ""
+          }
+        ],
+        "desc": "",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 101,
+        "add_time": 1769671206,
+        "up_time": 1770171650,
+        "req_body_form": [],
+        "__v": 0
+      }
+    ]
+  },
+  {
+    "index": 15,
+    "name": "Humidifi ASP 活动",
+    "desc": "Humidifi ASP 活动",
+    "add_time": 1764317188,
+    "up_time": 1764317188,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/activity/rank-list",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12268,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"refreshTime\":{\"type\":\"integer\",\"description\":\"榜单刷新时间\"},\"rankRowList\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"rank\":{\"type\":\"integer\",\"description\":\"排名\"},\"trader\":{\"type\":\"string\",\"description\":\"用户身份，本期为钱包地址+掩码\"},\"tradeAmount\":{\"type\":\"string\",\"description\":\"交易金额，USDT\"},\"depositAmount\":{\"type\":\"string\",\"description\":\"充值金额，USDT\"},\"tradeNum\":{\"type\":\"integer\",\"description\":\"交易笔数\"},\"rewards\":{\"type\":\"string\",\"description\":\"是否发奖 1是，0否\"},\"current\":{\"type\":\"boolean\",\"description\":\"当前用户\"}}},\"description\":\"榜单详细\"},\"total\":{\"type\":\"integer\",\"description\":\"榜单总条数，本次最大100，\"},\"userRank\":{\"type\":\"integer\",\"description\":\"用户排名\"},\"userTradeAmount\":{\"type\":\"string\",\"description\":\"用户交易金额，USDT\"},\"userDepositAmount\":{\"type\":\"string\",\"description\":\"用户充值金额，USDT\"},\"userTradeNum\":{\"type\":\"integer\",\"description\":\"用户交易笔数\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "排行榜单",
+        "path": "/smart-web-gateway/activity/rank-list",
+        "catid": 867,
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "692cf8f97e7cd305a351fca1",
+            "name": "activityId",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692cf8f97e7cd305a351fca0",
+            "name": "rankType",
+            "desc": "1充值榜 2交易额榜 3交易笔数榜"
+          },
+          {
+            "required": "0",
+            "_id": "692cf8f97e7cd305a351fc9f",
+            "name": "pageNum",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692cf8f97e7cd305a351fc9e",
+            "name": "pageSize",
+            "desc": ""
+          }
+        ],
+        "project_id": 241,
+        "req_params": [],
+        "uid": 101,
+        "add_time": 1764317189,
+        "up_time": 1764555001,
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": ""
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/activity/info",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12263,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}},\"description\":\"\"},\"data\":{\"type\":\"object\",\"properties\":{\"startTime\":{\"type\":\"integer\",\"description\":\"活动开始时间\"},\"endTime\":{\"type\":\"integer\",\"description\":\"活动结束时间\"},\"tradeAble\":{\"type\":\"boolean\",\"description\":\"是否可交易\"},\"chain\":{\"type\":\"string\",\"description\":\"链\"},\"token\":{\"type\":\"string\",\"description\":\"代币地址\"},\"code\":{\"type\":\"string\",\"description\":\"代币code\"},\"icon\":{\"type\":\"string\",\"description\":\"代币图标\"},\"priceU\":{\"type\":\"string\",\"description\":\"价格U\"},\"chg24h\":{\"type\":\"string\",\"description\":\"24小时涨跌幅\"}},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "活动基本信息",
+        "path": "/smart-web-gateway/activity/info",
+        "catid": 867,
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "692959127e7cd305a351fb6c",
+            "name": "activityId",
+            "value": "",
+            "desc": ""
+          }
+        ],
+        "project_id": 241,
+        "req_params": [],
+        "uid": 101,
+        "add_time": 1764317188,
+        "up_time": 1764317458,
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "<p></p>",
+        "markdown": ""
+      }
+    ]
+  }
+]

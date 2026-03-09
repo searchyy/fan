@@ -1,0 +1,505 @@
+[
+  {
+    "index": 12,
+    "name": "钱包信息",
+    "desc": null,
+    "add_time": 1763316780,
+    "up_time": 1763316780,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/smart/wallet/deleteWallet",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11953,
+        "method": "POST",
+        "catid": 859,
+        "title": "删除钱包",
+        "path": "/smart-web-gateway/smart/wallet/deleteWallet",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "uid": 635,
+        "add_time": 1763316969,
+        "up_time": 1764409509,
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "692ac0a57e7cd305a351fc9d",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "__v": 0,
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"address\":{\"type\":\"string\"},\"chain\":{\"type\":\"string\"},\"suid\":{\"type\":\"string\"},\"googleCode\":{\"type\":\"string\"}},\"required\":[\"address\",\"chain\",\"googleCode\",\"suid\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\"},\"chains\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"required\":[\"status\"]}},\"required\":[\"code\",\"msg\",\"data\"]}"
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/wallet/getWalletInfoByAddress",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11963,
+        "method": "POST",
+        "catid": 859,
+        "title": "根据钱包地址查询钱包信息",
+        "path": "/smart-web-gateway/wallet/getWalletInfoByAddress",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "691a16547e7cd305a351f5fa",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"walletAddress\":{\"type\":\"string\"},\"chain\":{\"type\":\"string\"}},\"required\":[\"walletAddress\",\"chain\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\"}},\"required\":[\"status\"]}},\"required\":[\"code\",\"msg\",\"data\"]}",
+        "uid": 635,
+        "add_time": 1763317273,
+        "up_time": 1763317332,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/smart/wallet/setMasterWallet",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "undone",
+        "type": "static",
+        "req_body_is_json_schema": true,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 11958,
+        "method": "POST",
+        "catid": 859,
+        "title": "设置主钱包",
+        "path": "/smart-web-gateway/smart/wallet/setMasterWallet",
+        "project_id": 241,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "691e78887e7cd305a351f87c",
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "req_body_other": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"walletAddress\":{\"type\":\"string\",\"description\":\"链\"},\"chain\":{\"type\":\"string\",\"description\":\"链\"}},\"required\":[\"walletAddress\",\"chain\"]}",
+        "req_body_type": "json",
+        "res_body": "{\"type\":\"object\",\"title\":\"empty object\",\"properties\":{\"code\":{\"type\":\"string\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"object\",\"properties\":{\"status\":{\"type\":\"string\"}},\"required\":[\"status\"]}},\"required\":[\"code\",\"msg\",\"data\"]}",
+        "uid": 635,
+        "add_time": 1763317182,
+        "up_time": 1763604616,
+        "__v": 0
+      }
+    ]
+  },
+  {
+    "index": 16,
+    "name": "UserCenterInfoApiController",
+    "desc": "UserCenterInfoApiController",
+    "add_time": 1764319707,
+    "up_time": 1764319707,
+    "list": [
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/userCenterInfo/getUUID",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12283,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"integer\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"string\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "getUUID",
+        "path": "/smart-web-gateway/userCenterInfo/getUUID",
+        "catid": 868,
+        "req_headers": [],
+        "req_query": [],
+        "project_id": 241,
+        "req_params": [],
+        "uid": 544,
+        "add_time": 1764319708,
+        "up_time": 1764319708,
+        "req_body_form": [],
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/valid/sendRsaCode",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12273,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\",\"description\":\"响应码\"},\"msg\":{\"type\":\"string\",\"description\":\"描述\"},\"params_num\":{\"type\":\"integer\",\"description\":\"响应参数数量\"},\"params\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"description\":\"响应参数\"},\"errorDetail\":{\"type\":\"object\",\"properties\":{\"key\":{\"type\":\"string\"}}},\"data\":{\"type\":\"object\",\"properties\":{},\"description\":\"data\"}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "根据genkey 获取公钥,data中就是publicKey",
+        "path": "/smart-web-gateway/valid/sendRsaCode",
+        "catid": 868,
+        "markdown": "genkey 如何获取 @see com.superatomfin.exchange.gateway.core.controller.UserCenterInfoApiController#getUserCenterGenkey",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb71",
+            "name": "genkey",
+            "value": "",
+            "desc": ""
+          }
+        ],
+        "desc": "<p>genkey 如何获取 @see com.superatomfin.exchange.gateway.core.controller.UserCenterInfoApiController#getUserCenterGenkey</p>",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 544,
+        "add_time": 1764319708,
+        "up_time": 1764319708,
+        "req_body_form": [],
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/smart-web-gateway/userCenterInfo/getUserCenterGenkey",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": true,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 12278,
+        "res_body": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"integer\"},\"msg\":{\"type\":\"string\"},\"data\":{\"type\":\"object\",\"properties\":{}}},\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"description\":\"\"}",
+        "method": "GET",
+        "res_body_type": "json",
+        "title": "根据uid 获取 genkey",
+        "path": "/smart-web-gateway/userCenterInfo/getUserCenterGenkey",
+        "catid": 868,
+        "markdown": "",
+        "req_headers": [],
+        "req_query": [
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb96",
+            "name": "uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb95",
+            "name": "userDto.id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb94",
+            "name": "userDto.inviteCode",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb93",
+            "name": "userDto.invitedCode",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb92",
+            "name": "userDto.status",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb91",
+            "name": "userDto.vip",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb90",
+            "name": "userDto.loginStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb8f",
+            "name": "userDto.loginexpireTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb8e",
+            "name": "userDto.withdrawStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb8d",
+            "name": "userDto.withdrawexpireTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb8c",
+            "name": "userDto.lastLoginTime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb8b",
+            "name": "userDto.ctime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb8a",
+            "name": "userDto.mtime",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb89",
+            "name": "userDto.walletDtoList[0].id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb88",
+            "name": "userDto.walletDtoList[0].type",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb87",
+            "name": "userDto.walletDtoList[0].address",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb86",
+            "name": "userDto.walletDtoList[0].uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb85",
+            "name": "userDto.walletDtoList[0].chain",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb84",
+            "name": "userDto.walletDtoList[0].suid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb83",
+            "name": "userDto.tokenArr[0]",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb82",
+            "name": "userDto.lang",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb81",
+            "name": "userDto.googleAuthenticatorStatus",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb80",
+            "name": "userDto.googleAuthenticatorKey",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb7f",
+            "name": "userDto.withdrawFreezeType",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb7e",
+            "name": "userDto.withdrawFreezeTime",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb7d",
+            "name": "userDto.email",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb7c",
+            "name": "userDto.loginPword",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb7b",
+            "name": "token",
+            "value": "",
+            "desc": "当前token"
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb7a",
+            "name": "cookieMaxAge",
+            "value": "0",
+            "desc": "cookie 剩余秒数"
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb79",
+            "name": "tokenArr[0]",
+            "value": "",
+            "desc": "用户所有token"
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb78",
+            "name": "userWallet.key[0].id",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb77",
+            "name": "userWallet.key[0].type",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb76",
+            "name": "userWallet.key[0].address",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb75",
+            "name": "userWallet.key[0].uid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb74",
+            "name": "userWallet.key[0].chain",
+            "value": "",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb73",
+            "name": "userWallet.key[0].suid",
+            "value": "0",
+            "desc": ""
+          },
+          {
+            "required": "0",
+            "_id": "692961dc7e7cd305a351fb72",
+            "name": "sourceType",
+            "value": "",
+            "desc": "PC :0.0"
+          }
+        ],
+        "desc": "<p></p>",
+        "project_id": 241,
+        "req_params": [],
+        "uid": 544,
+        "add_time": 1764319708,
+        "up_time": 1764319708,
+        "req_body_form": [],
+        "__v": 0
+      }
+    ]
+  }
+]
