@@ -63,6 +63,19 @@ Infer from these categories first:
 - **滚动止盈**: repeated in/out on the same ticker or theme
 - **留活口**: strong names keep a runner after initial de-risk
 
+## Batch analysis mode
+
+When the user provides multiple addresses (10+) for screening:
+
+1. Use `scripts/batch_wallet_analysis_moralis.py` as the execution engine.
+2. Follow the full screening protocol in `references/batch-screening-protocol.md`.
+3. Score each address on the three early-entry / high-winrate dimensions.
+4. Output two files: a human-readable `.txt` and a machine-readable `.json` watchlist.
+5. Send both files to the user. Inline chat should be a brief summary only.
+
+Key API: Moralis BSC ERC20 transfers — env var `MORALIS_KEY` required.
+Key script: `/home/fan/.openclaw/workspace/scripts/batch_wallet_analysis_moralis.py`
+
 ## Output rule
 
 Do not dump raw tx spam. Output only what changes future execution:

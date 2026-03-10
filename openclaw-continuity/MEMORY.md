@@ -23,5 +23,12 @@
 - 用户还要求对 BSC 土狗地址做“打法画像”分析；后续分析地址时，要先剔除秒进秒出样本，再用当前持仓残值 + token 转账轨迹联合判断哪些票是真活口，并归类为首板 / 二波 / 接飞刀风格。
 - 用户进一步要求对地址做“过往盈利还原”；后续要把地址分析拆成三层：秒狙噪音层、滚动已实现利润层、活口未实现利润层，并优先识别真正贡献收益的票，而不是只统计买过什么。
 - 用户要求把“止损方案 / 止盈方案”并入地址分析；后续地址分析默认输出止损逻辑（仓位止损 / 时间止损 / 相对强弱止损）与止盈逻辑（首波先吃 / 滚动止盈 / 留活口）。
-- 用户要求把地址分析压成固定模板，并独立升级成一个可持续迭代的 skill；现已创建 `wallet-playbook-analysis`，用于后续标准化分析土狗/地址打法。
-- 用户要求以后地址分析默认直接发 `.txt` 文件给他，而不是只存在本地或只回聊天正文；该交付规则已并入 `wallet-playbook-analysis`。
+- 新增 skill `meme-contract-forensics`：给定 BSC meme 合约，识别庄家（分发/拉升/洗盘）、获利最多地址、真正高手；脚本=`skills/meme-contract-forensics/scripts/contract_forensics.py`；数据源=Moralis合约级transfers + token holders；输出txt报告+高手json名单。
+- 三类地址识别逻辑：庄家看deployer关联+分发行为+买卖循环；高手看早期入场+高出局率+持仓纪律；获利榜按卖出量估算排序，排除LP/DEX地址。
+- 典型工作流：contract-forensics筛出高手名单 → wallet-playbook-analysis深挖单地址打法 → batch-screening-protocol批量评级跟踪。
+
+
+- 批量地址筛选评分维度：早期入场（均持仓<3h，+2）+ 高出局率（≥25%，+2）+ 反复加仓（≥2票买3次+，+1）。S级=5分直接跟踪，A级=3-4分二次确认，出局率=0%且活口>50个排除（囤token模式）。
+- `lobster-evolution` 已加入"批量地址筛选进化规则"：当用户调整评级标准时，同步更新 `batch-screening-protocol.md` 和脚本。
+
+

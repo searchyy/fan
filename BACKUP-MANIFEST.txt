@@ -1,4 +1,4 @@
-Generated: 2026-03-10 06:17:01 CST
+Generated: 2026-03-10 12:17:02 CST
 Workspace: /home/fan/.openclaw/workspace
 Stage: /home/fan/.openclaw/continuity-backup-repo/openclaw-continuity
 Included from: /home/fan/.openclaw/workspace/backup/continuity-include.txt
@@ -49,6 +49,8 @@ skills/lobster-evolution/references/meme-analysis-template.md
 skills/lobster-evolution/references/project-analysis-protocol.md
 skills/lobster-evolution/references/scan-targets.md
 skills/lobster-evolution/scripts/record_evolution.py
+skills/meme-contract-forensics/SKILL.md
+skills/meme-contract-forensics/scripts/contract_forensics.py
 skills/meme-rush/SKILL.md
 skills/memory-decay/SKILL.md
 skills/onchain-forensics/SKILL.md
@@ -94,4 +96,5 @@ skills/trading-signal/SKILL.md
 skills/wallet-playbook-analysis/SKILL.md
 skills/wallet-playbook-analysis/references/address-analysis-template.md
 skills/wallet-playbook-analysis/references/address-playbook-protocol.md
+skills/wallet-playbook-analysis/references/batch-screening-protocol.md
 skills/weather/SKILL.md

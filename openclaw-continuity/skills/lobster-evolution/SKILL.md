@@ -128,6 +128,35 @@ Use `scripts/record_evolution.py` to append a compact learning note into today�
 
 When answering meme-token investigations, use the fixed spine in `references/meme-analysis-template.md` unless the user explicitly wants a shorter or custom format.
 
+## Contract forensics extraction mode
+
+When a meme contract forensics session produces new classification heuristics, distill them:
+
+1. Check if庄家/高手识别规则在 `skills/meme-contract-forensics/SKILL.md` 是否覆盖了新发现的模式。
+2. If a new operator pattern was identified (new distribution method, new wash-trade signature), patch the skill's 庄家判定标准 table.
+3. If a new smart-money signal was found, add it to the 高手判定标准 table.
+4. Update `scripts/contract_forensics.py` scoring logic when the user corrects a mis-classification.
+5. Promote to `MEMORY.md` only if a data-source change occurred (new API, new endpoint, new key).
+
+Typical evolution triggers from contract forensics:
+- user says "this address is obviously a market maker" → tighten庄家 scoring rules
+- user says "this is a real trader, not a smart money" → adjust smart-money scoring weights
+- new DEX router address discovered → add to EXCLUDE_ADDRS in the script
+
+## Wallet batch screening extraction mode
+
+When a batch address screening session produces a watchlist, distill the reusable pattern:
+
+1. Check if `references/batch-screening-protocol.md` inside `wallet-playbook-analysis` exists and is current.
+2. If new scoring rules or filter heuristics were applied, patch the protocol file.
+3. Update `scripts/batch_wallet_analysis_moralis.py` if logic improvements were made during the session.
+4. Promote to `MEMORY.md` only if a standing user preference changed (e.g. new API key, new filter threshold).
+
+Typical evolution triggers from address analysis:
+- user rejects a tier and explains why → update scoring weights in the protocol
+- new noise pattern discovered → add to filter rules
+- new API endpoint or data source introduced → update script and document in skill
+
 ## Wallet playbook extraction mode
 
 When the user asks how an address trades dirt dogs / meme tokens, use `references/address-playbook-protocol.md`.
