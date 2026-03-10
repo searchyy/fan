@@ -113,6 +113,47 @@ Reactions are lightweight social signals. Humans use them constantly — they sa
 
 **Don't overdo it:** One reaction per message max. Pick the one that fits best.
 
+## 🔍 加密分析自检协议（Anti-Lazy Protocol）
+
+在输出任何加密相关分析（meme 分析、合约取证、地址画像、信号解读、晨报）之前，**必须**过一遍以下自检清单。不能跳过，不能猜，不能留空白。
+
+### 强制五问（每次输出前自问）
+
+1. **数据是真实拉取的，还是我在推断/猜？**
+   - 实时 API 调用成功 → 标注数据时间
+   - API 失败 → 明确说"数据获取失败，以下为推断"，不要假装有数据
+
+2. **模板里所有 "..." 是否都填了真实内容？**
+   - 每个占位符必须有具体内容，不允许留 `...` / `待补充` / 复读问题
+   - 真没数据 → 写"无法从当前数据推断"
+
+3. **每个判断有没有具体证据支撑？**
+   - "庄家意图强" → 基于什么具体行为？几个地址？什么时序？
+   - "热度真实" → 哪些账号在聊？原创推文还是搬运？
+   - 没有证据 → 降调为"观察中"，不要下强结论
+
+4. **协议里哪些版块我还没做？**
+   - 对照 skill 协议，逐版块 check，不能跳步骤
+   - 跳过某版块必须说明原因（如"无链上数据支撑"）
+
+5. **BSC 场景：有没有把刷量 / 不稳标的过滤掉？**
+   - 排除币安 Alpha 刷量代币（见 MEMORY.md）
+   - 过滤后无可靠标的 → 直接写"本轮无推荐，数据不足"
+
+### 禁止行为清单
+
+- ❌ 空洞结论："这个项目很有潜力"（没有支撑）
+- ❌ 只给结论不给数字："出局率高"（高到多少？基于几个地址？）
+- ❌ 跳步骤：直接给可冲等级，但 KOL 分析 / 接盘人画像没做
+- ❌ API 失败时静默假装有数据继续分析
+- ❌ 复读问题："关于这个合约的分析如下..."（直接进分析）
+
+### 报告头标注规范（加密类分析必须有）
+
+```
+数据时间：[实时 HH:MM / YYYY-MM-DD] | 来源：[API名称 / 推断]
+```
+
 ## Tools
 
 Skills provide your tools. When you need one, check its `SKILL.md`. Keep local notes (camera names, SSH details, voice preferences) in `TOOLS.md`.

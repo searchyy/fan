@@ -346,3 +346,76 @@ curl 'https://web3.binance.com/bapi/defi/v1/public/wallet-direct/buw/wallet/mark
 2. Percentage fields (progress, holder %, dev sell %, tax rate) are pre-formatted — append `%` directly
 3. `taxRate` for protocol=2001 (Four.meme) only shows on Migrated list; for protocol=2002 (Flap) shows on all lists
 4. Icon URLs require prefix: `https://bin.bnbstatic.com` + path
+
+---
+
+## 过滤规则（必须执行）
+
+### 强制排除（直接丢弃，不展示）
+- `tagDevWashTrading = 1` — dev 洗盘，直接排除
+- `exclusive = 1` — 币安 Alpha 独家代币（可能刷量），排除或单独标注"Alpha专区，稳定性未知"
+- `tagInsiderWashTrading = 1` — 内部人洗盘，排除
+- holders < 20 — 持有人太少，非正常盘
+
+### 风险高亮（展示但必须标红/⚠️）
+- `launchTaxEnable = 1` → ⚠️ 有launch税（显示税率）
+- `tagCmcBoost = 1` → ⚠️ CMC付费推广（可能是营销盘）
+- `paidOnDexScreener = 1` → ⚠️ DexScreener付费（注意区分真实热度）
+- `holdersTop10Percent > 80` → ⚠️ 筹码高度集中
+- `holdersSniperPercent > 20` → ⚠️ 狙击手占比偏高
+- `bundlerHoldingPercent > 15` → ⚠️ bundler占比偏高
+
+### 参考过滤预设（两档）
+
+**稳健扫描**（BSC，迁移后，适合老板日常扫）：
+```json
+{
+  "chainId": "56", "rankType": 30, "limit": 30,
+  "holdersMin": 100,
+  "liquidityMin": "5000",
+  "volumeMin": "10000",
+  "excludeDevWashTrading": 1,
+  "excludeInsiderWashTrading": 1,
+  "holdersTop10PercentMax": "80",
+  "devPosition": 2
+}
+```
+
+**激进扫描**（BSC，新盘，捕捉早期机会）：
+```json
+{
+  "chainId": "56", "rankType": 10, "limit": 50,
+  "holdersMin": 30,
+  "progressMin": "60",
+  "excludeDevWashTrading": 1
+}
+```
+
+---
+
+## 输出格式规范
+
+不要 dump 原始 JSON。每个代币按以下格式输出：
+
+```
+{序号}. {symbol} | {name}
+   MC: ${marketCap} | 流动性: ${liquidity} | 24h量: ${volume}
+   持有者: {holders} | 进度: {progress}% | 创建: {age}
+   Top10: {holdersTop10Percent}% | Dev卖出: {devSellPercent}%
+   ⚠️ 风险: [列出所有风险标记]
+   链接: CA={contractAddress}
+```
+
+最后附一句话总结该轮扫描质量（如："本轮BSC新盘12个，3个有洗盘标记已排除，推荐关注 XXX / YYY"）。
+
+如果过滤后没有可靠标的，直接说："本轮过滤后无推荐标的"，不要强行推荐垃圾盘。
+
+---
+
+## 与其他 Skill 的联动
+
+发现值得关注的标的后：
+1. → `query-token-info` 拿实时价格 / K线 / 持有人分布
+2. → `meme-contract-forensics` 做合约取证（谁是庄家）
+3. → `alphai-twitter` 查该 token 的社媒讨论热度
+4. → `lobster-evolution` 提炼本轮扫描规律

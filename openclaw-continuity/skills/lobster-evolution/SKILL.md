@@ -113,6 +113,37 @@ Prefer one of these outputs each time a real learning appears:
 - one workflow note
 - one cleanup/refactor that removes future friction
 
+## 标准加密分析工作流（跨 skill 链路）
+
+**发现标的 → 决策** 完整链路，按需选择深度：
+
+```
+[入口层] 发现标的
+  meme-rush        → BSC/Solana 新盘扫描（附过滤规则）
+  trading-signal   → 聪明钱买入信号（附信号质量评分框架）
+  alphai-twitter   → KOL 推文（过质量过滤层后）
+
+[数据层] 拿实时数据
+  query-token-info → 价格 / K线 / 持有人分布 / 社交链接
+
+[分析层] 深度研究
+  meme-contract-forensics  → 合约取证（庄家/获利/聪明钱识别）
+  wallet-playbook-analysis → 单地址打法画像（止损/止盈/风格）
+  onchain-forensics         → 深度资金流还原（跑路/洗钱场景）
+
+[决策层] 输出结论
+  lobster-evolution/meme-analysis-template → 标准 meme 分析报告
+  可冲等级：只适合观察 / 可看 / 可小仓 / 可追
+
+[沉淀层] 规律提炼
+  lobster-evolution → 更新 MEMORY.md / 修 skill / 沉淀打法
+```
+
+深度选择：
+- 快速扫盘 → 入口层 + 数据层（2步）
+- 正式参与前 → 入口层 + 数据层 + 分析层（4-5步）
+- 追责/复盘 → 完整 onchain-forensics 全链路
+
 ## Guardrails
 
 - Do not modify core OpenClaw config unless the user explicitly asks.
