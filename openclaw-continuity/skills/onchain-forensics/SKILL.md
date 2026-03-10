@@ -191,17 +191,28 @@ POST https://solana-rpc.publicnode.com
 # 地址信息（含 creator、余额、是否合约）
 https://{chain}.blockscout.com/api/v2/addresses/{addr}
 
-# 交易列表（注意：不支持 limit 参数）
+# 交易列表（⚠️ 不支持 limit 参数，默认50条，用 next_page_params 分页）
 https://{chain}.blockscout.com/api/v2/addresses/{addr}/transactions
+# 分页：响应里有 next_page_params，带入下次请求；null 表示最后一页
+# 示例：?block_number=xxx&index=yyy&items_count=50
 
-# Internal 交易
+# Internal 交易（同样用 next_page_params 分页）
 https://{chain}.blockscout.com/api/v2/addresses/{addr}/internal-transactions
 
-# Token 转账
+# Token 转账（同样用 next_page_params 分页）
 https://{chain}.blockscout.com/api/v2/addresses/{addr}/token-transfers
 ```
 
 Chain 域名: base.blockscout.com / eth.blockscout.com / bsc.blockscout.com / arbitrum.blockscout.com / optimism.blockscout.com
+
+**分页策略：** 取证时拉最近 3-5 页（150-250条）覆盖关键事件即可。完整历史追踪循环到 `next_page_params = null`。
+
+### Solana RPC 限流降级
+
+publicnode.com 免费节点 QPS 约 10 req/s。遇限时：
+1. 每次请求 sleep 200ms
+2. 备用：`https://api.mainnet-beta.solana.com`（官方，同限）
+3. 签名列表太长 → 只取最近 20 条精细分析，不必追全量历史
 
 ### Etherscan V1 API（已废弃）
 

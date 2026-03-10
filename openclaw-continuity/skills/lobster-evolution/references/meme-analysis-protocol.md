@@ -115,7 +115,7 @@ Do not claim manipulation without evidence; frame as intent/risk indicators.
 Separate:
 - original discussion
 - KOL amplification
-n- media summaries / alert bots / terminal screenshots
+- media summaries / alert bots / terminal screenshots
 - bot or low-signal reposts
 
 The meme is stronger when original discussion rises faster than relay content.
@@ -177,6 +177,18 @@ For meme tokens, prefer this output order:
 11. go-grade
 
 Use the fixed answer skeleton in `meme-analysis-template.md` by default.
+
+## 输出前自检（必须，不能跳过）
+
+完成各版块分析后，输出前过一遍：
+
+1. **10个版块有没有全做？** 缺哪个说为什么跳过
+2. **每个版块有没有具体证据？** 不能只有定性结论
+3. **KOL 定调版块** — 有没有点名具体账号和具体推文？
+4. **接盘人画像** — 有没有说清楚是哪类人？什么价格激活他们？
+5. **叙事破条件** — 有没有具体量化？（不是"可能破"，而是"当X发生时破"）
+6. **可冲等级** — 是否和前面的分析自洽？（不能前面说叙事弱，后面给"可追"）
+7. **数据来源** — 用的是实时数据还是推断？标注清楚
 
 ## Compression rule
 

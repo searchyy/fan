@@ -26,9 +26,17 @@
 - 新增 skill `meme-contract-forensics`：给定 BSC meme 合约，识别庄家（分发/拉升/洗盘）、获利最多地址、真正高手；脚本=`skills/meme-contract-forensics/scripts/contract_forensics.py`；数据源=Moralis合约级transfers + token holders；输出txt报告+高手json名单。
 - 三类地址识别逻辑：庄家看deployer关联+分发行为+买卖循环；高手看早期入场+高出局率+持仓纪律；获利榜按卖出量估算排序，排除LP/DEX地址。
 - 典型工作流：contract-forensics筛出高手名单 → wallet-playbook-analysis深挖单地址打法 → batch-screening-protocol批量评级跟踪。
-
+- 标准全链路分析流程：meme-rush/alphai-twitter 发现标的 → query-token-info 拿实时数据 → meme-contract-forensics 合约取证 → wallet-playbook-analysis 深挖聪明钱 → lobster-evolution 提炼规律。
+- trading-signal 信号质量三要素：smartMoneyCount ≥ 3 且 exitRate < 60% 且 status = active，三条全满足才算可参考；任一不满足降为"仅观察"。
 
 - 批量地址筛选评分维度：早期入场（均持仓<3h，+2）+ 高出局率（≥25%，+2）+ 反复加仓（≥2票买3次+，+1）。S级=5分直接跟踪，A级=3-4分二次确认，出局率=0%且活口>50个排除（囤token模式）。
 - `lobster-evolution` 已加入"批量地址筛选进化规则"：当用户调整评级标准时，同步更新 `batch-screening-protocol.md` 和脚本。
+
+## 执行纪律（防偷懒）
+- 每次加密分析必须过 AGENTS.md 五问自检，不能跳过。
+- 没有实时数据禁止伪造推断结论，必须明确说"数据不足"。
+- 链上分析优先用 Moralis API 或 Blockscout（免费无 key），不用 Etherscan V1。
+- 发现新 DEX 路由地址 → 立刻更新 contract_forensics.py 的 EXCLUDE_ADDRS 并记录此处。
+- meme-rush 输出前必须过滤：devWashTrading=1 的标为风险、launchTaxEnable=1 的高亮税率风险。
 
 

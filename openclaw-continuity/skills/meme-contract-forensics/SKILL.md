@@ -13,8 +13,8 @@ description: 给定一个 BSC meme 合约地址，从链上数据反向识别三
 
 ## 数据源
 - **Moralis API**（主力）：ERC20 transfers、token holders、wallet history
-- **BSCScan/Etherscan V2 API**（辅助）：合约创建、部署者、初始流动性
-- Key 存储：`.env` 文件中 `MORALIS_KEY`
+- **BSCScan V2 API**（辅助）：合约创建者（deployer）识别
+- Key 存储：`.env` 文件中 `MORALIS_KEY`（必须）、`BSCSCAN_KEY`（deployer识别必须，否则跳过）
 
 ## 分析流程（五步法）
 
@@ -32,41 +32,46 @@ description: 给定一个 BSC meme 合约地址，从链上数据反向识别三
 
 ### Step 3：庄家识别（三类特征）
 
+> **重要前提**：token transfer ≠ 真实买卖。必须区分以下两类：
+> - **DEX swap**：from 或 to 为已知 DEX 路由/LP地址 → 真实买入/卖出
+> - **内部分发**：from/to 均为普通地址 → 庄家分发信号（不算买卖，不计入利润排行）
+> 脚本的 `parse_transfers()` 已实现此区分，分析结论基于区分后的数据。
+
 #### A. 分发型庄家
-- 特征：从 deployer 或初始大仓单向转出到多个新地址
-- 识别：deployer 发出 token 给 5+ 个地址，这些地址后来在高点卖出
-- 关键信号：转出时机早于公开交易，接收方后来出现在高点卖出记录
+- 特征：通过内部 token transfer（非 DEX）从 deployer 向 5+ 个地址分发
+- 识别信号：deployer 的 `internal_transfers` 中发出到 ≥5 个不同地址
+- 接收者标记为 `distributing_receivers`（内盘知情），从高手候选中剔除
 
 #### B. 拉升型庄家
-- 特征：反复买入拉升价格，然后在高点砸出
-- 识别：同一地址出现多次大额买入 → 价格拉升 → 大额卖出的循环
-- 关键信号：买卖之间有明显价格差，且时序上买在低点卖在高点
+- 特征：通过 DEX 反复大额买入 → 价格拉升 → 高点砸出
+- 识别信号：DEX buys ≥5 次且 DEX sells ≥5 次，且出局率 >80%
+- 关键信号：买卖时序（价格数据需另行获取，脚本只做次数和出局率判断）
 
 #### C. 洗盘型庄家
-- 特征：在自己控制的地址之间反复转移，制造交易量假象
-- 识别：A→B→A 的资金循环，或多地址之间快速轮转
-- 关键信号：转账目标地址都是新钱包，且转账金额精确相等
+- 特征：在自己控制的地址之间反复 internal transfer，制造交易量假象
+- 识别：`detect_wash_trading()` 检测 A→addr→A 的资金循环（金额容差20%）
+- 关键信号：循环对数量 ≥1 且金额近似相等
 
 ### Step 4：获利排行榜
 对每个地址计算：
-- 总买入量（IN）
-- 总卖出量（OUT）
-- 实现利润估算：OUT时价格 × OUT量 - IN时价格 × IN量
-- 出局率：已卖出占买入比例
-- 持仓时间：首买到最后一笔卖出
+- 总 DEX 买入量（token数量）
+- 总 DEX 卖出量（token数量）
+- **注意**：当前版本按 token 卖出量排序，不含精确价格。真实利润 = 卖出量 × 卖出均价 - 买入量 × 买入均价，需通过 DEX 价格 API 另行获取（TODO）
+- 出局率：DEX 卖出量 / DEX 买入量
+- 持仓时间：首次 DEX 买入到最后一次 DEX 卖出
 
-排行榜前10，标注：
-- 是否庄家关联地址
-- 是否内盘早期参与
-- 是否可跟踪（可复现的打法）
+排行榜前15，标注：
+- 是否庄家关联地址（标🔴🟠）
+- 是否 deployer 分发接收者（内盘知情）
+- 出局率 / 持仓时长
 
 ### Step 5：真正高手识别
 筛选条件（同时满足）：
-- 不是 deployer 关联地址（排除庄家知情者）
-- 出局率 ≥ 50%（实际落袋）
-- 买入时机：属于前20%的早期买入者
-- 资金体量：中小仓（不是大资金砸场子）
-- 有复现性：该地址在其他 token 上也有类似早期操作
+- 不是 deployer 关联地址，且不在 `distributing_receivers`（排除内盘知情者）
+- 出局率 ≥ 50%（实际 DEX 卖出落袋）
+- 买入时机：属于 DEX 首次买入前20%的早期参与者（基于 DEX swap，非分发 transfer）
+- 资金体量：中小仓（非大资金）
+- **复现性（TODO）**：理想情况应查询该地址在其他 token 上的早期操作记录，当前版本未实现，需调用 `wallet-playbook-analysis` 进一步核实
 
 ## 庄家判定标准
 
@@ -127,8 +132,13 @@ description: 给定一个 BSC meme 合约地址，从链上数据反向识别三
 ```
 
 ## 执行脚本
-`scripts/contract_forensics.py` — 主分析脚本
-`scripts/contract_profit_rank.py` — 利润排行专项脚本
+`scripts/contract_forensics.py` — 主分析脚本（已实现五步法 + 洗盘检测 + 集中度）
+`scripts/contract_profit_rank.py` — 利润排行专项脚本（TODO：接入价格 API 实现真实利润计算）
+
+## 已知局限（TODO）
+1. **价格数据缺失**：利润排行仅凭 token 数量，不含价格。如需真实盈亏需接入 DexScreener/GeckoTerminal 价格历史 API
+2. **复现性未实现**：高手识别中的"多票复现"维度需调用 wallet-playbook-analysis 批量分析确认
+3. **LP 动态地址**：Uniswap/PancakeSwap LP 合约地址是每个 token pair 独有的，当前 DEX_ADDRS 无法覆盖，未识别的 LP 地址的转账会被误判为内部分发
 
 ## 与 wallet-playbook-analysis 的关系
 - 本 skill 从合约维度切入，批量识别地址分类

@@ -68,5 +68,8 @@ Use this as the body of the `.txt` report by default.
 - ...
 
 【最终标签】
-- ...
+- 跟踪等级：S级 / A级 / 排除（与 batch-screening-protocol 分级对齐）
+- 风格标签：首板型 / 二波型 / 接飞刀型 / 混合型
+- 一句话特征：...
+- 是否值得深跟：是 / 仅交叉验证 / 否
 ```

@@ -42,11 +42,15 @@ Always separate behavior into:
 
 Only the last two explain durable performance.
 
+## Noise filter threshold
+Exclude transactions where buy-to-sell gap < **120 seconds** (consistent with batch protocol).
+Also exclude: `possible_spam=true`, dust-only IN with no OUT, approval-only noise.
+
 ## Delivery rule
 Default delivery for address analysis is a `.txt` report.
 
-- Write the report to `/home/fan/.openclaw/workspace/reports/`
-- Use a deterministic filename when possible, e.g. `wallet-<address>.txt` or `wallet-<address>-profit.txt`
+- Write the report to `skills/wallet-playbook-analysis/reports/`
+- Use a deterministic filename: `wallet-<addr8>.txt` or `wallet-<addr8>-profit.txt`
 - Send the txt file to the user, not just store it locally
 - Inline chat text can stay as a short summary or status note
 
