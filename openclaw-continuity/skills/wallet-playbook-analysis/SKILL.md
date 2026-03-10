@@ -31,9 +31,10 @@ Treat the goal as **playbook extraction**, not transaction listing.
 ## Heuristics
 
 ### Exclude from conviction analysis
-- round trips within seconds
+- round trips within **120 seconds** (seconds-level scalp noise threshold — consistent with batch protocol)
 - exits within a few minutes with no residual position
-- tiny batch-transfer / airdrop dust
+- `possible_spam=true` from Moralis — discard directly
+- tiny batch-transfer / airdrop dust (only IN, no OUT, total < 0.001)
 - approval-only routing noise
 
 ### Higher-conviction clues
@@ -46,8 +47,12 @@ Treat the goal as **playbook extraction**, not transaction listing.
 ## Style labels
 
 - **首板型**: enters early, many small probes, launchpad-heavy, narrative-first
+  - Signals: first DEX buy within top-20% of token's trade history; multiple launchpad-origin tokens
 - **二波型**: waits for proof, adds after initial narrative acceptance, fewer names, larger sizing
+  - Signals: first buy timestamp is 30min–6h after token's first trade; fewer tokens but larger per-position size
 - **接飞刀型**: buys after visible damage, likes retrace entries into prior hot names
+  - Signals (no price data available via Moralis): infer from **time gap** — first buy is >6h after token's first trade, combined with the token already having high holder count; OR the wallet buys tokens that appear in other wallets' loss records
+  - **Limitation**: precise "visible damage" detection requires price history (DexScreener API). Without it, use time-gap + holder-count heuristic as proxy.
 
 ## Exit inference
 
@@ -68,13 +73,16 @@ Infer from these categories first:
 When the user provides multiple addresses (10+) for screening:
 
 1. Use `scripts/batch_wallet_analysis_moralis.py` as the execution engine.
+   - **Note**: this script lives at `skills/wallet-playbook-analysis/scripts/batch_wallet_analysis_moralis.py`. If the file is missing, write it before running — see `references/batch-screening-protocol.md` for the full spec.
 2. Follow the full screening protocol in `references/batch-screening-protocol.md`.
 3. Score each address on the three early-entry / high-winrate dimensions.
+   - Apply noise filter (120s threshold, possible_spam, dust) **before** counting multi-buy signals.
 4. Output two files: a human-readable `.txt` and a machine-readable `.json` watchlist.
 5. Send both files to the user. Inline chat should be a brief summary only.
 
 Key API: Moralis BSC ERC20 transfers — env var `MORALIS_KEY` required.
-Key script: `/home/fan/.openclaw/workspace/scripts/batch_wallet_analysis_moralis.py`
+Key script: `skills/wallet-playbook-analysis/scripts/batch_wallet_analysis_moralis.py`
+Report dir: `skills/wallet-playbook-analysis/reports/` (create if missing)
 
 ## Output rule
 
