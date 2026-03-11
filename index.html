@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>合约地址分析仪</title>
+  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+  <style>
+    :root {
+      --bg: #0d0f17;
+      --bg2: #141723;
+      --bg3: #1c2133;
+      --border: #2a3050;
+      --text: #e8ecf4;
+      --muted: #7a85a3;
+      --accent: #4f8ef7;
+      --accent2: #a855f7;
+      --green: #22c55e;
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --orange: #f97316;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #0d0f17 0%, #141723 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header-logo {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .header-title { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+    .header-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+    /* ── Main layout ── */
+    .main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+
+    /* ── Search bar ── */
+    .search-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 28px;
+    }
+    .search-label { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+    .search-row {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .chain-select {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      min-width: 130px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .chain-select:focus { border-color: var(--accent); }
+    .address-input {
+      flex: 1;
+      min-width: 280px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .address-input::placeholder { color: var(--muted); }
+    .address-input:focus { border-color: var(--accent); }
+    .search-btn {
+      background: linear-gradient(135deg, var(--accent), #3b6fd4);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      transition: opacity 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .search-btn:hover { opacity: 0.9; }
+    .search-btn:active { transform: scale(0.98); }
+    .search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .search-btn .spinner {
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .search-btn.loading .spinner { display: block; }
+    .search-btn.loading .btn-text { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Token overview ── */
+    .token-header {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .token-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .token-icon img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+    .token-info { flex: 1; min-width: 200px; }
+    .token-name { font-size: 24px; font-weight: 700; }
+    .token-symbol { font-size: 14px; color: var(--muted); margin-top: 2px; }
+    .token-chain-badge {
+      display: inline-block;
+      background: rgba(79,142,247,0.15);
+      color: var(--accent);
+      border: 1px solid rgba(79,142,247,0.3);
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .token-address {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: monospace;
+      margin-top: 6px;
+      word-break: break-all;
+    }
+    .token-price-block { text-align: right; min-width: 160px; }
+    .token-price { font-size: 32px; font-weight: 700; }
+    .token-change {
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .token-change.up { color: var(--green); }
+    .token-change.down { color: var(--red); }
+    .token-social-links { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+    .social-link {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .social-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── Grid ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+    @media (max-width: 900px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
+    }
+    .stat-value { font-size: 22px; font-weight: 700; }
+    .stat-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    /* ── Metric rows ── */
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .metric-row:last-child { border-bottom: none; }
+    .metric-label { font-size: 13px; color: var(--muted); }
+    .metric-value { font-size: 13px; font-weight: 600; }
+
+    /* ── Chart ── */
+    .chart-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .chart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .chart-title { font-size: 14px; font-weight: 600; }
+    .interval-btns { display: flex; gap: 6px; }
+    .interval-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .interval-btn.active, .interval-btn:hover {
+      background: rgba(79,142,247,0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    #kline-chart { width: 100%; height: 360px; }
+
+    /* ── Security ── */
+    .risk-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .risk-low { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+    .risk-medium { background: rgba(245,158,11,0.15); color: var(--yellow); border: 1px solid rgba(245,158,11,0.3); }
+    .risk-high { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+    .risk-unknown { background: rgba(122,133,163,0.15); color: var(--muted); border: 1px solid var(--border); }
+    .risk-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .risk-item:last-child { border-bottom: none; }
+    .risk-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .risk-dot.hit { background: var(--red); }
+    .risk-dot.ok { background: var(--green); }
+    .risk-dot.caution { background: var(--yellow); }
+    .risk-item-text { flex: 1; }
+    .risk-item-title { font-size: 13px; font-weight: 600; }
+    .risk-item-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── Tax bars ── */
+    .tax-row { margin-bottom: 14px; }
+    .tax-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; }
+    .tax-bar { background: var(--bg3); border-radius: 4px; height: 6px; overflow: hidden; }
+    .tax-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+    .tax-fill.ok { background: var(--green); }
+    .tax-fill.warn { background: var(--yellow); }
+    .tax-fill.danger { background: var(--red); }
+
+    /* ── Holder bar ── */
+    .holder-bar { margin-top: 16px; }
+    .holder-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .holder-label { font-size: 12px; color: var(--muted); width: 80px; flex-shrink: 0; }
+    .holder-track { flex: 1; background: var(--bg3); border-radius: 4px; height: 8px; }
+    .holder-fill { height: 8px; border-radius: 4px; }
+    .holder-val { font-size: 12px; font-weight: 600; width: 50px; text-align: right; }
+
+    /* ── Volume breakdown ── */
+    .vol-bar { margin-top: 12px; }
+    .vol-track { background: var(--bg3); border-radius: 6px; height: 12px; overflow: hidden; display: flex; }
+    .vol-buy { background: var(--green); height: 100%; border-radius: 6px 0 0 6px; transition: width 0.6s; }
+    .vol-sell { background: var(--red); height: 100%; border-radius: 0 6px 6px 0; transition: width 0.6s; }
+    .vol-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; }
+    .vol-buy-label { color: var(--green); }
+    .vol-sell-label { color: var(--red); }
+
+    /* ── Empty / error ── */
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+    }
+    .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-text { font-size: 15px; }
+    .error-msg {
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: #fca5a5;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Disclaimer ── */
+    .disclaimer {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    /* ── Section header ── */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    /* ── Transitions ── */
+    .fade-in { animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-logo">🔍</div>
+  <div>
+    <div class="header-title">合约地址分析仪</div>
+    <div class="header-sub">Token Security · Market Data · K-Line Chart</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Search -->
+  <div class="search-card">
+    <div class="search-label">输入合约地址，选择链，一键分析</div>
+    <div class="search-row">
+      <select class="chain-select" id="chain-select">
+        <option value="56|bsc">BSC (BEP-20)</option>
+        <option value="8453|base">Base</option>
+        <option value="1|eth">Ethereum</option>
+        <option value="CT_501|solana">Solana</option>
+      </select>
+      <input
+        class="address-input"
+        id="address-input"
+        type="text"
+        placeholder="0x... 或 Solana 地址"
+        spellcheck="false"
+        autocomplete="off"
+      />
+      <button class="search-btn" id="search-btn" onclick="analyze()">
+        <div class="spinner"></div>
+        <span class="btn-text">🔍 分析</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results"></div>
+
+  <div class="disclaimer">
+    ⚠️ 本工具仅供参考，不构成投资建议。数据来源于 Binance Web3 公开 API。请自行做好研究（DYOR）。
+  </div>
+</div>
+
+<script>
+// ─── Utilities ────────────────────────────────────────────────────────────────
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random() * 16 | 0;
+    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+  });
+}
+
+function fmt(num, decimals = 2) {
+  const n = parseFloat(num);
+  if (isNaN(n)) return '—';
+  if (Math.abs(n) >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+  if (Math.abs(n) >= 1e6) return '$' + (n / 1e6).toFixed(2) + 'M';
+  if (Math.abs(n) >= 1e3) return '$' + (n / 1e3).toFixed(2) + 'K';
+  return '$' + n.toFixed(decimals);
+}
+
+function fmtNum(num) {
+  const n = parseFloat(num);
+  if (isNaN(n)) return '—';
+  if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+  if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(2) + 'K';
+  return n.toFixed(2);
+}
+
+function fmtPrice(p) {
+  const n = parseFloat(p);
+  if (isNaN(n)) return '—';
+  if (n < 0.0001) return '$' + n.toExponential(3);
+  if (n < 1) return '$' + n.toFixed(6);
+  if (n < 100) return '$' + n.toFixed(4);
+  return '$' + n.toFixed(2);
+}
+
+function fmtPct(p) {
+  const n = parseFloat(p);
+  if (isNaN(n)) return '—';
+  return (n >= 0 ? '+' : '') + n.toFixed(2) + '%';
+}
+
+function pctClass(p) {
+  const n = parseFloat(p);
+  return n >= 0 ? 'up' : 'down';
+}
+
+function shortAddr(addr) {
+  if (!addr) return '—';
+  if (addr.length <= 16) return addr;
+  return addr.slice(0, 8) + '...' + addr.slice(-6);
+}
+
+function timeSince(ts) {
+  if (!ts) return '—';
+  const diff = Date.now() - ts;
+  const d = Math.floor(diff / 86400000);
+  if (d > 0) return d + ' 天前';
+  const h = Math.floor(diff / 3600000);
+  if (h > 0) return h + ' 小时前';
+  return Math.floor(diff / 60000) + ' 分钟前';
+}
+
+// ─── API calls ────────────────────────────────────────────────────────────────
+
+const ICON_BASE = 'https://bin.bnbstatic.com';
+
+async function fetchMeta(chainId, ca) {
+  const r = await fetch(
+    `https://web3.binance.com/bapi/defi/v1/public/wallet-direct/buw/wallet/dex/market/token/meta/info?chainId=${chainId}&contractAddress=${ca}`,
+    { headers: { 'Accept-Encoding': 'identity' } }
+  );
+  const j = await r.json();
+  return j.success ? j.data : null;
+}
+
+async function fetchDynamic(chainId, ca) {
+  const r = await fetch(
+    `https://web3.binance.com/bapi/defi/v4/public/wallet-direct/buw/wallet/market/token/dynamic/info?chainId=${chainId}&contractAddress=${ca}`,
+    { headers: { 'Accept-Encoding': 'identity' } }
+  );
+  const j = await r.json();
+  return j.success ? j.data : null;
+}
+
+async function fetchAudit(chainId, ca) {
+  const r = await fetch(
+    'https://web3.binance.com/bapi/defi/v1/public/wallet-direct/security/token/audit',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept-Encoding': 'identity' },
+      body: JSON.stringify({ binanceChainId: chainId, contractAddress: ca, requestId: uuidv4() })
+    }
+  );
+  const j = await r.json();
+  return j.success ? j.data : null;
+}
+
+async function fetchKline(ca, platform, interval = '15min', limit = 200) {
+  const r = await fetch(
+    `https://dquery.sintral.io/u-kline/v1/k-line/candles?address=${ca}&platform=${platform}&interval=${interval}&limit=${limit}`,
+    { headers: { 'Accept-Encoding': 'identity' } }
+  );
+  const j = await r.json();
+  return j.data || null;
+}
+
+// ─── Kline chart ──────────────────────────────────────────────────────────────
+
+let chart = null;
+let candleSeries = null;
+let currentCA = '';
+let currentPlatform = '';
+let currentInterval = '15min';
+
+function initChart() {
+  const container = document.getElementById('kline-chart');
+  container.innerHTML = '';
+
+  chart = LightweightCharts.createChart(container, {
+    width: container.offsetWidth,
+    height: 360,
+    layout: {
+      background: { color: '#141723' },
+      textColor: '#7a85a3',
+    },
+    grid: {
+      vertLines: { color: '#1c2133' },
+      horzLines: { color: '#1c2133' },
+    },
+    crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+    rightPriceScale: { borderColor: '#2a3050' },
+    timeScale: { borderColor: '#2a3050', timeVisible: true, secondsVisible: false },
+  });
+
+  candleSeries = chart.addCandlestickSeries({
+    upColor: '#22c55e',
+    downColor: '#ef4444',
+    borderUpColor: '#22c55e',
+    borderDownColor: '#ef4444',
+    wickUpColor: '#22c55e',
+    wickDownColor: '#ef4444',
+  });
+
+  // Resize observer
+  const ro = new ResizeObserver(() => {
+    if (chart) chart.resize(container.offsetWidth, 360);
+  });
+  ro.observe(container);
+}
+
+async function loadKline(interval) {
+  if (!currentCA || !currentPlatform) return;
+  currentInterval = interval;
+  document.querySelectorAll('.interval-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.interval === interval);
+  });
+
+  try {
+    const candles = await fetchKline(currentCA, currentPlatform, interval, 300);
+    if (!candles || candles.length === 0) return;
+    const data = candles.map(c => ({
+      time: Math.floor(c[5] / 1000),
+      open: c[0], high: c[1], low: c[2], close: c[3]
+    })).sort((a, b) => a.time - b.time);
+    candleSeries.setData(data);
+    chart.timeScale().fitContent();
+  } catch (e) {
+    console.error('K-line fetch failed', e);
+  }
+}
+
+// ─── Main analyze ─────────────────────────────────────────────────────────────
+
+async function analyze() {
+  const ca = document.getElementById('address-input').value.trim();
+  const chainVal = document.getElementById('chain-select').value;
+  const [chainId, platform] = chainVal.split('|');
+
+  if (!ca) {
+    alert('请输入合约地址');
+    return;
+  }
+
+  const btn = document.getElementById('search-btn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  document.getElementById('results').innerHTML = '';
+
+  try {
+    // Parallel fetch
+    const [meta, dynamic, audit] = await Promise.allSettled([
+      fetchMeta(chainId, ca),
+      fetchDynamic(chainId, ca),
+      fetchAudit(chainId, ca),
+    ]);
+
+    const m = meta.value;
+    const d = dynamic.value;
+    const a = audit.value;
+
+    if (!m && !d) {
+      document.getElementById('results').innerHTML = `
+        <div class="error-msg">❌ 未找到该合约数据，请检查地址和链是否正确。</div>
+      `;
+      return;
+    }
+
+    currentCA = ca;
+    currentPlatform = platform;
+
+    document.getElementById('results').innerHTML = buildUI(m, d, a, ca, chainId, platform);
+
+    // Init chart
+    initChart();
+    await loadKline(currentInterval);
+
+  } catch (e) {
+    document.getElementById('results').innerHTML = `
+      <div class="error-msg">❌ 请求失败：${e.message}</div>
+    `;
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('loading');
+  }
+}
+
+// Enter key
+document.getElementById('address-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') analyze();
+});
+
+// ─── UI builder ───────────────────────────────────────────────────────────────
+
+function buildUI(m, d, a, ca, chainId, platform) {
+  const chainLabel = { '56': 'BSC', '8453': 'Base', '1': 'ETH', 'CT_501': 'Solana' }[chainId] || chainId;
+  const symbol = m?.symbol || d?.symbol || '?';
+  const name = m?.name || '未知代币';
+  const price = d?.price || '0';
+  const change24 = d?.percentChange24h || '0';
+
+  // Icon
+  let iconHtml = '';
+  if (m?.icon) {
+    const iconUrl = m.icon.startsWith('http') ? m.icon : ICON_BASE + m.icon;
+    iconHtml = `<img src="${iconUrl}" alt="${symbol}" onerror="this.parentNode.innerHTML='${symbol[0] || '?'}'" />`;
+  } else {
+    iconHtml = (symbol[0] || '?').toUpperCase();
+  }
+
+  // Social links
+  const links = m?.links || [];
+  const linkHtml = links.map(l =>
+    `<a class="social-link" href="${l.link}" target="_blank" rel="noopener">${labelIcon(l.label)} ${l.label}</a>`
+  ).join('');
+
+  return `<div class="fade-in">
+
+    <!-- Token header -->
+    <div class="token-header">
+      <div class="token-icon">${iconHtml}</div>
+      <div class="token-info">
+        <div class="token-name">${name}</div>
+        <div class="token-symbol">${symbol}</div>
+        <div class="token-chain-badge">${chainLabel}</div>
+        <div class="token-address" title="${ca}">${ca}</div>
+        ${linkHtml ? `<div class="token-social-links">${linkHtml}</div>` : ''}
+      </div>
+      <div class="token-price-block">
+        <div class="token-price">${fmtPrice(price)}</div>
+        <div class="token-change ${pctClass(change24)}">${fmtPct(change24)} (24h)</div>
+        ${buildMiniChanges(d)}
+      </div>
+    </div>
+
+    <!-- Key stats row -->
+    ${buildStatsGrid(d)}
+
+    <!-- Chart -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">价格走势图 (${symbol}/USD)</div>
+        <div class="interval-btns">
+          ${['1min','5min','15min','1h','4h','1d'].map(i =>
+            `<button class="interval-btn${i===currentInterval?' active':''}" data-interval="${i}" onclick="loadKline('${i}')">${i}</button>`
+          ).join('')}
+        </div>
+      </div>
+      <div id="kline-chart"></div>
+    </div>
+
+    <!-- Market + Holders grid -->
+    <div class="grid-2">
+      ${buildMarketCard(d)}
+      ${buildHolderCard(d)}
+    </div>
+
+    <!-- Volume + Security grid -->
+    <div class="grid-2">
+      ${buildVolumeCard(d)}
+      ${buildSecurityCard(a)}
+    </div>
+
+    <!-- Meta info -->
+    ${buildMetaCard(m, chainLabel, ca)}
+
+  </div>`;
+}
+
+function labelIcon(l) {
+  const map = { website: '🌐', x: '𝕏', tg: '📱', telegram: '📱', discord: '💬', github: '💻', whitepaper: '📄', medium: '📝' };
+  return map[l] || '🔗';
+}
+
+function buildMiniChanges(d) {
+  if (!d) return '';
+  const items = [
+    { label: '5m', val: d.percentChange5m },
+    { label: '1h', val: d.percentChange1h },
+    { label: '4h', val: d.percentChange4h },
+  ];
+  return `<div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+    ${items.map(i => `
+      <span style="font-size:12px;color:var(--muted)">
+        ${i.label}: <span style="color:${parseFloat(i.val)>=0?'var(--green)':'var(--red)'};">${fmtPct(i.val)}</span>
+      </span>`).join('')}
+  </div>`;
+}
+
+function buildStatsGrid(d) {
+  if (!d) return '';
+  const stats = [
+    { label: '市值', value: fmt(d.marketCap) },
+    { label: '流动性', value: fmt(d.liquidity) },
+    { label: '24h 成交量', value: fmt(d.volume24h) },
+    { label: '持币地址', value: fmtNum(d.holders) },
+  ];
+  return `<div class="grid-4" style="margin-bottom:20px;">
+    ${stats.map(s => `
+      <div class="card">
+        <div class="card-title">${s.label}</div>
+        <div class="stat-value">${s.value}</div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function buildMarketCard(d) {
+  if (!d) return `<div class="card"><div class="card-title">市场数据</div><div style="color:var(--muted);font-size:13px;">暂无数据</div></div>`;
+  const rows = [
+    { label: '当前价格', value: fmtPrice(d.price) },
+    { label: '24h 最高', value: fmtPrice(d.priceHigh24h) },
+    { label: '24h 最低', value: fmtPrice(d.priceLow24h) },
+    { label: '总供应量', value: fmtNum(d.totalSupply) },
+    { label: '流通供应量', value: fmtNum(d.circulatingSupply) },
+    { label: 'FDV', value: fmt(d.fdv) },
+    { label: '24h 买入量', value: fmt(d.volume24hBuy) },
+    { label: '24h 卖出量', value: fmt(d.volume24hSell) },
+    { label: '24h 交易笔数', value: fmtNum(d.count24h) },
+  ];
+  return `<div class="card">
+    <div class="card-title">市场数据</div>
+    ${rows.map(r => `<div class="metric-row"><span class="metric-label">${r.label}</span><span class="metric-value">${r.value}</span></div>`).join('')}
+  </div>`;
+}
+
+function buildHolderCard(d) {
+  if (!d) return `<div class="card"><div class="card-title">持仓分析</div><div style="color:var(--muted);font-size:13px;">暂无数据</div></div>`;
+  const top10 = parseFloat(d.top10HoldersPercentage) || 0;
+  const kol = parseFloat(d.kolHoldingPercent) * 100 || 0;
+  const pro = parseFloat(d.proHoldingPercent) * 100 || 0;
+  const smart = parseFloat(d.smartMoneyHoldingPercent) * 100 || 0;
+
+  const barColor = top10 > 80 ? '#ef4444' : top10 > 50 ? '#f59e0b' : '#22c55e';
+
+  return `<div class="card">
+    <div class="card-title">持仓分析</div>
+    <div class="metric-row"><span class="metric-label">总持有人数</span><span class="metric-value">${fmtNum(d.holders)}</span></div>
+    <div class="metric-row"><span class="metric-label">KYC 持有人</span><span class="metric-value">${fmtNum(d.kycHolderCount)}</span></div>
+    <div class="metric-row"><span class="metric-label">KOL 持有人</span><span class="metric-value">${d.kolHolders || '—'}</span></div>
+    <div class="metric-row"><span class="metric-label">聪明钱持有人</span><span class="metric-value">${d.smartMoneyHolders || '—'}</span></div>
+
+    <div class="holder-bar">
+      <div class="holder-row">
+        <span class="holder-label">Top 10</span>
+        <div class="holder-track">
+          <div class="holder-fill" style="width:${Math.min(top10,100)}%;background:${barColor};height:8px;border-radius:4px;"></div>
+        </div>
+        <span class="holder-val" style="color:${barColor}">${top10.toFixed(1)}%</span>
+      </div>
+      <div class="holder-row">
+        <span class="holder-label">KOL</span>
+        <div class="holder-track">
+          <div class="holder-fill" style="width:${Math.min(kol,100)}%;background:var(--accent);height:8px;border-radius:4px;"></div>
+        </div>
+        <span class="holder-val">${kol.toFixed(3)}%</span>
+      </div>
+      <div class="holder-row">
+        <span class="holder-label">机构</span>
+        <div class="holder-track">
+          <div class="holder-fill" style="width:${Math.min(pro,100)}%;background:var(--accent2);height:8px;border-radius:4px;"></div>
+        </div>
+        <span class="holder-val">${pro.toFixed(3)}%</span>
+      </div>
+      <div class="holder-row">
+        <span class="holder-label">聪明钱</span>
+        <div class="holder-track">
+          <div class="holder-fill" style="width:${Math.min(smart*20,100)}%;background:var(--yellow);height:8px;border-radius:4px;"></div>
+        </div>
+        <span class="holder-val">${smart.toFixed(4)}%</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildVolumeCard(d) {
+  if (!d) return `<div class="card"><div class="card-title">成交量分布</div><div style="color:var(--muted);font-size:13px;">暂无数据</div></div>`;
+  const buy = parseFloat(d.volume24hBuy) || 0;
+  const sell = parseFloat(d.volume24hSell) || 0;
+  const total = buy + sell;
+  const buyPct = total > 0 ? (buy / total * 100) : 50;
+  const sellPct = 100 - buyPct;
+
+  const sentiment = buyPct > 55 ? '🟢 看多' : buyPct < 45 ? '🔴 看空' : '⚪ 中性';
+
+  const timeVols = [
+    { label: '5分钟', val: d.volume5m },
+    { label: '1小时', val: d.volume1h },
+    { label: '4小时', val: d.volume4h },
+    { label: '24小时', val: d.volume24h },
+  ];
+
+  return `<div class="card">
+    <div class="card-title">成交量分布</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <span style="font-size:13px;color:var(--muted)">市场情绪</span>
+      <span style="font-size:13px;font-weight:700;">${sentiment}</span>
+    </div>
+    <div class="vol-bar">
+      <div class="vol-track">
+        <div class="vol-buy" style="width:${buyPct}%"></div>
+        <div class="vol-sell" style="width:${sellPct}%"></div>
+      </div>
+      <div class="vol-labels">
+        <span class="vol-buy-label">买入 ${buyPct.toFixed(1)}%</span>
+        <span class="vol-sell-label">卖出 ${sellPct.toFixed(1)}%</span>
+      </div>
+    </div>
+    <div style="margin-top:16px;">
+      ${timeVols.map(t => `
+        <div class="metric-row">
+          <span class="metric-label">${t.label}成交量</span>
+          <span class="metric-value">${fmt(t.val)}</span>
+        </div>`).join('')}
+    </div>
+    <div style="margin-top:14px;">
+      <div class="metric-row"><span class="metric-label">买入笔数(24h)</span><span class="metric-value" style="color:var(--green)">${fmtNum(d.count24hBuy)}</span></div>
+      <div class="metric-row"><span class="metric-label">卖出笔数(24h)</span><span class="metric-value" style="color:var(--red)">${fmtNum(d.count24hSell)}</span></div>
+    </div>
+  </div>`;
+}
+
+function buildSecurityCard(a) {
+  if (!a || !a.hasResult || !a.isSupported) {
+    return `<div class="card">
+      <div class="card-title">安全审计</div>
+      <div class="risk-badge risk-unknown">⚠️ 暂无审计数据</div>
+      <p style="font-size:12px;color:var(--muted);margin-top:12px;">该代币暂不支持安全审计，请谨慎操作。</p>
+    </div>`;
+  }
+
+  const levelMap = {
+    LOW: { cls: 'risk-low', icon: '✅', label: '低风险' },
+    MEDIUM: { cls: 'risk-medium', icon: '⚠️', label: '中风险' },
+    HIGH: { cls: 'risk-high', icon: '🚨', label: '高风险' },
+  };
+  const lv = levelMap[a.riskLevelEnum] || { cls: 'risk-unknown', icon: '❓', label: '未知' };
+
+  const buyTax = a.extraInfo?.buyTax;
+  const sellTax = a.extraInfo?.sellTax;
+  const isVerified = a.extraInfo?.isVerified;
+
+  const allDetails = (a.riskItems || []).flatMap(cat =>
+    cat.details.map(d => ({ ...d, category: cat.name }))
+  );
+  const hitItems = allDetails.filter(d => d.isHit);
+  const okItems = allDetails.filter(d => !d.isHit).slice(0, 5);
+
+  return `<div class="card">
+    <div class="section-header">
+      <div class="card-title">安全审计</div>
+      <span class="risk-badge ${lv.cls}">${lv.icon} ${lv.label}</span>
+    </div>
+
+    <!-- Tax bars -->
+    ${buildTaxBar('买入税', buyTax)}
+    ${buildTaxBar('卖出税', sellTax)}
+
+    <div class="metric-row" style="margin-bottom:12px;">
+      <span class="metric-label">合约已验证</span>
+      <span style="font-size:13px;font-weight:600;color:${isVerified?'var(--green)':'var(--red)'}">
+        ${isVerified ? '✅ 已验证' : '❌ 未验证'}
+      </span>
+    </div>
+
+    ${hitItems.length > 0 ? `
+      <div style="margin-bottom:8px;font-size:12px;color:var(--red);font-weight:600;">🔴 风险检测 (${hitItems.length})</div>
+      ${hitItems.slice(0, 6).map(item => `
+        <div class="risk-item">
+          <div class="risk-dot hit"></div>
+          <div class="risk-item-text">
+            <div class="risk-item-title">${item.title}</div>
+            <div class="risk-item-desc">${item.description}</div>
+          </div>
+        </div>`).join('')}
+    ` : ''}
+
+    ${okItems.length > 0 ? `
+      <div style="margin-top:10px;margin-bottom:8px;font-size:12px;color:var(--green);font-weight:600;">✅ 通过检测</div>
+      ${okItems.map(item => `
+        <div class="risk-item">
+          <div class="risk-dot ok"></div>
+          <div class="risk-item-text">
+            <div class="risk-item-title">${item.title}</div>
+          </div>
+        </div>`).join('')}
+    ` : ''}
+
+    <p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5;">
+      ⚠️ 审计结果仅供参考，不构成投资建议。低风险≠绝对安全。
+    </p>
+  </div>`;
+}
+
+function buildTaxBar(label, val) {
+  if (val == null || val === '') return '';
+  const pct = parseFloat(val) || 0;
+  const cls = pct > 10 ? 'danger' : pct > 5 ? 'warn' : 'ok';
+  const color = pct > 10 ? 'var(--red)' : pct > 5 ? 'var(--yellow)' : 'var(--green)';
+  return `<div class="tax-row">
+    <div class="tax-label">
+      <span style="font-size:13px;color:var(--muted)">${label}</span>
+      <span style="font-size:13px;font-weight:700;color:${color}">${pct}%</span>
+    </div>
+    <div class="tax-bar">
+      <div class="tax-fill ${cls}" style="width:${Math.min(pct*5,100)}%"></div>
+    </div>
+  </div>`;
+}
+
+function buildMetaCard(m, chainLabel, ca) {
+  if (!m) return '';
+  const rows = [
+    { label: '代币名称', value: m.name },
+    { label: '代币符号', value: m.symbol },
+    { label: '所在链', value: chainLabel },
+    { label: '合约地址', value: `<span style="font-family:monospace;font-size:12px;word-break:break-all">${ca}</span>` },
+    { label: '精度 (Decimals)', value: m.decimals },
+    { label: '部署者地址', value: m.creatorAddress ? `<span style="font-family:monospace;font-size:12px">${shortAddr(m.creatorAddress)}</span>` : '—' },
+    { label: '创建时间', value: m.createTime ? new Date(m.createTime).toLocaleDateString('zh-CN') + ` (${timeSince(m.createTime)})` : '—' },
+  ];
+
+  return `<div class="card" style="margin-bottom:20px;">
+    <div class="card-title">代币基础信息</div>
+    ${rows.map(r => `<div class="metric-row"><span class="metric-label">${r.label}</span><span class="metric-value">${r.value ?? '—'}</span></div>`).join('')}
+    ${m.description ? `<p style="margin-top:12px;font-size:13px;color:var(--muted);line-height:1.6;">${m.description}</p>` : ''}
+  </div>`;
+}
+
+</script>
+</body>
+</html>
