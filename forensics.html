@@ -417,13 +417,7 @@ let currentAddress = '';
 let currentDecimals = 18;
 let chartInstance = null;
 let chartSeries = null;
-let lastMetaData = null;
-
-const CHAIN_IDS = { BSC: '56', Base: '8453', ETH: '1', Solana: 'sol' };
-const CHAIN_COINS = { BSC: 'BNB', Base: 'ETH', ETH: 'ETH', Solana: 'SOL' };
-
-// Binance Web3 API base
-const BIN_API = 'https://www.binance.com/bapi/wealth/v1/public/blockchain/address/query';
+let chartResizeObserver = null;
 
 // DEX/system addresses to exclude (lowercase)
 const DEX_ADDRS = new Set([
@@ -466,8 +460,8 @@ function fmtPct(v) {
 }
 
 function fmtTokenAmt(raw, dec) {
-  if (!raw) return '0';
-  const n = Number(BigInt(raw)) / Math.pow(10, dec);
+  if (raw === null || raw === undefined) return '0';
+  const n = Number(typeof raw === 'bigint' ? raw : BigInt(raw)) / Math.pow(10, dec);
   return fmtNum(n, 2);
 }
 
@@ -476,15 +470,19 @@ function shortAddr(addr) {
   return addr.slice(0, 6) + '...' + addr.slice(-4);
 }
 
-function copyText(text, btn) {
-  navigator.clipboard.writeText(text).catch(() => {
+function clipboardWrite(value) {
+  navigator.clipboard.writeText(value).catch(() => {
     const ta = document.createElement('textarea');
-    ta.value = text;
+    ta.value = value;
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
   });
+}
+
+function copyText(text, btn) {
+  clipboardWrite(text);
   if (btn) {
     const orig = btn.textContent;
     btn.textContent = '已复制!';
@@ -568,8 +566,6 @@ async function doAnalyze() {
 
   currentChain = chain;
   currentAddress = addr;
-  lastMetaData = null;
-
   document.getElementById('analyzeBtn').disabled = true;
   setLoading('正在获取代币信息...');
 
@@ -589,7 +585,6 @@ async function doAnalyze() {
       return;
     }
 
-    lastMetaData = meta;
     if (meta && meta.decimals) currentDecimals = Number(meta.decimals);
 
     buildUI(meta, dyn, audit, chain, addr);
@@ -645,12 +640,12 @@ function buildUI(meta, dyn, audit, chain, addr) {
   const ch5m = parseFloat(dyn?.priceChangePercent5m || dyn?.change5m || 0);
   const ch1h = parseFloat(dyn?.priceChangePercent1h || dyn?.change1h || 0);
   const ch4h = parseFloat(dyn?.priceChangePercent4h || dyn?.change4h || 0);
-  document.getElementById('ch5m').textContent = fmtPct(ch5m);
-  document.getElementById('ch5m').style.cssText = miniValColor(ch5m);
-  document.getElementById('ch1h').textContent = fmtPct(ch1h);
-  document.getElementById('ch1h').style.cssText = miniValColor(ch1h);
-  document.getElementById('ch4h').textContent = fmtPct(ch4h);
-  document.getElementById('ch4h').style.cssText = miniValColor(ch4h);
+  const ch5mEl = document.getElementById('ch5m');
+  ch5mEl.textContent = fmtPct(ch5m); ch5mEl.style.cssText = miniValColor(ch5m);
+  const ch1hEl = document.getElementById('ch1h');
+  ch1hEl.textContent = fmtPct(ch1h); ch1hEl.style.cssText = miniValColor(ch1h);
+  const ch4hEl = document.getElementById('ch4h');
+  ch4hEl.textContent = fmtPct(ch4h); ch4hEl.style.cssText = miniValColor(ch4h);
 
   // Social links
   const socials = document.getElementById('socialLinks');
@@ -844,11 +839,12 @@ async function loadKline(interval, btn) {
       container.innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center">暂无K线数据</div>';
     }
 
-    // Resize observer
-    const ro = new ResizeObserver(() => {
+    // Resize observer — disconnect previous before creating new
+    if (chartResizeObserver) chartResizeObserver.disconnect();
+    chartResizeObserver = new ResizeObserver(() => {
       if (chartInstance) chartInstance.applyOptions({ width: container.clientWidth });
     });
-    ro.observe(container);
+    chartResizeObserver.observe(container);
 
   } catch (e) {
     container.innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center">K线数据加载失败</div>';
@@ -1022,24 +1018,22 @@ async function startForensics() {
 
       const fromDex = DEX_ADDRS.has(from);
       const toDex = DEX_ADDRS.has(to);
-      const fromSystem = DEX_ADDRS.has(from);
-      const toSystem = DEX_ADDRS.has(to);
 
-      if (fromDex && !toSystem) {
+      if (fromDex && !toDex) {
         // BUY: wallet receives tokens from DEX
         const stat = getOrCreate(to);
         stat.totalBought += value;
         stat.buyTxCount++;
         if (sortedIdx < stat.firstBuyTxIndex) stat.firstBuyTxIndex = sortedIdx;
         stat.receivedFrom.add(from);
-      } else if (!fromSystem && toDex) {
+      } else if (!fromDex && toDex) {
         // SELL: wallet sends tokens to DEX
         const stat = getOrCreate(from);
         stat.totalSold += value;
         stat.sellTxCount++;
         if (ts > stat.lastSellTime) stat.lastSellTime = ts;
         stat.sentTo.add(to);
-      } else if (!fromSystem && !toSystem) {
+      } else if (!fromDex && !toDex) {
         // Internal transfer
         const sf = getOrCreate(from);
         sf.sentTo.add(to);
@@ -1181,11 +1175,6 @@ async function startForensics() {
   }
 }
 
-function fmtTokenDisplay(bigVal, dec) {
-  const n = Number(bigVal) / Math.pow(10, dec);
-  return fmtNum(n, 2);
-}
-
 // ==========================================
 // FORENSICS RESULTS BUILDER
 // ==========================================
@@ -1202,9 +1191,9 @@ function buildForensicsResults(labeled, totalTxs, washPairCount, decimals) {
     return `<tr>
       <td class="addr-cell" onclick="copyAddr('${x.address}', this)" title="${x.address}">${shortAddr(x.address)}</td>
       <td>${labelsHtml}</td>
-      <td>${fmtTokenDisplay(x.totalBought, decimals)}</td>
-      <td>${fmtTokenDisplay(x.totalSold, decimals)}</td>
-      <td>${fmtTokenDisplay(x.netPosition, decimals)}</td>
+      <td>${fmtTokenAmt(x.totalBought, decimals)}</td>
+      <td>${fmtTokenAmt(x.totalSold, decimals)}</td>
+      <td>${fmtTokenAmt(x.netPosition, decimals)}</td>
       <td><div class="evidence-tags">${evHtml}</div></td>
     </tr>`;
   }).join('') : '<tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px">未发现庄家地址</td></tr>';
@@ -1216,9 +1205,9 @@ function buildForensicsResults(labeled, totalTxs, washPairCount, decimals) {
     return `<tr>
       <td class="rank-num">${i + 1}</td>
       <td class="addr-cell" onclick="copyAddr('${x.address}', this)" title="${x.address}">${shortAddr(x.address)}</td>
-      <td>${fmtTokenDisplay(x.totalSold, decimals)}</td>
-      <td>${fmtTokenDisplay(x.totalBought, decimals)}</td>
-      <td style="color:${netSold > 0n ? 'var(--red)' : 'var(--muted)'}">${fmtTokenDisplay(netSold, decimals)}</td>
+      <td>${fmtTokenAmt(x.totalSold, decimals)}</td>
+      <td>${fmtTokenAmt(x.totalBought, decimals)}</td>
+      <td style="color:${netSold > 0n ? 'var(--red)' : 'var(--muted)'}">${fmtTokenAmt(netSold, decimals)}</td>
     </tr>`;
   }).join('');
 
@@ -1227,8 +1216,8 @@ function buildForensicsResults(labeled, totalTxs, washPairCount, decimals) {
   smb.innerHTML = smartList.length ? smartList.map(x => {
     return `<tr>
       <td class="addr-cell" onclick="copyAddr('${x.address}', this)" title="${x.address}">${shortAddr(x.address)}</td>
-      <td>${fmtTokenDisplay(x.totalBought, decimals)}</td>
-      <td>${fmtTokenDisplay(x.totalSold, decimals)}</td>
+      <td>${fmtTokenAmt(x.totalBought, decimals)}</td>
+      <td>${fmtTokenAmt(x.totalSold, decimals)}</td>
       <td><button class="follow-btn" onclick="followAddr('${x.address}', this)">跟进 <span class="copied-tip">已复制!</span></button></td>
     </tr>`;
   }).join('') : '<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:20px">未发现高手地址</td></tr>';
@@ -1253,14 +1242,7 @@ function buildLabelTags(x) {
 }
 
 function copyAddr(addr, el) {
-  navigator.clipboard.writeText(addr).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = addr;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-  });
+  clipboardWrite(addr);
   const orig = el.textContent;
   el.textContent = '已复制!';
   el.style.color = 'var(--green)';
@@ -1271,14 +1253,7 @@ function copyAddr(addr, el) {
 }
 
 function followAddr(addr, btn) {
-  navigator.clipboard.writeText(addr).catch(() => {
-    const ta = document.createElement('textarea');
-    ta.value = addr;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-  });
+  clipboardWrite(addr);
   const tip = btn.querySelector('.copied-tip');
   if (tip) {
     tip.classList.add('show');
