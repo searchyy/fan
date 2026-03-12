@@ -416,7 +416,6 @@ let currentChain = 'BSC';
 let currentAddress = '';
 let currentDecimals = 18;
 let chartInstance = null;
-let chartSeries = null;
 let chartResizeObserver = null;
 
 // DEX/system addresses to exclude (lowercase)
@@ -818,7 +817,7 @@ async function loadKline(interval, btn) {
       timeScale: { borderColor: '#2a3050', timeVisible: true, secondsVisible: false },
     });
 
-    chartSeries = chartInstance.addCandlestickSeries({
+    const chartSeries = chartInstance.addCandlestickSeries({
       upColor: '#22c55e', downColor: '#ef4444',
       borderUpColor: '#22c55e', borderDownColor: '#ef4444',
       wickUpColor: '#22c55e', wickDownColor: '#ef4444',
