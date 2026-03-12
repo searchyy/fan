@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>合约地址分析仪</title>
+  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+  <style>
+    :root {
+      --bg: #0d0f17; --bg2: #141723; --bg3: #1c2133;
+      --border: #2a3050; --text: #e8ecf4; --muted: #7a85a3;
+      --accent: #4f8ef7; --accent2: #a855f7;
+      --green: #22c55e; --red: #ef4444; --yellow: #f59e0b;
+      --orange: #f97316; --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 16px 60px; }
+
+    /* Header */
+    .header { display: flex; align-items: center; gap: 12px; padding: 24px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+    .header-logo { font-size: 28px; }
+    .header-title { font-size: 22px; font-weight: 700; color: var(--text); }
+    .header-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* Cards */
+    .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 18px; }
+    .card-title { font-size: 15px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+
+    /* Search card */
+    .search-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .chain-select { background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 10px 14px; font-size: 14px; cursor: pointer; min-width: 120px; }
+    .chain-select:focus { outline: none; border-color: var(--accent); }
+    .addr-input { flex: 1; min-width: 200px; background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 10px 14px; font-size: 14px; font-family: monospace; }
+    .addr-input:focus { outline: none; border-color: var(--accent); }
+    .addr-input::placeholder { color: var(--muted); }
+    .btn { padding: 10px 22px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; transition: opacity .15s; }
+    .btn:hover { opacity: .85; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-sm { padding: 6px 14px; font-size: 12px; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-muted { background: var(--bg3); color: var(--text); border: 1px solid var(--border); }
+
+    /* Token overview */
+    .overview-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .token-icon { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; background: var(--bg3); }
+    .token-icon-placeholder { width: 52px; height: 52px; border-radius: 50%; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .token-name { font-size: 20px; font-weight: 700; }
+    .token-symbol { font-size: 14px; color: var(--muted); margin-top: 2px; }
+    .chain-badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    .badge-bsc { background: #f0b90b22; color: #f0b90b; border: 1px solid #f0b90b55; }
+    .badge-base { background: #0052ff22; color: #4f8ef7; border: 1px solid #4f8ef755; }
+    .badge-eth { background: #627eea22; color: #627eea; border: 1px solid #627eea55; }
+    .badge-sol { background: #9945ff22; color: #a855f7; border: 1px solid #9945ff55; }
+
+    .price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+    .price-big { font-size: 26px; font-weight: 700; }
+    .change-chip { padding: 2px 8px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+    .change-pos { background: #22c55e22; color: var(--green); }
+    .change-neg { background: #ef444422; color: var(--red); }
+    .change-neu { background: var(--bg3); color: var(--muted); }
+
+    .addr-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .addr-mono { font-family: monospace; font-size: 12px; color: var(--muted); }
+    .copy-btn { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 5px; padding: 2px 8px; font-size: 11px; cursor: pointer; transition: all .15s; }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .mini-changes { display: flex; gap: 12px; flex-wrap: wrap; }
+    .mini-change { display: flex; flex-direction: column; align-items: center; }
+    .mini-label { font-size: 10px; color: var(--muted); margin-bottom: 2px; }
+    .mini-val { font-size: 13px; font-weight: 600; }
+
+    .social-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .social-link { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 6px; background: var(--bg3); border: 1px solid var(--border); font-size: 12px; color: var(--text); transition: border-color .15s; }
+    .social-link:hover { border-color: var(--accent); text-decoration: none; }
+
+    /* Stats grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+    .stat-box { background: var(--bg3); border-radius: 10px; padding: 14px 16px; }
+    .stat-label { font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+    .stat-val { font-size: 18px; font-weight: 700; }
+
+    /* Chart */
+    .interval-btns { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+    .interval-btn { padding: 5px 14px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg3); color: var(--muted); font-size: 12px; cursor: pointer; transition: all .15s; }
+    .interval-btn.active, .interval-btn:hover { border-color: var(--accent); color: var(--accent); background: #4f8ef710; }
+    #kline-container { height: 340px; border-radius: 8px; overflow: hidden; }
+
+    /* Two-col layout */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media(max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* Info table */
+    .info-table { width: 100%; border-collapse: collapse; }
+    .info-table tr td { padding: 7px 4px; font-size: 13px; border-bottom: 1px solid var(--border); }
+    .info-table tr:last-child td { border-bottom: none; }
+    .info-table td:first-child { color: var(--muted); width: 42%; }
+    .info-table td:last-child { font-weight: 500; text-align: right; }
+
+    /* Audit */
+    .audit-item { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .audit-item:last-child { border-bottom: none; }
+    .audit-label { color: var(--muted); }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 5px; font-size: 11px; font-weight: 600; }
+    .badge-safe { background: #22c55e22; color: var(--green); border: 1px solid #22c55e44; }
+    .badge-warn { background: #f59e0b22; color: var(--yellow); border: 1px solid #f59e0b44; }
+    .badge-risk { background: #ef444422; color: var(--red); border: 1px solid #ef444444; }
+    .badge-info { background: #4f8ef722; color: var(--accent); border: 1px solid #4f8ef744; }
+
+    /* Holder chart */
+    .holder-bar-wrap { margin-bottom: 8px; }
+    .holder-bar-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+    .holder-bar-track { background: var(--bg3); border-radius: 4px; height: 8px; overflow: hidden; }
+    .holder-bar-fill { height: 100%; border-radius: 4px; background: var(--accent); transition: width .6s; }
+
+    /* Loading / error */
+    .loading { text-align: center; padding: 40px; color: var(--muted); }
+    .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; margin-bottom: 12px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-msg { background: #ef444412; border: 1px solid #ef444433; border-radius: 8px; padding: 14px 16px; color: var(--red); font-size: 14px; }
+
+    /* Hidden */
+    .hidden { display: none !important; }
+
+    /* ======================== FORENSICS ======================== */
+
+    /* API Keys Panel */
+    .apikeys-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 18px; overflow: hidden; }
+    .apikeys-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; cursor: pointer; user-select: none; }
+    .apikeys-header:hover { background: var(--bg3); }
+    .apikeys-header-left { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14px; }
+    .apikeys-body { padding: 0 20px 18px; }
+    .apikeys-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 10px; }
+    @media(max-width:600px) { .apikeys-grid { grid-template-columns: 1fr; } }
+    .apikey-field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+    .apikey-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 9px 12px; font-size: 13px; font-family: monospace; }
+    .apikey-input:focus { outline: none; border-color: var(--accent); }
+    .apikey-note { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .configured-badge { background: #22c55e22; color: var(--green); border: 1px solid #22c55e44; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+    .chevron { transition: transform .25s; display: inline-block; color: var(--muted); }
+    .chevron.open { transform: rotate(180deg); }
+
+    /* Forensics card */
+    .forensics-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 18px; }
+    .forensics-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .forensics-title { font-size: 16px; font-weight: 700; }
+
+    /* Progress log */
+    .progress-log { background: #080b12; border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; font-family: monospace; font-size: 12px; height: 180px; overflow-y: auto; line-height: 1.7; }
+    .log-line { }
+    .log-info { color: #7a85a3; }
+    .log-ok { color: var(--green); }
+    .log-warn { color: var(--yellow); }
+    .log-err { color: var(--red); }
+    .log-stage { color: var(--accent); font-weight: bold; }
+    .log-data { color: #a855f7; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+    .tab-btn { padding: 8px 16px; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: all .15s; margin-bottom: -1px; }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    /* Forensics table */
+    .forensics-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .forensics-table th { text-align: left; padding: 8px 10px; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--border); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    .forensics-table td { padding: 9px 10px; border-bottom: 1px solid #1c2133; vertical-align: middle; }
+    .forensics-table tr:last-child td { border-bottom: none; }
+    .forensics-table tr:hover td { background: #ffffff06; }
+    .addr-cell { font-family: monospace; cursor: pointer; color: var(--accent); }
+    .addr-cell:hover { text-decoration: underline; }
+
+    .label-tag { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-right: 3px; }
+    .tag-zhuang { background: #ef444422; color: var(--red); border: 1px solid #ef444444; }
+    .tag-smart { background: #22c55e22; color: var(--green); border: 1px solid #22c55e44; }
+    .tag-deployer { background: #a855f722; color: var(--accent2); border: 1px solid #a855f744; }
+    .tag-distributor { background: #f59e0b22; color: var(--yellow); border: 1px solid #f59e0b44; }
+    .tag-wash { background: #f9731622; color: var(--orange); border: 1px solid #f9731644; }
+
+    .evidence-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+    .ev-tag { padding: 1px 6px; border-radius: 3px; font-size: 10px; background: var(--bg3); color: var(--muted); border: 1px solid var(--border); }
+
+    .follow-btn { padding: 4px 10px; border-radius: 5px; border: 1px solid var(--accent); background: none; color: var(--accent); font-size: 11px; cursor: pointer; position: relative; transition: all .15s; }
+    .follow-btn:hover { background: var(--accent); color: #fff; }
+    .copied-tip { position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background: var(--green); color: #fff; padding: 3px 8px; border-radius: 5px; font-size: 11px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .2s; }
+    .copied-tip.show { opacity: 1; }
+
+    .summary-row { display: flex; gap: 16px; flex-wrap: wrap; padding: 10px 0; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 10px; }
+    .summary-item span { color: var(--text); font-weight: 700; }
+
+    .table-wrap { overflow-x: auto; }
+    .rank-num { color: var(--muted); font-weight: 700; width: 30px; text-align: center; }
+
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+    .section-heading { font-size: 18px; font-weight: 700; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-logo">🔍</div>
+    <div>
+      <div class="header-title">合约地址分析仪</div>
+      <div class="header-sub">Binance Web3 Token Analytics + 链上取证</div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 1: MAIN ANALYZER ===== -->
+
+  <!-- Search Card -->
+  <div class="card">
+    <div class="card-title">🔎 代币分析</div>
+    <div class="search-row">
+      <select class="chain-select" id="chainSelect">
+        <option value="BSC">BSC (币安)</option>
+        <option value="Base">Base</option>
+        <option value="ETH">Ethereum</option>
+        <option value="Solana">Solana</option>
+      </select>
+      <input class="addr-input" id="addrInput" type="text" placeholder="输入合约地址 0x... 或 Solana 地址" />
+      <button class="btn btn-primary" id="analyzeBtn" onclick="doAnalyze()">分析</button>
+    </div>
+  </div>
+
+  <!-- Results area -->
+  <div id="resultsArea" class="hidden">
+
+    <!-- Token Overview Card -->
+    <div class="card" id="overviewCard">
+      <div class="overview-header">
+        <div id="tokenIconWrap"></div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <div class="token-name" id="tokenName">-</div>
+            <span id="chainBadgeEl" class="chain-badge"></span>
+          </div>
+          <div class="token-symbol" id="tokenSymbol">-</div>
+        </div>
+      </div>
+      <div class="addr-row">
+        <span class="addr-mono" id="addrDisplay">-</span>
+        <button class="copy-btn" onclick="copyText(document.getElementById('addrInput').value, this)">复制</button>
+      </div>
+      <div class="price-row">
+        <span class="price-big" id="priceEl">-</span>
+        <span class="change-chip change-neu" id="change24hEl">-</span>
+      </div>
+      <div class="mini-changes">
+        <div class="mini-change"><div class="mini-label">5分钟</div><div class="mini-val" id="ch5m">-</div></div>
+        <div class="mini-change"><div class="mini-label">1小时</div><div class="mini-val" id="ch1h">-</div></div>
+        <div class="mini-change"><div class="mini-label">4小时</div><div class="mini-val" id="ch4h">-</div></div>
+      </div>
+      <div class="social-links" id="socialLinks"></div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid" id="statsGrid" style="margin-bottom:18px;">
+      <div class="stat-box"><div class="stat-label">市值</div><div class="stat-val" id="statMcap">-</div></div>
+      <div class="stat-box"><div class="stat-label">流动性</div><div class="stat-val" id="statLiq">-</div></div>
+      <div class="stat-box"><div class="stat-label">24h 成交量</div><div class="stat-val" id="statVol">-</div></div>
+      <div class="stat-box"><div class="stat-label">持币地址</div><div class="stat-val" id="statHolders">-</div></div>
+    </div>
+
+    <!-- K-line Chart -->
+    <div class="card">
+      <div class="card-title">📈 K 线图</div>
+      <div class="interval-btns" id="intervalBtns">
+        <button class="interval-btn active" onclick="loadKline('1m',this)">1分钟</button>
+        <button class="interval-btn" onclick="loadKline('5m',this)">5分钟</button>
+        <button class="interval-btn" onclick="loadKline('15m',this)">15分钟</button>
+        <button class="interval-btn" onclick="loadKline('1H',this)">1小时</button>
+        <button class="interval-btn" onclick="loadKline('4H',this)">4小时</button>
+        <button class="interval-btn" onclick="loadKline('1D',this)">1天</button>
+      </div>
+      <div id="kline-container"></div>
+    </div>
+
+    <!-- Market Data + Holders -->
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">📊 市场数据</div>
+        <table class="info-table" id="marketTable"></table>
+      </div>
+      <div class="card">
+        <div class="card-title">👥 持币分析</div>
+        <div id="holderAnalysis"></div>
+      </div>
+    </div>
+
+    <!-- Volume + Security -->
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">💹 交易量</div>
+        <table class="info-table" id="volumeTable"></table>
+      </div>
+      <div class="card">
+        <div class="card-title">🔐 安全审计</div>
+        <div id="auditContent"></div>
+      </div>
+    </div>
+
+    <!-- Token Metadata -->
+    <div class="card">
+      <div class="card-title">📋 代币元数据</div>
+      <table class="info-table" id="metaTable"></table>
+    </div>
+
+  </div><!-- /resultsArea -->
+
+  <!-- Loading -->
+  <div id="loadingArea" class="hidden">
+    <div class="loading">
+      <div class="spinner"></div>
+      <div id="loadingMsg">正在获取数据...</div>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div id="errorArea" class="hidden">
+    <div class="error-msg" id="errorMsg"></div>
+  </div>
+
+  <!-- ===== SECTION 2: FORENSICS PANEL ===== -->
+  <hr class="section-divider" />
+  <div class="section-heading">🕵️ 链上取证</div>
+
+  <!-- API Keys Panel -->
+  <div class="apikeys-panel" id="apikeysPanel">
+    <div class="apikeys-header" onclick="toggleApiPanel()">
+      <div class="apikeys-header-left">
+        🔑 取证 API 配置
+        <span id="apiConfigBadge" class="hidden configured-badge">已配置</span>
+      </div>
+      <span class="chevron" id="apiChevron">▼</span>
+    </div>
+    <div class="apikeys-body" id="apikeysBody">
+      <div class="apikeys-grid">
+        <div class="apikey-field">
+          <label>Moralis API Key</label>
+          <input class="apikey-input" id="moralisKey" type="password" placeholder="eyJhbGci..." />
+        </div>
+        <div class="apikey-field">
+          <label>BSCScan API Key</label>
+          <input class="apikey-input" id="bscscanKey" type="password" placeholder="YourBSCScanAPIKey" />
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="saveApiKeys()">保存配置</button>
+      <div class="apikey-note" style="margin-top:10px;">⚠️ 取证功能仅支持 BSC 链。Moralis 和 BSCScan API Key 均可免费申请。</div>
+    </div>
+  </div>
+
+  <!-- Forensics Card (hidden until BSC analysis done) -->
+  <div class="forensics-card hidden" id="forensicsCard">
+    <div class="forensics-header">
+      <div class="forensics-title">🕵️ 链上取证分析</div>
+      <button class="btn btn-primary" id="startForensicsBtn" onclick="startForensics()">开始取证</button>
+    </div>
+    <div class="progress-log" id="progressLog">
+      <div class="log-info">等待开始取证分析...</div>
+    </div>
+
+    <!-- Results (hidden until done) -->
+    <div id="forensicsResults" class="hidden" style="margin-top:18px;">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('zhuang',this)">庄家地址</button>
+        <button class="tab-btn" onclick="switchTab('sellers',this)">卖出排行 Top20</button>
+        <button class="tab-btn" onclick="switchTab('smart',this)">高手名单</button>
+      </div>
+      <div id="tabZhuang" class="tab-content">
+        <div class="table-wrap">
+          <table class="forensics-table">
+            <thead><tr>
+              <th>地址</th><th>标签</th><th>买入</th><th>卖出</th><th>净持仓</th><th>证据</th>
+            </tr></thead>
+            <tbody id="zhuangTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div id="tabSellers" class="tab-content hidden">
+        <div class="table-wrap">
+          <table class="forensics-table">
+            <thead><tr>
+              <th class="rank-num">#</th><th>地址</th><th>卖出量</th><th>买入量</th><th>净卖出</th>
+            </tr></thead>
+            <tbody id="sellersTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div id="tabSmart" class="tab-content hidden">
+        <div class="table-wrap">
+          <table class="forensics-table">
+            <thead><tr>
+              <th>地址</th><th>买入</th><th>卖出</th><th>跟进</th>
+            </tr></thead>
+            <tbody id="smartTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="summary-row" id="forensicsSummary"></div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ==========================================
+// GLOBAL STATE
+// ==========================================
+let currentChain = 'BSC';
+let currentAddress = '';
+let currentDecimals = 18;
+let chartInstance = null;
+let chartSeries = null;
+let lastMetaData = null;
+
+const CHAIN_IDS = { BSC: '56', Base: '8453', ETH: '1', Solana: 'sol' };
+const CHAIN_COINS = { BSC: 'BNB', Base: 'ETH', ETH: 'ETH', Solana: 'SOL' };
+
+// Binance Web3 API base
+const BIN_API = 'https://www.binance.com/bapi/wealth/v1/public/blockchain/address/query';
+
+// DEX/system addresses to exclude (lowercase)
+const DEX_ADDRS = new Set([
+  '0x10ed43c718714eb63d5aa57b78b54704e256024e',
+  '0x13f4ea83d0bd40e75c8222255bc855a974568dd4',
+  '0xca143ce32fe78f1f7019d7d551a6402fc5350c73',
+  '0x1b81d678ffb9c0263b24a97847620c99d213eb14',
+  '0x000000000000000000000000000000000000dead',
+  '0x0000000000000000000000000000000000000000',
+  '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+  '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+  '0x55d398326f99059ff775485246999027b3197955',
+  '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
+]);
+
+// ==========================================
+// UTILITY FUNCTIONS
+// ==========================================
+function fmtNum(n, decimals = 2) {
+  if (n === null || n === undefined || isNaN(n)) return '-';
+  if (Math.abs(n) >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+  if (Math.abs(n) >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+  if (Math.abs(n) >= 1e3) return (n / 1e3).toFixed(2) + 'K';
+  return n.toFixed(decimals);
+}
+
+function fmtPrice(p) {
+  if (p === null || p === undefined || isNaN(p)) return '-';
+  if (p === 0) return '$0';
+  if (p < 0.000001) return '$' + p.toExponential(3);
+  if (p < 0.01) return '$' + p.toFixed(8);
+  if (p < 1) return '$' + p.toFixed(6);
+  return '$' + p.toFixed(4);
+}
+
+function fmtPct(v) {
+  if (v === null || v === undefined || isNaN(v)) return '-';
+  const s = (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+  return s;
+}
+
+function fmtTokenAmt(raw, dec) {
+  if (!raw) return '0';
+  const n = Number(BigInt(raw)) / Math.pow(10, dec);
+  return fmtNum(n, 2);
+}
+
+function shortAddr(addr) {
+  if (!addr) return '';
+  return addr.slice(0, 6) + '...' + addr.slice(-4);
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+  if (btn) {
+    const orig = btn.textContent;
+    btn.textContent = '已复制!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  }
+}
+
+function changeClass(v) {
+  if (v > 0) return 'change-pos';
+  if (v < 0) return 'change-neg';
+  return 'change-neu';
+}
+
+function miniValColor(v) {
+  if (v > 0) return 'color:var(--green)';
+  if (v < 0) return 'color:var(--red)';
+  return 'color:var(--muted)';
+}
+
+function getBadgeClass(chain) {
+  return { BSC: 'badge-bsc', Base: 'badge-base', ETH: 'badge-eth', Solana: 'badge-sol' }[chain] || 'badge-info';
+}
+
+// ==========================================
+// API FUNCTIONS (Binance Web3)
+// ==========================================
+async function apiFetch(endpoint, body) {
+  const res = await fetch('https://www.binance.com/bapi/wealth/v1/public/blockchain/token/' + endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+async function fetchMeta(chain, address) {
+  return apiFetch('getTokenMetaInfo', { chain, address });
+}
+
+async function fetchDynamic(chain, address) {
+  return apiFetch('getTokenDynamicInfo', { chain, address });
+}
+
+async function fetchAudit(chain, address) {
+  return apiFetch('getTokenAuditInfo', { chain, address });
+}
+
+async function fetchKline(chain, address, interval) {
+  return apiFetch('getKlineInfo', { chain, address, interval, limit: 300 });
+}
+
+// ==========================================
+// MAIN ANALYSIS FLOW
+// ==========================================
+function setLoading(msg) {
+  document.getElementById('loadingArea').classList.remove('hidden');
+  document.getElementById('resultsArea').classList.add('hidden');
+  document.getElementById('errorArea').classList.add('hidden');
+  document.getElementById('forensicsCard').classList.add('hidden');
+  document.getElementById('loadingMsg').textContent = msg || '正在获取数据...';
+}
+
+function setError(msg) {
+  document.getElementById('loadingArea').classList.add('hidden');
+  document.getElementById('resultsArea').classList.add('hidden');
+  document.getElementById('errorArea').classList.remove('hidden');
+  document.getElementById('errorMsg').textContent = msg;
+}
+
+function showResults() {
+  document.getElementById('loadingArea').classList.add('hidden');
+  document.getElementById('errorArea').classList.add('hidden');
+  document.getElementById('resultsArea').classList.remove('hidden');
+}
+
+async function doAnalyze() {
+  const addr = document.getElementById('addrInput').value.trim();
+  const chain = document.getElementById('chainSelect').value;
+  if (!addr) { alert('请输入合约地址'); return; }
+
+  currentChain = chain;
+  currentAddress = addr;
+  lastMetaData = null;
+
+  document.getElementById('analyzeBtn').disabled = true;
+  setLoading('正在获取代币信息...');
+
+  try {
+    const [metaResp, dynResp, auditResp] = await Promise.allSettled([
+      fetchMeta(chain, addr),
+      fetchDynamic(chain, addr),
+      fetchAudit(chain, addr)
+    ]);
+
+    const meta = metaResp.status === 'fulfilled' ? metaResp.value?.data : null;
+    const dyn = dynResp.status === 'fulfilled' ? dynResp.value?.data : null;
+    const audit = auditResp.status === 'fulfilled' ? auditResp.value?.data : null;
+
+    if (!meta && !dyn) {
+      setError('无法获取代币信息，请检查地址和链选择是否正确。');
+      return;
+    }
+
+    lastMetaData = meta;
+    if (meta && meta.decimals) currentDecimals = Number(meta.decimals);
+
+    buildUI(meta, dyn, audit, chain, addr);
+    showResults();
+
+    // Load default kline
+    loadKline('1m', document.querySelector('.interval-btn.active'));
+
+    // Show forensics section if BSC
+    if (chain === 'BSC') {
+      document.getElementById('forensicsCard').classList.remove('hidden');
+      resetForensics();
+    }
+
+  } catch (e) {
+    setError('请求失败: ' + e.message);
+  } finally {
+    document.getElementById('analyzeBtn').disabled = false;
+  }
+}
+
+// ==========================================
+// BUILD UI
+// ==========================================
+function buildUI(meta, dyn, audit, chain, addr) {
+  // Token icon
+  const iconWrap = document.getElementById('tokenIconWrap');
+  const iconUrl = meta?.logoUrl || meta?.iconUrl || '';
+  if (iconUrl) {
+    iconWrap.innerHTML = `<img class="token-icon" src="${iconUrl}" onerror="this.parentNode.innerHTML='<div class=token-icon-placeholder>🪙</div>'" />`;
+  } else {
+    iconWrap.innerHTML = '<div class="token-icon-placeholder">🪙</div>';
+  }
+
+  document.getElementById('tokenName').textContent = meta?.name || dyn?.name || '未知代币';
+  document.getElementById('tokenSymbol').textContent = meta?.symbol || dyn?.symbol || '';
+
+  const badge = document.getElementById('chainBadgeEl');
+  badge.textContent = chain;
+  badge.className = 'chain-badge ' + getBadgeClass(chain);
+
+  document.getElementById('addrDisplay').textContent = addr.slice(0, 10) + '...' + addr.slice(-8);
+
+  // Price & changes
+  const price = parseFloat(dyn?.price || dyn?.usdPrice || 0);
+  document.getElementById('priceEl').textContent = fmtPrice(price);
+
+  const ch24h = parseFloat(dyn?.priceChangePercent24h || dyn?.change24h || 0);
+  const ch24El = document.getElementById('change24hEl');
+  ch24El.textContent = fmtPct(ch24h);
+  ch24El.className = 'change-chip ' + changeClass(ch24h);
+
+  const ch5m = parseFloat(dyn?.priceChangePercent5m || dyn?.change5m || 0);
+  const ch1h = parseFloat(dyn?.priceChangePercent1h || dyn?.change1h || 0);
+  const ch4h = parseFloat(dyn?.priceChangePercent4h || dyn?.change4h || 0);
+  document.getElementById('ch5m').textContent = fmtPct(ch5m);
+  document.getElementById('ch5m').style.cssText = miniValColor(ch5m);
+  document.getElementById('ch1h').textContent = fmtPct(ch1h);
+  document.getElementById('ch1h').style.cssText = miniValColor(ch1h);
+  document.getElementById('ch4h').textContent = fmtPct(ch4h);
+  document.getElementById('ch4h').style.cssText = miniValColor(ch4h);
+
+  // Social links
+  const socials = document.getElementById('socialLinks');
+  socials.innerHTML = '';
+  const links = [
+    { key: 'websiteUrl', label: '🌐 官网' },
+    { key: 'twitterUrl', label: '🐦 Twitter' },
+    { key: 'telegramUrl', label: '✈️ Telegram' },
+    { key: 'githubUrl', label: '💻 GitHub' },
+    { key: 'discordUrl', label: '💬 Discord' },
+    { key: 'mediumUrl', label: '📝 Medium' },
+  ];
+  links.forEach(({ key, label }) => {
+    const url = meta?.[key];
+    if (url) {
+      socials.innerHTML += `<a class="social-link" href="${url}" target="_blank" rel="noopener">${label}</a>`;
+    }
+  });
+
+  // Stats grid
+  const mcap = parseFloat(dyn?.marketCap || dyn?.fullyDilutedMarketCap || 0);
+  const liq = parseFloat(dyn?.liquidity || dyn?.totalLiquidity || 0);
+  const vol = parseFloat(dyn?.volume24h || dyn?.tradeAmount24h || 0);
+  const holders = parseInt(dyn?.holderCount || dyn?.holders || 0);
+  document.getElementById('statMcap').textContent = mcap ? '$' + fmtNum(mcap) : '-';
+  document.getElementById('statLiq').textContent = liq ? '$' + fmtNum(liq) : '-';
+  document.getElementById('statVol').textContent = vol ? '$' + fmtNum(vol) : '-';
+  document.getElementById('statHolders').textContent = holders ? fmtNum(holders, 0) : '-';
+
+  // Market data table
+  const mktTable = document.getElementById('marketTable');
+  mktTable.innerHTML = rows([
+    ['代币名称', meta?.name || '-'],
+    ['代币符号', meta?.symbol || '-'],
+    ['合约地址', `<span style="font-family:monospace;font-size:11px">${addr.slice(0,8)}...${addr.slice(-6)}</span>`],
+    ['区块链', chain],
+    ['精度(Decimals)', meta?.decimals ?? '-'],
+    ['总供应量', meta?.totalSupply ? fmtNum(parseFloat(meta.totalSupply) / Math.pow(10, currentDecimals)) : '-'],
+    ['市值', mcap ? '$' + fmtNum(mcap) : '-'],
+    ['完全稀释市值', dyn?.fullyDilutedMarketCap ? '$' + fmtNum(parseFloat(dyn.fullyDilutedMarketCap)) : '-'],
+  ]);
+
+  // Volume table
+  const volTable = document.getElementById('volumeTable');
+  const buy24h = parseFloat(dyn?.buyAmount24h || 0);
+  const sell24h = parseFloat(dyn?.sellAmount24h || 0);
+  const txCount = parseInt(dyn?.txCount24h || dyn?.tradeCount24h || 0);
+  volTable.innerHTML = rows([
+    ['24h 成交量', vol ? '$' + fmtNum(vol) : '-'],
+    ['24h 买入量', buy24h ? '$' + fmtNum(buy24h) : '-'],
+    ['24h 卖出量', sell24h ? '$' + fmtNum(sell24h) : '-'],
+    ['24h 交易次数', txCount ? txCount.toLocaleString() : '-'],
+    ['流动性', liq ? '$' + fmtNum(liq) : '-'],
+    ['价格影响 (1K)', dyn?.priceImpact1k ? dyn.priceImpact1k + '%' : '-'],
+    ['价格影响 (10K)', dyn?.priceImpact10k ? dyn.priceImpact10k + '%' : '-'],
+  ]);
+
+  // Holder analysis
+  buildHolderAnalysis(dyn);
+
+  // Audit
+  buildAudit(audit);
+
+  // Metadata table
+  const metaTable = document.getElementById('metaTable');
+  metaTable.innerHTML = rows([
+    ['创建时间', meta?.deployTime ? new Date(meta.deployTime).toLocaleString('zh-CN') : '-'],
+    ['部署者', meta?.deployer ? `<span style="font-family:monospace;font-size:11px">${meta.deployer.slice(0,8)}...${meta.deployer.slice(-6)}</span>` : '-'],
+    ['描述', meta?.description ? meta.description.slice(0, 100) + (meta.description.length > 100 ? '...' : '') : '-'],
+    ['标签', (meta?.tags || []).join(', ') || '-'],
+    ['是否开源', meta?.isOpenSource ? '✅ 是' : (meta?.isOpenSource === false ? '❌ 否' : '-')],
+    ['是否代理合约', meta?.isProxy ? '⚠️ 是' : (meta?.isProxy === false ? '✅ 否' : '-')],
+  ]);
+}
+
+function rows(data) {
+  return data.map(([l, v]) => `<tr><td>${l}</td><td>${v}</td></tr>`).join('');
+}
+
+function buildHolderAnalysis(dyn) {
+  const el = document.getElementById('holderAnalysis');
+  const top = dyn?.topHolders || dyn?.holderList || [];
+  if (!top.length) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:13px">暂无持币分析数据</div>';
+    return;
+  }
+  el.innerHTML = top.slice(0, 10).map(h => {
+    const pct = parseFloat(h.percent || h.ratio || 0) * (h.percent > 1 ? 1 : 100);
+    const addr = h.address || h.addr || '';
+    return `<div class="holder-bar-wrap">
+      <div class="holder-bar-label">
+        <span style="font-family:monospace;font-size:11px;cursor:pointer" onclick="copyText('${addr}',this)" title="${addr}">${shortAddr(addr)}</span>
+        <span>${pct.toFixed(2)}%</span>
+      </div>
+      <div class="holder-bar-track"><div class="holder-bar-fill" style="width:${Math.min(pct*2,100)}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function buildAudit(audit) {
+  const el = document.getElementById('auditContent');
+  if (!audit) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:13px">暂无安全审计数据</div>';
+    return;
+  }
+  const checks = [
+    { key: 'isHoneypot', label: '蜜罐检测', invert: true },
+    { key: 'isMintable', label: '可增发', invert: true },
+    { key: 'hasBlacklist', label: '黑名单', invert: true },
+    { key: 'hasWhitelist', label: '白名单', invert: false },
+    { key: 'isProxy', label: '代理合约', invert: true },
+    { key: 'canPause', label: '可暂停', invert: true },
+    { key: 'ownershipRenounced', label: '已放弃所有权', invert: false },
+    { key: 'isOpenSource', label: '开源合约', invert: false },
+  ];
+  el.innerHTML = checks.map(c => {
+    const val = audit[c.key];
+    if (val === undefined || val === null) return '';
+    let cls, text;
+    if (c.invert) {
+      cls = val ? 'badge-risk' : 'badge-safe';
+      text = val ? '风险' : '安全';
+    } else {
+      cls = val ? 'badge-safe' : 'badge-warn';
+      text = val ? '是' : '否';
+    }
+    return `<div class="audit-item"><span class="audit-label">${c.label}</span><span class="badge ${cls}">${text}</span></div>`;
+  }).filter(Boolean).join('') || '<div style="color:var(--muted);font-size:13px">暂无审计数据</div>';
+
+  // Buy/sell tax
+  if (audit.buyTax !== undefined || audit.sellTax !== undefined) {
+    el.innerHTML += `<div class="audit-item"><span class="audit-label">买入税</span><span class="badge ${parseFloat(audit.buyTax) > 10 ? 'badge-risk' : parseFloat(audit.buyTax) > 0 ? 'badge-warn' : 'badge-safe'}">${audit.buyTax ?? '-'}%</span></div>`;
+    el.innerHTML += `<div class="audit-item"><span class="audit-label">卖出税</span><span class="badge ${parseFloat(audit.sellTax) > 10 ? 'badge-risk' : parseFloat(audit.sellTax) > 0 ? 'badge-warn' : 'badge-safe'}">${audit.sellTax ?? '-'}%</span></div>`;
+  }
+}
+
+// ==========================================
+// KLINE CHART
+// ==========================================
+async function loadKline(interval, btn) {
+  if (!currentAddress) return;
+
+  // Update button state
+  document.querySelectorAll('.interval-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const container = document.getElementById('kline-container');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+  try {
+    const resp = await fetchKline(currentChain, currentAddress, interval);
+    const klines = resp?.data?.klines || resp?.data || [];
+
+    container.innerHTML = '';
+
+    if (typeof LightweightCharts === 'undefined') {
+      container.innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center">K线图库加载中，请稍候...</div>';
+      return;
+    }
+
+    if (chartInstance) { try { chartInstance.remove(); } catch(e){} }
+
+    chartInstance = LightweightCharts.createChart(container, {
+      width: container.clientWidth,
+      height: 340,
+      layout: { background: { color: '#080b12' }, textColor: '#7a85a3' },
+      grid: { vertLines: { color: '#1c2133' }, horzLines: { color: '#1c2133' } },
+      crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+      rightPriceScale: { borderColor: '#2a3050' },
+      timeScale: { borderColor: '#2a3050', timeVisible: true, secondsVisible: false },
+    });
+
+    chartSeries = chartInstance.addCandlestickSeries({
+      upColor: '#22c55e', downColor: '#ef4444',
+      borderUpColor: '#22c55e', borderDownColor: '#ef4444',
+      wickUpColor: '#22c55e', wickDownColor: '#ef4444',
+    });
+
+    const data = klines.map(k => ({
+      time: Math.floor((k.openTime || k.time || k[0]) / 1000),
+      open: parseFloat(k.open || k[1]),
+      high: parseFloat(k.high || k[2]),
+      low: parseFloat(k.low || k[3]),
+      close: parseFloat(k.close || k[4]),
+    })).filter(d => d.time && !isNaN(d.open));
+
+    if (data.length) {
+      chartSeries.setData(data);
+      chartInstance.timeScale().fitContent();
+    } else {
+      container.innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center">暂无K线数据</div>';
+    }
+
+    // Resize observer
+    const ro = new ResizeObserver(() => {
+      if (chartInstance) chartInstance.applyOptions({ width: container.clientWidth });
+    });
+    ro.observe(container);
+
+  } catch (e) {
+    container.innerHTML = '<div style="color:var(--muted);padding:20px;text-align:center">K线数据加载失败</div>';
+  }
+}
+
+// ==========================================
+// API KEYS PANEL
+// ==========================================
+function toggleApiPanel() {
+  const body = document.getElementById('apikeysBody');
+  const chevron = document.getElementById('apiChevron');
+  const isOpen = !body.classList.contains('hidden');
+  body.classList.toggle('hidden', isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+
+function saveApiKeys() {
+  const mk = document.getElementById('moralisKey').value.trim();
+  const bk = document.getElementById('bscscanKey').value.trim();
+  if (mk) localStorage.setItem('moralis_key', mk);
+  if (bk) localStorage.setItem('bscscan_key', bk);
+  updateApiConfigBadge();
+  alert('API 配置已保存');
+}
+
+function loadApiKeys() {
+  const mk = localStorage.getItem('moralis_key') || '';
+  const bk = localStorage.getItem('bscscan_key') || '';
+  if (mk) document.getElementById('moralisKey').value = mk;
+  if (bk) document.getElementById('bscscanKey').value = bk;
+  updateApiConfigBadge();
+}
+
+function updateApiConfigBadge() {
+  const mk = localStorage.getItem('moralis_key');
+  const bk = localStorage.getItem('bscscan_key');
+  const badge = document.getElementById('apiConfigBadge');
+  if (mk && bk) {
+    badge.classList.remove('hidden');
+  } else {
+    badge.classList.add('hidden');
+  }
+}
+
+// ==========================================
+// FORENSICS ENGINE
+// ==========================================
+function resetForensics() {
+  document.getElementById('progressLog').innerHTML = '<div class="log-info">等待开始取证分析...</div>';
+  document.getElementById('forensicsResults').classList.add('hidden');
+  document.getElementById('startForensicsBtn').disabled = false;
+}
+
+function log(msg, cls = 'log-info') {
+  const el = document.getElementById('progressLog');
+  el.innerHTML += `<div class="${cls}">${msg}</div>`;
+  el.scrollTop = el.scrollHeight;
+}
+
+async function startForensics() {
+  const bscscanKey = localStorage.getItem('bscscan_key') || document.getElementById('bscscanKey').value.trim();
+  if (!bscscanKey) {
+    alert('请先配置 BSCScan API Key');
+    document.getElementById('apikeysBody').classList.remove('hidden');
+    return;
+  }
+
+  document.getElementById('startForensicsBtn').disabled = true;
+  document.getElementById('progressLog').innerHTML = '';
+  document.getElementById('forensicsResults').classList.add('hidden');
+
+  const ca = currentAddress;
+  const decimals = currentDecimals || 18;
+
+  try {
+    // ---- Stage 1: Fetch transfers ----
+    log('[Stage 1/5] 获取代币转账记录...', 'log-stage');
+
+    let allTxs = [];
+    let page = 1;
+    const maxPages = 10;
+    const offset = 500;
+
+    while (page <= maxPages) {
+      const url = `https://api.bscscan.com/api?module=account&action=tokentx&contractaddress=${ca}&sort=desc&apikey=${bscscanKey}&offset=${offset}&page=${page}`;
+      let resp;
+      try {
+        const r = await fetch(url);
+        resp = await r.json();
+      } catch (e) {
+        if (e.message && e.message.toLowerCase().includes('cors')) {
+          log('❌ CORS 错误：BSCScan API 不允许从浏览器直接调用。请使用支持 CORS 的代理或后端服务。', 'log-err');
+          return;
+        }
+        throw e;
+      }
+
+      if (resp.status !== '1' || !Array.isArray(resp.result) || resp.result.length === 0) {
+        if (page === 1 && resp.message) log('⚠️ BSCScan: ' + resp.message, 'log-warn');
+        break;
+      }
+      allTxs = allTxs.concat(resp.result);
+      log(`  > 第 ${page} 页: 获取 ${resp.result.length} 条记录 (累计: ${allTxs.length})`, 'log-info');
+      if (resp.result.length < offset) break;
+      page++;
+    }
+    log(`✅ 共获取 ${allTxs.length} 条转账记录`, 'log-ok');
+
+    // Get contract creator
+    let deployer = null;
+    try {
+      const creatorUrl = `https://api.bscscan.com/api?module=contract&action=getcontractcreation&contractaddresses=${ca}&apikey=${bscscanKey}`;
+      const cr = await fetch(creatorUrl);
+      const crData = await cr.json();
+      if (crData.status === '1' && crData.result?.[0]?.contractCreator) {
+        deployer = crData.result[0].contractCreator.toLowerCase();
+        log(`✅ 合约部署者: ${shortAddr(deployer)}`, 'log-ok');
+      }
+    } catch (e) {
+      log('⚠️ 无法获取合约创建者信息', 'log-warn');
+    }
+
+    if (allTxs.length === 0) {
+      log('❌ 未找到转账记录，请确认合约地址和链选择正确', 'log-err');
+      document.getElementById('startForensicsBtn').disabled = false;
+      return;
+    }
+
+    // ---- Stage 2: Parse buy/sell behavior ----
+    log('[Stage 2/5] 解析买卖行为...', 'log-stage');
+
+    // Map: address -> stats
+    const addrStats = new Map();
+    // Map: "from|to" -> { amounts: [] }
+    const pairTransfers = new Map();
+
+    function getOrCreate(addr) {
+      if (!addrStats.has(addr)) {
+        addrStats.set(addr, {
+          address: addr,
+          totalBought: 0n,
+          totalSold: 0n,
+          buyTxCount: 0,
+          sellTxCount: 0,
+          firstBuyTxIndex: Infinity,
+          lastSellTime: 0,
+          receivedFrom: new Set(),
+          sentTo: new Set(),
+          isEarlyBuyer100: false,
+          isEarlyBuyer200: false,
+        });
+      }
+      return addrStats.get(addr);
+    }
+
+    // Sort by block number ascending for early buyer detection
+    const sortedByBlock = [...allTxs].sort((a, b) => parseInt(a.blockNumber) - parseInt(b.blockNumber));
+    let txIndex = 0;
+    const txIndexMap = new Map();
+    sortedByBlock.forEach(tx => {
+      txIndexMap.set(tx.hash + tx.from + tx.to, txIndex++);
+    });
+
+    allTxs.forEach((tx, rawIdx) => {
+      const from = tx.from.toLowerCase();
+      const to = tx.to.toLowerCase();
+      const value = BigInt(tx.value || '0');
+      const ts = parseInt(tx.timeStamp || 0);
+      const sortedIdx = txIndexMap.get(tx.hash + tx.from + tx.to) ?? rawIdx;
+
+      const fromDex = DEX_ADDRS.has(from);
+      const toDex = DEX_ADDRS.has(to);
+      const fromSystem = DEX_ADDRS.has(from);
+      const toSystem = DEX_ADDRS.has(to);
+
+      if (fromDex && !toSystem) {
+        // BUY: wallet receives tokens from DEX
+        const stat = getOrCreate(to);
+        stat.totalBought += value;
+        stat.buyTxCount++;
+        if (sortedIdx < stat.firstBuyTxIndex) stat.firstBuyTxIndex = sortedIdx;
+        stat.receivedFrom.add(from);
+      } else if (!fromSystem && toDex) {
+        // SELL: wallet sends tokens to DEX
+        const stat = getOrCreate(from);
+        stat.totalSold += value;
+        stat.sellTxCount++;
+        if (ts > stat.lastSellTime) stat.lastSellTime = ts;
+        stat.sentTo.add(to);
+      } else if (!fromSystem && !toSystem) {
+        // Internal transfer
+        const sf = getOrCreate(from);
+        sf.sentTo.add(to);
+        sf.totalSold += value; // treat as sold for position tracking
+
+        const st = getOrCreate(to);
+        st.receivedFrom.add(from);
+        st.totalBought += value;
+        if (sortedIdx < st.firstBuyTxIndex) st.firstBuyTxIndex = sortedIdx;
+      }
+
+      // Track pair transfers for wash trading
+      if (!fromSystem && !toSystem) {
+        const pairKey = from < to ? `${from}|${to}` : `${to}|${from}`;
+        if (!pairTransfers.has(pairKey)) pairTransfers.set(pairKey, { ab: 0n, ba: 0n, a: from < to ? from : to, b: from < to ? to : from });
+        const pair = pairTransfers.get(pairKey);
+        if (from < to) pair.ab += value;
+        else pair.ba += value;
+      }
+    });
+
+    // Mark early buyers
+    addrStats.forEach(stat => {
+      if (stat.firstBuyTxIndex < 100) stat.isEarlyBuyer100 = true;
+      if (stat.firstBuyTxIndex < 200) stat.isEarlyBuyer200 = true;
+    });
+
+    log(`✅ 解析完成，共发现 ${addrStats.size} 个有效地址`, 'log-ok');
+
+    // ---- Stage 3: Detect wash trading ----
+    log('[Stage 3/5] 检测洗盘交易...', 'log-stage');
+
+    const washAddrs = new Set();
+    let washPairCount = 0;
+
+    pairTransfers.forEach(pair => {
+      const { ab, ba, a, b } = pair;
+      if (ab === 0n || ba === 0n) return;
+      const big = ab > ba ? ab : ba;
+      const small = ab > ba ? ba : ab;
+      // Within 20% of each other
+      if (small * 100n >= big * 80n) {
+        washAddrs.add(a);
+        washAddrs.add(b);
+        washPairCount++;
+      }
+    });
+
+    log(`✅ 检测到 ${washPairCount} 对洗盘交易，涉及 ${washAddrs.size} 个地址`, 'log-ok');
+
+    // ---- Stage 4: Address scoring & labeling ----
+    log('[Stage 4/5] 地址评分与标记...', 'log-stage');
+
+    const labeled = [];
+    addrStats.forEach(stat => {
+      const addr = stat.address;
+      const sentToCount = stat.sentTo.size;
+      const receivedFromCount = stat.receivedFrom.size;
+      const totalBought = stat.totalBought;
+      const totalSold = stat.totalSold;
+      const netPosition = totalBought > totalSold ? totalBought - totalSold : 0n;
+      const isWash = washAddrs.has(addr);
+      const isDeployer = addr === deployer;
+
+      // ZHUANG score
+      let zhuangScore = 0;
+      const zhuangEvidence = [];
+      if (isDeployer) { zhuangScore += 3; zhuangEvidence.push('部署者'); }
+      if (stat.isEarlyBuyer100) { zhuangScore += 2; zhuangEvidence.push('早期买家'); }
+      if (sentToCount >= 20) { zhuangScore += 2; zhuangEvidence.push('分发者'); }
+      if (isWash) { zhuangScore += 2; zhuangEvidence.push('洗盘参与'); }
+      if (totalBought > 0n && netPosition * 2n > totalBought) { zhuangScore += 1; } // net > 50%
+      if (totalBought > 0n && totalSold > totalBought * 3n / 2n) { zhuangScore += 1; } // sold > 1.5x bought
+
+      const isZhuang = zhuangScore >= 2;
+
+      // SMART score
+      let smartScore = 0;
+      const exitRatio = totalBought > 0n ? Number(totalSold * 1000n / totalBought) / 1000 : 0;
+      if (exitRatio > 0.8) { smartScore += 2; }
+      if (stat.isEarlyBuyer200 && exitRatio > 0.5) { smartScore += 2; }
+      if (stat.buyTxCount <= 3) { smartScore += 1; }
+      if (totalSold > totalBought) { smartScore += 1; }
+
+      const isSmart = !isZhuang && smartScore >= 2;
+      const isDistributor = sentToCount >= 20 && isZhuang;
+
+      const labels = [];
+      if (isZhuang) labels.push('ZHUANG');
+      if (isSmart) labels.push('SMART');
+      if (isDeployer) labels.push('DEPLOYER');
+      if (isDistributor) labels.push('DISTRIBUTOR');
+
+      labeled.push({
+        address: addr,
+        labels,
+        isZhuang,
+        isSmart,
+        isDeployer,
+        isDistributor,
+        isWash,
+        zhuangScore,
+        smartScore,
+        totalBought,
+        totalSold,
+        netPosition,
+        buyTxCount: stat.buyTxCount,
+        sellTxCount: stat.sellTxCount,
+        sentToCount,
+        receivedFromCount,
+        exitRatio,
+        zhuangEvidence,
+      });
+    });
+
+    const zhuangList = labeled.filter(x => x.isZhuang);
+    const smartList = labeled.filter(x => x.isSmart);
+    log(`✅ 标记完成: 庄家 ${zhuangList.length} 个，高手 ${smartList.length} 个`, 'log-ok');
+
+    // ---- Stage 5: Generate report ----
+    log('[Stage 5/5] 生成报告...', 'log-stage');
+
+    const totalTxs = allTxs.length;
+    buildForensicsResults(labeled, totalTxs, washPairCount, decimals);
+    log('✅ 取证报告生成完毕！', 'log-ok');
+    log(`─────────────────────────────────────`, 'log-info');
+    log(`总转账: ${totalTxs} | 地址: ${addrStats.size} | 庄家: ${zhuangList.length} | 高手: ${smartList.length} | 洗盘对: ${washPairCount}`, 'log-data');
+
+    document.getElementById('forensicsResults').classList.remove('hidden');
+    document.getElementById('startForensicsBtn').disabled = false;
+
+  } catch (e) {
+    let msg = e.message || String(e);
+    if (msg.toLowerCase().includes('cors') || msg.toLowerCase().includes('network')) {
+      msg = 'CORS/网络错误: BSCScan API 不支持从浏览器直接调用。您可能需要使用 CORS 代理或在服务器端调用此 API。错误: ' + msg;
+    }
+    log('❌ 取证失败: ' + msg, 'log-err');
+    document.getElementById('startForensicsBtn').disabled = false;
+  }
+}
+
+function fmtTokenDisplay(bigVal, dec) {
+  const n = Number(bigVal) / Math.pow(10, dec);
+  return fmtNum(n, 2);
+}
+
+// ==========================================
+// FORENSICS RESULTS BUILDER
+// ==========================================
+function buildForensicsResults(labeled, totalTxs, washPairCount, decimals) {
+  const zhuangList = labeled.filter(x => x.isZhuang).sort((a, b) => b.zhuangScore - a.zhuangScore);
+  const smartList = labeled.filter(x => x.isSmart).sort((a, b) => b.exitRatio - a.exitRatio);
+  const sellerList = [...labeled].sort((a, b) => (b.totalSold > a.totalSold ? 1 : b.totalSold < a.totalSold ? -1 : 0)).slice(0, 20);
+
+  // Tab 1: Zhuang
+  const zb = document.getElementById('zhuangTableBody');
+  zb.innerHTML = zhuangList.length ? zhuangList.map(x => {
+    const evHtml = x.zhuangEvidence.map(e => `<span class="ev-tag">${e}</span>`).join('');
+    const labelsHtml = buildLabelTags(x);
+    return `<tr>
+      <td class="addr-cell" onclick="copyAddr('${x.address}', this)" title="${x.address}">${shortAddr(x.address)}</td>
+      <td>${labelsHtml}</td>
+      <td>${fmtTokenDisplay(x.totalBought, decimals)}</td>
+      <td>${fmtTokenDisplay(x.totalSold, decimals)}</td>
+      <td>${fmtTokenDisplay(x.netPosition, decimals)}</td>
+      <td><div class="evidence-tags">${evHtml}</div></td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px">未发现庄家地址</td></tr>';
+
+  // Tab 2: Sellers
+  const sb = document.getElementById('sellersTableBody');
+  sb.innerHTML = sellerList.map((x, i) => {
+    const netSold = x.totalSold > x.totalBought ? x.totalSold - x.totalBought : 0n;
+    return `<tr>
+      <td class="rank-num">${i + 1}</td>
+      <td class="addr-cell" onclick="copyAddr('${x.address}', this)" title="${x.address}">${shortAddr(x.address)}</td>
+      <td>${fmtTokenDisplay(x.totalSold, decimals)}</td>
+      <td>${fmtTokenDisplay(x.totalBought, decimals)}</td>
+      <td style="color:${netSold > 0n ? 'var(--red)' : 'var(--muted)'}">${fmtTokenDisplay(netSold, decimals)}</td>
+    </tr>`;
+  }).join('');
+
+  // Tab 3: Smart
+  const smb = document.getElementById('smartTableBody');
+  smb.innerHTML = smartList.length ? smartList.map(x => {
+    return `<tr>
+      <td class="addr-cell" onclick="copyAddr('${x.address}', this)" title="${x.address}">${shortAddr(x.address)}</td>
+      <td>${fmtTokenDisplay(x.totalBought, decimals)}</td>
+      <td>${fmtTokenDisplay(x.totalSold, decimals)}</td>
+      <td><button class="follow-btn" onclick="followAddr('${x.address}', this)">跟进 <span class="copied-tip">已复制!</span></button></td>
+    </tr>`;
+  }).join('') : '<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:20px">未发现高手地址</td></tr>';
+
+  // Summary
+  document.getElementById('forensicsSummary').innerHTML = `
+    <div class="summary-item">总转账: <span>${totalTxs.toLocaleString()}</span></div>
+    <div class="summary-item">庄家: <span>${zhuangList.length}</span></div>
+    <div class="summary-item">高手: <span>${smartList.length}</span></div>
+    <div class="summary-item">洗盘对: <span>${washPairCount}</span></div>
+  `;
+}
+
+function buildLabelTags(x) {
+  let html = '';
+  if (x.isDeployer) html += '<span class="label-tag tag-deployer">部署者</span>';
+  if (x.isZhuang) html += '<span class="label-tag tag-zhuang">庄家</span>';
+  if (x.isDistributor) html += '<span class="label-tag tag-distributor">分发者</span>';
+  if (x.isWash) html += '<span class="label-tag tag-wash">洗盘</span>';
+  if (x.isSmart) html += '<span class="label-tag tag-smart">高手</span>';
+  return html || '<span style="color:var(--muted)">-</span>';
+}
+
+function copyAddr(addr, el) {
+  navigator.clipboard.writeText(addr).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = addr;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+  const orig = el.textContent;
+  el.textContent = '已复制!';
+  el.style.color = 'var(--green)';
+  setTimeout(() => {
+    el.textContent = orig;
+    el.style.color = '';
+  }, 1500);
+}
+
+function followAddr(addr, btn) {
+  navigator.clipboard.writeText(addr).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = addr;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+  const tip = btn.querySelector('.copied-tip');
+  if (tip) {
+    tip.classList.add('show');
+    setTimeout(() => tip.classList.remove('show'), 1800);
+  }
+}
+
+// ==========================================
+// TABS
+// ==========================================
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+  if (btn) btn.classList.add('active');
+  const tabMap = { zhuang: 'tabZhuang', sellers: 'tabSellers', smart: 'tabSmart' };
+  const el = document.getElementById(tabMap[name]);
+  if (el) el.classList.remove('hidden');
+}
+
+// ==========================================
+// INIT
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  loadApiKeys();
+  // Close API panel by default if already configured
+  const mk = localStorage.getItem('moralis_key');
+  const bk = localStorage.getItem('bscscan_key');
+  if (mk && bk) {
+    document.getElementById('apikeysBody').classList.add('hidden');
+  }
+
+  // Allow Enter key to trigger analysis
+  document.getElementById('addrInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doAnalyze();
+  });
+});
+</script>
+</body>
+</html>
